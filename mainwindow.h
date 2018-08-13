@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+class SeturnCentralWidget;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -14,6 +15,8 @@ public:
 private:
     void createMenuBar();
     void createAction();
+
+    SeturnCentralWidget *m_centralWidget;
 };
 
 #endif // MAINWINDOW_H
