@@ -10,6 +10,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+private:
+    void createMenuBar();
+    void createAction();
 };
 
 #endif // MAINWINDOW_H
