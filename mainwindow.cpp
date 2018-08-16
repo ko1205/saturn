@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <QStatusBar>
 #include <QMenuBar>
-#include "seturncentralwidget.h"
+#include "maincentralwidget.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     createAction();
     createMenuBar();
 
-    m_centralWidget = new SeturnCentralWidget;
+    m_centralWidget = new MainCentralWidget;
     setCentralWidget(m_centralWidget);
 
     statusBar()->showMessage("Started Saturn");

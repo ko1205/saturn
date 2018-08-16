@@ -1,14 +1,14 @@
-#include "seturncentralwidget.h"
+#include "maincentralwidget.h"
 #include <QMdiArea>
 #include <QHBoxLayout>
 
-SeturnCentralWidget::SeturnCentralWidget(QWidget *parent) : QWidget(parent)
+MainCentralWidget::MainCentralWidget(QWidget *parent) : QWidget(parent)
 {
     createLayout();
     creatSubWindow();
 }
 
-void SeturnCentralWidget::createLayout()
+void MainCentralWidget::createLayout()
 {
     QHBoxLayout *layout = new QHBoxLayout();
     m_mdiArea = new QMdiArea();
@@ -20,7 +20,7 @@ void SeturnCentralWidget::createLayout()
     setLayout(layout);
 }
 
-void SeturnCentralWidget::creatSubWindow()
+void MainCentralWidget::creatSubWindow()
 {
     QWidget *subwindow = new QWidget;
     m_mdiArea->addSubWindow(subwindow);

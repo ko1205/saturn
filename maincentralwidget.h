@@ -1,15 +1,15 @@
-#ifndef SETURNCENTRALWIDGET_H
-#define SETURNCENTRALWIDGET_H
+#ifndef MAINCENTRALWIDGET_H
+#define MAINCENTRALWIDGET_H
 
 #include <QWidget>
 
 class QMdiArea;
 
-class SeturnCentralWidget : public QWidget
+class MainCentralWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SeturnCentralWidget(QWidget *parent = 0);
+    explicit MainCentralWidget(QWidget *parent = 0);
     void creatSubWindow();
 
 private:
