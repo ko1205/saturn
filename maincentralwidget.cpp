@@ -6,7 +6,7 @@
 MainCentralWidget::MainCentralWidget(QWidget *parent) : QWidget(parent)
 {
     createLayout();
-    creatSubWindow();
+    newProject();   //임시용
 }
 
 void MainCentralWidget::createLayout()
@@ -19,12 +19,19 @@ void MainCentralWidget::createLayout()
     layout->addWidget(temp);
     layout->setMargin(0);
     setLayout(layout);
+
+//    connect(m_mdiArea,SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT());  // test code
 }
 
-void MainCentralWidget::creatSubWindow()
+SubWindow *MainCentralWidget::creatSubWindow()
 {
-    QWidget *subwindow = new SubWindow;
+    SubWindow *subwindow = new SubWindow;
     m_mdiArea->addSubWindow(subwindow);
-    subwindow->showMaximized();
+    return subwindow;
 }
 
+void MainCentralWidget::newProject()
+{
+    currentSubwindow = creatSubWindow();
+    currentSubwindow->showMaximized();
+}
