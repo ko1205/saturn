@@ -26,8 +26,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     maincentralwidget.cpp \
-    subwindow.cpp
+    subwindow.cpp \
+    platedatamodel.cpp \
+    platemainview.cpp
 
 HEADERS  += mainwindow.h \
     maincentralwidget.h \
-    subwindow.h
+    subwindow.h \
+    platedatamodel.h \
+    platemainview.h

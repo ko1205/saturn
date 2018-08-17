@@ -3,11 +3,20 @@
 
 #include <QWidget>
 
+class PlateMainView;
+class PlateDataModel;
+
 class SubWindow : public QWidget
 {
     Q_OBJECT
 public:
     explicit SubWindow(QWidget *parent = 0);
+
+private:
+    void initWindow();
+
+    PlateMainView *plateMainView;
+    PlateDataModel *plateDataModel;
 
 signals:
 
