@@ -8,12 +8,16 @@ PlateDataModel::PlateDataModel(QObject *parent)
 
 QVariant PlateDataModel::data(const QModelIndex &index, int role) const
 {
-    return QString("test");
+    if(role == Qt::DisplayRole)
+        return "test";
+    else
+        return QVariant();
+
 }
 
 QModelIndex PlateDataModel::index(int row, int column, const QModelIndex &parent) const
 {
-    return QModelIndex();
+    return createIndex(row, column);
 }
 
 QModelIndex PlateDataModel::parent(const QModelIndex &child) const

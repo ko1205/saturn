@@ -12,6 +12,7 @@ void SubWindow::initWindow()
 {
     plateDataModel = new PlateDataModel;
     plateMainView = new PlateMainView;
+    plateMainView->setModel(plateDataModel);
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(plateMainView);
     setLayout(layout);

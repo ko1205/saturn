@@ -1,9 +1,10 @@
 #ifndef PLATEMAINVIEW_H
 #define PLATEMAINVIEW_H
 
-#include <QWidget>
+//#include <QWidget>
+#include <QListView>
 
-class PlateMainView : public QWidget
+class PlateMainView : public QListView
 {
     Q_OBJECT
 public:
