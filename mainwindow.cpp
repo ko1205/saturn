@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_centralWidget = new MainCentralWidget;
     setCentralWidget(m_centralWidget);
 
+    setWindowModified(true);
     statusBar()->showMessage("Started Saturn");
 }
 

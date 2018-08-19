@@ -34,4 +34,7 @@ void MainCentralWidget::newProject()
 {
     currentSubwindow = creatSubWindow();
     currentSubwindow->showMaximized();
+    currentSubwindow->setWindowTitle(tr("test[*]"));
+    currentSubwindow->setWindowModified(true);
+
 }
