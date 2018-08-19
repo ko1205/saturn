@@ -1,6 +1,7 @@
 #include "platemainview.h"
+#include <QStandardItem>
 
-PlateMainView::PlateMainView(QWidget *parent) : QListView(parent)
+PlateMainView::PlateMainView(QWidget *parent) : QTableView(parent)
 {
 
 }

@@ -2,9 +2,11 @@
 #define PLATEMAINVIEW_H
 
 //#include <QWidget>
-#include <QListView>
+//#include <QListView>
+#include <QTableView>
+#include <QTreeView>
 
-class PlateMainView : public QListView
+class PlateMainView : public QTableView
 {
     Q_OBJECT
 public:
