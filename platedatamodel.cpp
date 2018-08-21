@@ -61,5 +61,27 @@ Qt::ItemFlags PlateDataModel::flags(const QModelIndex &index) const
 //    return Qt::ItemIsEditable;
 }
 
+QVariant PlateDataModel::headerData(int section, Qt::Orientation orientation,
+                                     int role) const
+{
+    if (role != Qt::DisplayRole)
+        return QVariant();
+
+    if (orientation == Qt::Horizontal){
+        switch(section){
+        case 0:
+            return "Thumnail";
+        case 1:
+            return "Druation";
+        case 2:
+            return "path";
+        }
+
+        return QStringLiteral("Column %1").arg(section);
+    }else{
+        return section+1;
+    }
+}
+
 
 

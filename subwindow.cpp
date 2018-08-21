@@ -13,8 +13,8 @@ void SubWindow::initWindow()
     plateDataModel = new PlateDataModel;
     plateMainView = new PlateMainView;
     plateMainView->setModel(plateDataModel);
+    plateMainView->setSelectionBehavior(QAbstractItemView::SelectRows);
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(plateMainView);
     setLayout(layout);
-
 }

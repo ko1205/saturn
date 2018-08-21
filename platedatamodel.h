@@ -2,6 +2,7 @@
 #define PLATEDATAMODEL_H
 
 #include <QAbstractItemModel>
+#include <QDir>
 
 class PlateDataModel : public QAbstractItemModel
 {
@@ -17,6 +18,14 @@ public:
     bool hasChildren(const QModelIndex &parent) const override;
 //    bool setData(const QModelIndex &index, const QVariant &value, int role);
     Qt::ItemFlags flags(const QModelIndex &index) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+
+};
+
+class PlateItem
+{
+public:
+    PlateItem(QDir &path);
 
 };
 
