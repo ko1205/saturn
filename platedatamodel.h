@@ -25,7 +25,7 @@ public:
 class PlateItem
 {
 public:
-    PlateItem(QDir &path);
+    PlateItem();
 
 };
 

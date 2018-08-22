@@ -53,11 +53,19 @@ bool PlateDataModel::hasChildren(const QModelIndex &parent) const
 
 Qt::ItemFlags PlateDataModel::flags(const QModelIndex &index) const
 {
+    if(index.column() == 0){
     return Qt::ItemIsSelectable
             |Qt::ItemIsEnabled
             |Qt::ItemIsEditable
             |Qt::ItemIsDragEnabled
             |Qt::ItemIsDropEnabled;
+    }else{
+        return Qt::ItemIsSelectable
+                |Qt::ItemIsEnabled
+                |Qt::ItemIsEditable
+                |Qt::ItemIsDragEnabled
+                |Qt::ItemIsDropEnabled;
+    }
 //    return Qt::ItemIsEditable;
 }
 
