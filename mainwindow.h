@@ -13,10 +13,21 @@ public:
     ~MainWindow();
 
 private:
-    void createMenuBar();
-    void createAction();
+    QMenu *fileMenu;
+
+    QToolBar *fileToolbar;
+
+    QAction *newAct;
 
     MainCentralWidget *m_centralWidget;
+
+    void createMenuBar();
+    void createToolbar();
+    void createAction();
+
+private slots:
+    bool newProject();
+
 };
 
 #endif // MAINWINDOW_H

@@ -13,9 +13,12 @@ class MainCentralWidget : public QWidget
 public:
     explicit MainCentralWidget(QWidget *parent = 0);
     SubWindow *creatSubWindow();
+//    void test();
 
 private:
     void createLayout();
+    void searchSequence(const QString path);
+
     QMdiArea *m_mdiArea;
     SubWindow *currentSubwindow;
 
@@ -23,7 +26,7 @@ signals:
     void subWindowActivated(QMdiSubWindow*);
 
 public slots:
-    void newProject();
+    bool newProject(const QString path);
 //    void subWindowChange();
 };
 
