@@ -44,58 +44,60 @@ bool MainCentralWidget::newProject(const QString path)
     currentSubwindow->showMaximized();
     currentSubwindow->setWindowModified(true);
 
+    return true;
+
 }
 
 void MainCentralWidget::searchSequence(const QString path)
 {
     QDir rootPath = path;
-    QStringList nameFilter = (QStringList() << "*.dpx" << "*.exr" << "*.jpg");
+    QStringList nameFilter = (QStringList() << "*.dpx" << "*.exr" << "*.jpg" << "*.jpeg");
     QStringList imageFiles =  rootPath.entryList(nameFilter,QDir::Files|QDir::NoDotAndDotDot);
     QFileInfoList test2 =  rootPath.entryInfoList(QDir::AllDirs|QDir::NoDotAndDotDot);
 
     QRegExp regex("(\\S*[^0-9])?(\\d+)([\\S.]+[^.])$");
     QStringList out;
+    QList<sequenceInfo> sequenceItems;
 
     while(imageFiles.count()!=0)
     {
+         sequenceInfo item;
         if(regex.indexIn(imageFiles.at(0)) != -1)
         {
             QString prefix = regex.cap(1);
-            QString pedding = regex.cap(2);
+            QString padding = regex.cap(2);
             QString suffix = regex.cap(3);
 
             QString sequenceName = prefix + QString("%1") + suffix;
 
-            int frameNum= pedding.toInt();
+            int frameNum= padding.toInt();
             out << sequenceName << QString::number(frameNum);
 
+            item.sequenceName=sequenceName;
+            item.start = frameNum;
+
             int index;
-            while((index = imageFiles.indexOf(sequenceName.arg(frameNum,pedding.count(),10,QLatin1Char('0')))) != -1)
+            while((index = imageFiles.indexOf(sequenceName.arg(frameNum,padding.count(),10,QLatin1Char('0')))) != -1)
             {
-                sequenceName.arg(frameNum,pedding.count(),10,QLatin1Char('0'));
                 imageFiles.removeAt(index);
                 frameNum++;
             }
             out << QString::number(frameNum-1);
+            item.end = frameNum-1;
 
         }else{
              out << imageFiles.at(0);
+             item.sequenceName = imageFiles.at(0);
+             item.start = -1;
+             item.end = -1;
             imageFiles.removeAt(0);
         }
+        sequenceItems.append(item);
     }
-    qDebug() << out;
+    qDebug() << sequenceItems.count();
+    for(int i=0;sequenceItems.count()>i;i++)
+    {
+        qDebug() << sequenceItems[i].sequenceName << QString::number(sequenceItems[i].start) << QString::number(sequenceItems[i].end);
+    }
     return;
 }
-
-//void MainCentralWidget::test()
-//{
-//    QDir dir();
-//    QStringList sequenceName;
-//    QFileInfoList list = dir.entryInfoList(QDir::Files|QDir::NoDotAndDotDot);
-//    while(list.count != 0)
-//    {
-//        QString fileName = list.at(0).fileName();
-//        QRegExp regex("d+.a-z");
-//        sequenceName.append(fileName);
-//    }
-//}

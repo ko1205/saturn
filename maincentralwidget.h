@@ -7,13 +7,20 @@ class QMdiArea;
 class SubWindow;
 class QMdiSubWindow;
 
+struct sequenceInfo
+{
+    QString sequenceName;
+    int start;
+    int end;
+
+};
+
 class MainCentralWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit MainCentralWidget(QWidget *parent = 0);
     SubWindow *creatSubWindow();
-//    void test();
 
 private:
     void createLayout();
