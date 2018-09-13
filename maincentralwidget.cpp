@@ -67,7 +67,7 @@ QList<sequenceInfo> MainCentralWidget::searchSequence(const QString path)
     while(imageFiles.count()!=0)
     {
         sequenceInfo item;
-        if(regex.indexIn(imageFiles.at(0)) != -1)
+        if(regex.indexIn(imageFiles.first()) != -1)
         {
             QString prefix = regex.cap(1);
             QString padding = regex.cap(2);
@@ -89,10 +89,10 @@ QList<sequenceInfo> MainCentralWidget::searchSequence(const QString path)
             item.end = frameNum-1;
 
         }else{
-             item.sequenceName = imageFiles.at(0);
+             item.sequenceName = imageFiles.first();
              item.start = -1;
              item.end = -1;
-             imageFiles.removeAt(0);
+             imageFiles.removeFirst();
         }
         sequenceItems.append(item);
     }
