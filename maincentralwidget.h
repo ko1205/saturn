@@ -24,7 +24,8 @@ public:
 
 private:
     void createLayout();
-    void searchSequence(const QString path);
+    QList<sequenceInfo> searchSequence(const QString path);
+    QList<sequenceInfo> scanFolderLoop(const QString path);
 
     QMdiArea *m_mdiArea;
     SubWindow *currentSubwindow;
