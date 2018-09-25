@@ -4,6 +4,19 @@
 #include <QAbstractItemModel>
 #include <QDir>
 
+class PlateItem
+{
+public:
+    PlateItem();
+    QVariant data(const QModelIndex &index) const;
+
+private:
+    QString filePath;
+    QPair<int,int> frameRange;
+
+};
+
+
 class PlateDataModel : public QAbstractItemModel
 {
     Q_OBJECT
@@ -20,13 +33,11 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
-};
-
-class PlateItem
-{
-public:
-    PlateItem();
+private:
+    QList<PlateItem> plateItem;
 
 };
+
+
 
 #endif // PLATEDATAMODEL_H
