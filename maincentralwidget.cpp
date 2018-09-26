@@ -37,10 +37,10 @@ bool MainCentralWidget::newProject(const QString path)
 {
     static int num;
 
-    QMessageBox::information(this,"test",path,QMessageBox::Yes); //test code
+//    QMessageBox::information(this,"test",path,QMessageBox::Yes); //test code
 //    searchSequence(path);   //test code 이 함수는 테스트후 다른 쓰레드로 이동
     QList<sequenceInfo> sequenceItems;
-    sequenceItems << scanFolderLoop(path);
+    sequenceItems.append(scanFolderLoop(path));
     for(int i=0;sequenceItems.count()>i;i++)
     {
         qDebug() << sequenceItems[i].sequenceName << QString::number(sequenceItems[i].start) << QString::number(sequenceItems[i].end);
