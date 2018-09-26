@@ -29,10 +29,12 @@ SOURCES += main.cpp\
     maincentralwidget.cpp \
     subwindow.cpp \
     platedatamodel.cpp \
-    platemainview.cpp
+    platemainview.cpp \
+    platedelegate.cpp
 
 HEADERS  += mainwindow.h \
     maincentralwidget.h \
     subwindow.h \
     platedatamodel.h \
-    platemainview.h
+    platemainview.h \
+    platedelegate.h

@@ -5,6 +5,7 @@
 
 class PlateMainView;
 class PlateDataModel;
+class PlateDelegate;
 
 class SubWindow : public QWidget
 {
@@ -14,7 +15,7 @@ public:
 
 private:
     void initWindow();
-
+    PlateDelegate *plateDelegate;
     PlateMainView *plateMainView;
     PlateDataModel *plateDataModel;
 
