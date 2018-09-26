@@ -17,9 +17,16 @@ void SubWindow::initWindow()
     plateMainView->setItemDelegate(plateDelegate);
 
     plateMainView->setModel(plateDataModel);
+
+    plateMainView->resizeColumnsToContents();
+    plateMainView->resizeRowsToContents();
+//    plateMainView->setColumnWidth(0,500);
+
     plateMainView->setSelectionBehavior(QAbstractItemView::SelectRows);
     plateMainView->setDragDropMode(QAbstractItemView::DragDrop);
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(plateMainView);
     setLayout(layout);
 }
+
+
