@@ -8,13 +8,6 @@ class QMdiArea;
 class SubWindow;
 class QMdiSubWindow;
 
-//struct sequenceInfo
-//{
-//    QString sequenceName;
-//    int start;
-//    int end;
-
-//};
 
 class MainCentralWidget : public QWidget
 {
@@ -25,7 +18,6 @@ public:
 
 private:
     void createLayout();
-//    QList<sequenceInfo> searchSequence(const QString path);
     QList<sequenceInfo> scanFolderLoop(const QString path);
 
     QMdiArea *m_mdiArea;
