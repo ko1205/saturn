@@ -1,4 +1,5 @@
 #include "platedatamodel.h"
+#include <QSize>
 
 PlateItem::PlateItem()
 {
@@ -35,8 +36,16 @@ PlateDataModel::PlateDataModel(QObject *parent)
 
 QVariant PlateDataModel::data(const QModelIndex &index, int role) const
 {
+/*!
+  실제 최종 size 결정에 대한 부분은 Delegate::sizeHint() 에서 결정됨
+  model->data(Qt::SizeHintRole)에서 지정한 값은 결국 Delegate 에서 받아서 최종 View로 전송
+  Treview에서는 바로 적용 TableView에서는 resizeColumnsToContents(), resizeRowsToContents()
+  두 함수를 호출해야 적용됨.
+ */
     if(role == Qt::DisplayRole||role==Qt::EditRole){
         return plateItem.at(0).data(index);
+    }else if(role==Qt::SizeHintRole){
+        return QSize(300,100);
     }else{
         return QVariant();
     }
