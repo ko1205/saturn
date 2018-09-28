@@ -43,7 +43,7 @@ bool MainCentralWidget::newProject(const QString path)
     sequenceItems.append(scanFolderLoop(path));
     for(int i=0;sequenceItems.count()>i;i++)
     {
-        qDebug() << sequenceItems[i].sequenceName << QString::number(sequenceItems[i].start) << QString::number(sequenceItems[i].end);
+        qDebug() << sequenceItems[i].sequenceName << QString::number(sequenceItems[i].startFrame) << QString::number(sequenceItems[i].endFrame);
     }
     currentSubwindow = creatSubWindow();
     currentSubwindow->setWindowTitle(tr("test[*]"));
@@ -54,55 +54,55 @@ bool MainCentralWidget::newProject(const QString path)
 
 }
 
-QList<sequenceInfo> MainCentralWidget::searchSequence(const QString path)
-{
-    QDir rootPath = path;
-    QStringList nameFilter = (QStringList() << "*.dpx" << "*.exr" << "*.jpg" << "*.jpeg");
-    QStringList imageFiles =  rootPath.entryList(nameFilter,QDir::Files|QDir::NoDotAndDotDot);
-    QFileInfoList test2 =  rootPath.entryInfoList(QDir::AllDirs|QDir::NoDotAndDotDot);
+//QList<sequenceInfo> MainCentralWidget::searchSequence(const QString path)
+//{
+//    QDir rootPath = path;
+//    QStringList nameFilter = (QStringList() << "*.dpx" << "*.exr" << "*.jpg" << "*.jpeg");
+//    QStringList imageFiles =  rootPath.entryList(nameFilter,QDir::Files|QDir::NoDotAndDotDot);
+//    QFileInfoList test2 =  rootPath.entryInfoList(QDir::AllDirs|QDir::NoDotAndDotDot);
 
-    QRegExp regex("(\\S*[^0-9])?(\\d+)([\\S.]+[^.])$");
-    QList<sequenceInfo> sequenceItems;
+//    QRegExp regex("(\\S*[^0-9])?(\\d+)([\\S.]+[^.])$");
+//    QList<sequenceInfo> sequenceItems;
 
-    while(imageFiles.count()!=0)
-    {
-        sequenceInfo item;
-        if(regex.indexIn(imageFiles.first()) != -1)
-        {
-            QString prefix = regex.cap(1);
-            QString padding = regex.cap(2);
-            QString suffix = regex.cap(3);
-
-            QString sequenceName = prefix + QString("%1") + suffix;
-
-            int frameNum= padding.toInt();
-
-            item.sequenceName=sequenceName;
-            item.start = frameNum;
-
-            int index;
-            while((index = imageFiles.indexOf(sequenceName.arg(frameNum,padding.count(),10,QLatin1Char('0')))) != -1)
-            {
-                imageFiles.removeAt(index);
-                frameNum++;
-            }
-            item.end = frameNum-1;
-
-        }else{
-             item.sequenceName = imageFiles.first();
-             item.start = -1;
-             item.end = -1;
-             imageFiles.removeFirst();
-        }
-        sequenceItems.append(item);
-    }
-//    qDebug() << sequenceItems.count();
-//    for(int i=0;sequenceItems.count()>i;i++)
+//    while(imageFiles.count()!=0)
 //    {
-//        qDebug() << sequenceItems[i].sequenceName << QString::number(sequenceItems[i].start) << QString::number(sequenceItems[i].end);
+//        sequenceInfo item;
+//        if(regex.indexIn(imageFiles.first()) != -1)
+//        {
+//            QString prefix = regex.cap(1);
+//            QString padding = regex.cap(2);
+//            QString suffix = regex.cap(3);
+
+//            QString sequenceName = prefix + QString("%1") + suffix;
+
+//            int frameNum= padding.toInt();
+
+//            item.sequenceName=sequenceName;
+//            item.start = frameNum;
+
+//            int index;
+//            while((index = imageFiles.indexOf(sequenceName.arg(frameNum,padding.count(),10,QLatin1Char('0')))) != -1)
+//            {
+//                imageFiles.removeAt(index);
+//                frameNum++;
+//            }
+//            item.end = frameNum-1;
+
+//        }else{
+//             item.sequenceName = imageFiles.first();
+//             item.start = -1;
+//             item.end = -1;
+//             imageFiles.removeFirst();
+//        }
+//        sequenceItems.append(item);
 //    }
-    return sequenceItems;
-}
+////    qDebug() << sequenceItems.count();
+////    for(int i=0;sequenceItems.count()>i;i++)
+////    {
+////        qDebug() << sequenceItems[i].sequenceName << QString::number(sequenceItems[i].start) << QString::number(sequenceItems[i].end);
+////    }
+//    return sequenceItems;
+//}
 
 QList<sequenceInfo> MainCentralWidget::scanFolderLoop(const QString path)
 {

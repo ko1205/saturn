@@ -30,11 +30,13 @@ SOURCES += main.cpp\
     subwindow.cpp \
     platedatamodel.cpp \
     platemainview.cpp \
-    platedelegate.cpp
+    platedelegate.cpp \
+    commonfunc.cpp
 
 HEADERS  += mainwindow.h \
     maincentralwidget.h \
     subwindow.h \
     platedatamodel.h \
     platemainview.h \
-    platedelegate.h
+    platedelegate.h \
+    commonfunc.h
