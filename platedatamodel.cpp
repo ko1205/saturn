@@ -1,24 +1,25 @@
 #include "platedatamodel.h"
 #include <QSize>
+#include <QDebug>
 
-PlateItem::PlateItem()
+PlateItem::PlateItem(sequenceInfo &info)
 {
-    this->filePath = "testPath/Path/Path";
-    this->frameRange.first = 10;
-    this->frameRange.second = 100;
+    this->filePath = info.sequenceName;
+    this->frameRange.first = info.startFrame;
+    this->frameRange.second = info.endFrame;
 }
 
 QVariant PlateItem::data(const QModelIndex &index) const
 {
     int col = index.column();
     switch (col) {
-    case 0:
+    case 1:
         return this->filePath;
         break;
-    case 1:
+    case 2:
         return this->frameRange.first;
         break;
-    case 2:
+    case 3:
         return this->frameRange.second;
     default:
         return QVariant();
@@ -29,9 +30,9 @@ QVariant PlateItem::data(const QModelIndex &index) const
 PlateDataModel::PlateDataModel(QObject *parent)
     :QAbstractItemModel(parent)
 {
-    PlateItem tmp;
-
-    plateItem.append(tmp);
+//    PlateItem tmp;
+//
+//    plateItem.append(tmp);
 }
 
 QVariant PlateDataModel::data(const QModelIndex &index, int role) const
@@ -43,7 +44,7 @@ QVariant PlateDataModel::data(const QModelIndex &index, int role) const
   두 함수를 호출해야 적용됨.
  */
     if(role == Qt::DisplayRole||role==Qt::EditRole){
-        return plateItem.at(0).data(index);
+        return plateItem[index.row()].data(index);
     }else if(role==Qt::SizeHintRole){
         return QSize(300,100);
     }else{
@@ -66,7 +67,8 @@ QModelIndex PlateDataModel::parent(const QModelIndex &child) const
 
 int PlateDataModel::rowCount(const QModelIndex &parent) const
 {
-    return 5;
+    qDebug() << plateItem.count();
+    return plateItem.count();
 }
 
 int PlateDataModel::columnCount(const QModelIndex &parent) const
@@ -130,6 +132,23 @@ QVariant PlateDataModel::headerData(int section, Qt::Orientation orientation, in
     }else{
         return section+1;
     }
+}
+
+bool PlateDataModel::appendItem(sequenceInfo &item)
+{
+    PlateItem temp(item);
+    plateItem.append(temp);
+
+/*!
+  기본 값에서 모델에 데이터를 추가해도 view에서 신호를 받지 않는다.
+  아래 두함수를 통해 private클래스내부에 Signal이 정의되어 있고
+  아직 정확한 이해는 안되지만 model 부분에 데이터가 추가 되면 아래 함수를 호출해주어야한다.
+  두개가 쌍으로 호출되지 않으면 프로그램이 죽어버린다.
+*/
+    beginInsertRows(QModelIndex(),0,0);
+    endInsertRows();
+
+    return true;
 }
 
 

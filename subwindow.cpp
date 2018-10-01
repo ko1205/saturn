@@ -4,6 +4,8 @@
 #include "platedelegate.h"
 #include <QVBoxLayout>
 #include <QPushButton>
+#include "commonfunc.h"
+#include <QDebug>
 
 SubWindow::SubWindow(QWidget *parent) : QWidget(parent)
 {
@@ -34,4 +36,13 @@ void SubWindow::initWindow()
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(plateMainView);
     setLayout(layout);
+}
+
+bool SubWindow::appendItem(sequenceInfo &item)
+{
+    plateDataModel->appendItem(item);
+//    plateMainView->viewport()->update();
+    qDebug() << "appended";
+    plateMainView->resizeRowsToContents();
+    return 0;
 }

@@ -41,12 +41,14 @@ bool MainCentralWidget::newProject(const QString path)
 //    searchSequence(path);   //test code 이 함수는 테스트후 다른 쓰레드로 이동
     QList<sequenceInfo> sequenceItems;
     sequenceItems.append(scanFolderLoop(path));
+    currentSubwindow = creatSubWindow();
+    currentSubwindow->setWindowTitle(tr("test[*]"));
+
     for(int i=0;sequenceItems.count()>i;i++)
     {
         qDebug() << sequenceItems[i].sequenceName << QString::number(sequenceItems[i].startFrame) << QString::number(sequenceItems[i].endFrame);
+        currentSubwindow->appendItem(sequenceItems[i]);
     }
-    currentSubwindow = creatSubWindow();
-    currentSubwindow->setWindowTitle(tr("test[*]"));
     currentSubwindow->showMaximized();
     currentSubwindow->setWindowModified(true);
 

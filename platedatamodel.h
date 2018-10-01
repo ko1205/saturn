@@ -3,12 +3,14 @@
 
 #include <QAbstractItemModel>
 #include <QDir>
+#include "commonfunc.h"
 
 class PlateItem
 {
 public:
-    PlateItem();
+    PlateItem(sequenceInfo &info);
     QVariant data(const QModelIndex &index) const;
+
 
 private:
     QString filePath;
@@ -32,6 +34,8 @@ public:
 //    bool setData(const QModelIndex &index, const QVariant &value, int role);
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+
+    bool appendItem(sequenceInfo &item);
 
 private:
     QList<PlateItem> plateItem;

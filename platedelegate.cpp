@@ -21,8 +21,8 @@ void PlateDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
         int w = option.rect.width()/2;
         int h = option.rect.height()/2;
 
-    //    painter->drawPixmap(option.rect,test);
-        painter->drawPixmap(option.rect.left(),option.rect.top(),100,100,test);
+        painter->drawPixmap(option.rect,test);
+//        painter->drawPixmap(option.rect.left(),option.rect.top(),100,100,test);
 
     //    painter->drawText(option.rect,"test_text");
     //    QStyledItemDelegate::paint(painter,option,index);
