@@ -11,7 +11,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 
 
     dirView->setModel(fileModel);
-//    fileModel->set
+//    dirView->setStyleSheet("background-color:darkgray");
 
     QSplitter *mainSplitter = new QSplitter;
 
@@ -38,7 +38,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     tab->addTab(new QWidget,"path");
 
     messageview = new QTextBrowser;
-    messageview->setTextColor(QColor(Qt::black));
+//    messageview->setTextColor(QColor(Qt::black));
     messageview->setText("test");
     messageview->append("dsdlkjfslkf");
 
