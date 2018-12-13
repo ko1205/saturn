@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTreeView>
 #include <QFileSystemModel>
+#include <QPushButton>
 
 class DirSelector : public QWidget
 {
@@ -17,7 +18,8 @@ public slots:
 
 private:
     QTreeView *dirTreeView;
-    QFileSystemModel *fileSystmeModel;
+    QFileSystemModel *fileSystemModel;
+    QPushButton *selectorButton;
 };
 
 #endif // DIRSELECTOR_H

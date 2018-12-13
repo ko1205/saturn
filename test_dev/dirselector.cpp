@@ -3,14 +3,19 @@
 
 DirSelector::DirSelector(QWidget *parent) : QWidget(parent)
 {
+    fileSystemModel = new QFileSystemModel;
+    fileSystemModel->setRootPath("");
+    fileSystemModel->setFilter(QDir::AllDirs|QDir::NoDotAndDotDot|QDir::Drives);
+
     dirTreeView = new QTreeView;
-    fileSystmeModel = new QFileSystemModel;
-    fileSystmeModel->setRootPath("");
-    fileSystmeModel->setFilter(QDir::AllDirs|QDir::NoDotAndDotDot|QDir::Drives);
+    dirTreeView->setModel(fileSystemModel);
+
+    selectorButton = new QPushButton("Search Sequence");
 
     QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
     layout->addWidget(dirTreeView);
-    layout->addWidget(fileSystmeModel);
+    layout->addWidget(selectorButton);
 
     setLayout(layout);
 
