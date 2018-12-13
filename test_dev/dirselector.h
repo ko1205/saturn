@@ -15,11 +15,14 @@ public:
 signals:
 
 public slots:
+    void setCurrnetPaht(QModelIndex);
 
 private:
     QTreeView *dirTreeView;
     QFileSystemModel *fileSystemModel;
     QPushButton *selectorButton;
+    QPushButton *cancelButton;
+    QString currentPath;
 };
 
 #endif // DIRSELECTOR_H
