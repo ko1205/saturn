@@ -5,14 +5,27 @@
 
 CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 {
+    fileModel = new QFileSystemModel;
+    fileModel->setRootPath("");
+    dirView = new QTreeView;
+
+
+    dirView->setModel(fileModel);
+//    fileModel->set
+
+    QSplitter *mainSplitter = new QSplitter;
+
+    mainSplitter->addWidget(dirView);
+    mainSplitter->addWidget(new QTableView);
     tab = new QTabWidget;
+//    tab->setContentsMargins(0,0,0,0);
 //    tab->setDocumentMode(true);
 //    tab->setStyleSheet("QTabWidget:tab-bar { left: 0em;} QTabBar:tab:selected{background-color:darkgray}");
 
      /*
      * 샷 리스트 뷰 화면
      */
-    tab->addTab(new QTableView,"List");
+    tab->addTab(mainSplitter,"List");
 
     /*
      * 변환 포멧 설정 화면
@@ -29,10 +42,36 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     messageview->setText("test");
     messageview->append("dsdlkjfslkf");
 
+//   	fileModel = new QFileSystemModel;
+//    fileModel->setRootPath("/");
+//    dirView = new QTreeView;
+
+//    dirView->setModel(fileModel);
+
+//    QSplitter *mainSplitter = new QSplitter;
+
+//    mainSplitter->addWidget(dirView);
+//    mainSplitter->addWidget(new QTableView);
+
+
     QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout *viewlayout = new QVBoxLayout;
+
+    viewlayout->setMargin(0);
+    viewlayout->setContentsMargins(0,0,0,0);
+
+    QWidget *topWidget = new QWidget;
+
+    topWidget->setLayout(viewlayout);
+
+
+    upButton = new QPushButton("UP");
+    viewlayout->addWidget(tab);
+    viewlayout->addWidget(upButton);
+
     QSplitter *splitter = new QSplitter(Qt::Vertical);
 
-    splitter->addWidget(tab);
+    splitter->addWidget(topWidget);
     splitter->addWidget(messageview);
 
     layout->addWidget(splitter);

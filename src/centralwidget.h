@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QTabWidget>
 #include <QTextBrowser>
+#include <QPushButton>
+#include <QTreeView>
+#include <QFileSystemModel>
 
 class CentralWidget : public QWidget
 {
@@ -19,6 +22,11 @@ public slots:
 private:
     QTabWidget *tab;
     QTextBrowser *messageview;
+    QPushButton *upButton;
+    QPushButton *downButton;
+    QFileSystemModel *fileModel;
+    QTreeView *dirView;
+
 
 };
 
