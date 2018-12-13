@@ -18,6 +18,7 @@ public:
 signals:
 
 public slots:
+    void printPath(QModelIndex index);
 
 private:
     QTabWidget *tab;
