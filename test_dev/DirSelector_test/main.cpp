@@ -1,4 +1,4 @@
-#include "dirselector.h"
+#include "../../src/dirselector.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
