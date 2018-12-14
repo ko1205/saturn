@@ -2,25 +2,29 @@
 #include <QVBoxLayout>
 #include <QTableView>
 #include <QSplitter>
+//#include "dirselector.h"
 //#include <QDebug>
 
 CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 {
-    fileModel = new QFileSystemModel;
-    fileModel->setRootPath("");
-    fileModel->setFilter(QDir::AllDirs|QDir::NoDotAndDotDot|QDir::Drives);
-    dirView = new QTreeView;
+//    fileModel = new QFileSystemModel;
+//    fileModel->setRootPath("");
+//    fileModel->setFilter(QDir::AllDirs|QDir::NoDotAndDotDot|QDir::Drives);
+//    dirView = new QTreeView;
 
 
-    dirView->setModel(fileModel);
-    dirView->hideColumn(1);
-    dirView->hideColumn(2);
-    dirView->hideColumn(3);
+//    dirView->setModel(fileModel);
+//    dirView->hideColumn(1);
+//    dirView->hideColumn(2);
+//    dirView->hideColumn(3);
+
+
 //    dirView->setStyleSheet("background-color:darkgray");
+    dirSelector = new DirSelector;
 
     QSplitter *mainSplitter = new QSplitter;
 
-    mainSplitter->addWidget(dirView);
+    mainSplitter->addWidget(dirSelector);
     mainSplitter->addWidget(new QTableView);
     tab = new QTabWidget;
 //    tab->setContentsMargins(0,0,0,0);
@@ -82,7 +86,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     layout->addWidget(splitter);
 //    layout->addWidget(messageview);
     setLayout(layout);
-    connect(dirView,SIGNAL(clicked(QModelIndex)),this,SLOT(printPath(QModelIndex)));
+//    connect(dirView,SIGNAL(clicked(QModelIndex)),this,SLOT(printPath(QModelIndex)));
 }
 
 //void CentralWidget::debugConsol(QString message)
@@ -95,7 +99,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 void CentralWidget::printPath(QModelIndex index)
 {
 #ifdef QT_DEBUG
-    qDebug(fileModel->filePath(index).toLocal8Bit());
+//    qDebug(fileModel->filePath(index).toLocal8Bit());
 #endif
 //    debugConsol(fileModel->filePath(index));
 }

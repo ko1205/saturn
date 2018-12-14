@@ -22,8 +22,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Input
 SOURCES += src/main.cpp \
     src/mainwindow.cpp \
-    src/centralwidget.cpp
+    src/centralwidget.cpp\
+    src/dirselector.cpp
 
 HEADERS += \
     src/mainwindow.h \
-    src/centralwidget.h
+    src/centralwidget.h\
+    src/dirselector.h

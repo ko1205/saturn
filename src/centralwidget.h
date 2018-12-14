@@ -5,8 +5,9 @@
 #include <QTabWidget>
 #include <QTextBrowser>
 #include <QPushButton>
-#include <QTreeView>
-#include <QFileSystemModel>
+//#include <QTreeView>
+//#include <QFileSystemModel>
+#include "dirselector.h"
 
 class CentralWidget : public QWidget
 {
@@ -25,8 +26,11 @@ private:
     QTextBrowser *messageview;
     QPushButton *upButton;
     QPushButton *downButton;
-    QFileSystemModel *fileModel;
-    QTreeView *dirView;
+//    QFileSystemModel *fileModel;
+//    QTreeView *dirView;
+
+    DirSelector *dirSelector;
+
 
 
 };
