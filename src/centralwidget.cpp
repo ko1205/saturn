@@ -26,6 +26,10 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 
     mainSplitter->addWidget(dirSelector);
     mainSplitter->addWidget(new QTableView);
+
+    mainSplitter->setStretchFactor(0,0);
+    mainSplitter->setStretchFactor(1,1);
+
     tab = new QTabWidget;
 //    tab->setContentsMargins(0,0,0,0);
 //    tab->setDocumentMode(true);
