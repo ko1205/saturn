@@ -13,14 +13,17 @@ public:
     DirSelector(QWidget *parent = 0);
 
 signals:
+    void clickedSearchButton(QString path);
+    void clickedCancelButton(bool);
 
 public slots:
     void setCurrnetPaht(QModelIndex);
+    void setEnableCancelButton(bool isClicked);
 
 private:
     QTreeView *dirTreeView;
     QFileSystemModel *fileSystemModel;
-    QPushButton *selectorButton;
+    QPushButton *searchButton;
     QPushButton *cancelButton;
     QString currentPath;
 };
