@@ -22,6 +22,7 @@ private:
     bool selected;
     QString scene;
     QString shot;
+    QPair<int,int> size;
 };
 
 #endif // ITEM_H
