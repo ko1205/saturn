@@ -1,4 +1,4 @@
-#include "../../src/dirselector.h"
+#include "../../src/plateviewcontroller.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
