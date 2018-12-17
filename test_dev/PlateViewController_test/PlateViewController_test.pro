@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = DirSelector_test
+TARGET = PlateViewController_test
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -24,7 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        ../../src/dirselector.cpp
+    ../../src/plateviewcontroller.cpp
 
-HEADERS  += ../../src/dirselector.h
+HEADERS  += ../../src/plateviewcontroller.h
 

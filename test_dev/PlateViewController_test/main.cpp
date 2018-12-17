@@ -1,10 +1,10 @@
-#include "../../src/dirselector.h"
+#include "../../src/plateviewcontroller.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    DirSelector w;
+    PlateViewController w;
     w.show();
 
     return a.exec();
