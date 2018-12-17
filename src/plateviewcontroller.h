@@ -2,16 +2,21 @@
 #define PLATEVIEWCONTROLLER_H
 
 #include <QWidget>
+#include <QTableView>
 
 class PlateViewController : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PlateViewController(QWidget *parent = 0);
+    PlateViewController(QWidget *parent = 0);
 
 signals:
 
 public slots:
+
+private:
+    QTableView *plateSequenceView;
+
 };
 
 #endif // PLATEVIEWCONTROLLR_H
