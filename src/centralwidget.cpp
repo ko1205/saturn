@@ -21,11 +21,12 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 
 //    dirView->setStyleSheet("background-color:darkgray");
     dirSelector = new DirSelector;
+    plateViewController = new PlateViewController;
 
     QSplitter *mainSplitter = new QSplitter;
 
     mainSplitter->addWidget(dirSelector);
-    mainSplitter->addWidget(new QTableView);
+    mainSplitter->addWidget(plateViewController);
 
     mainSplitter->setStretchFactor(0,0);
     mainSplitter->setStretchFactor(1,1);
@@ -78,9 +79,9 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     topWidget->setLayout(viewlayout);
 
 
-    upButton = new QPushButton("UP");
+//    upButton = new QPushButton("UP");
     viewlayout->addWidget(tab);
-    viewlayout->addWidget(upButton);
+//    viewlayout->addWidget(upButton);
 
     QSplitter *splitter = new QSplitter(Qt::Vertical);
 

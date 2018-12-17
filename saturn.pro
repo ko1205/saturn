@@ -23,9 +23,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += src/main.cpp \
     src/mainwindow.cpp \
     src/centralwidget.cpp\
-    src/dirselector.cpp
+    src/dirselector.cpp \
+    src/plateviewcontroller.cpp
 
 HEADERS += \
     src/mainwindow.h \
     src/centralwidget.h\
-    src/dirselector.h
+    src/dirselector.h \
+    src/plateviewcontroller.h

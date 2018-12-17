@@ -8,6 +8,7 @@
 //#include <QTreeView>
 //#include <QFileSystemModel>
 #include "dirselector.h"
+#include "plateviewcontroller.h"
 
 class CentralWidget : public QWidget
 {
@@ -24,12 +25,13 @@ public slots:
 private:
     QTabWidget *tab;
     QTextBrowser *messageview;
-    QPushButton *upButton;
+//    QPushButton *upButton;
     QPushButton *downButton;
 //    QFileSystemModel *fileModel;
 //    QTreeView *dirView;
 
     DirSelector *dirSelector;
+    PlateViewController *plateViewController;
 
 
 
