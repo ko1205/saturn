@@ -24,7 +24,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-    ../../src/plateviewcontroller.cpp
+    ../../src/plateviewcontroller.cpp \
+    ../../src/plateitemmodel.cpp
 
-HEADERS  += ../../src/plateviewcontroller.h
+HEADERS  += ../../src/plateviewcontroller.h \
+    ../../src/plateitemmodel.h
 
