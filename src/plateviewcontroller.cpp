@@ -27,5 +27,6 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
     layout->addLayout(buttonLayout);
 
     setLayout(layout);
+    resize(800,500);
 
 }
