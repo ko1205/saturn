@@ -46,9 +46,12 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 
     messageview = new QTextBrowser;
 //    messageview->setTextColor(QColor(Qt::black));
-    messageview->setText("test");
+//    messageview->setText("test");
+    messageview->setHtml("<font color = red> test </font>");
+    messageview->setTextColor(QColor(Qt::blue));
     messageview->append("dsdlkjfslkf");
-
+    messageview->setTextColor(QColor(Qt::green));
+    messageview->append("dsdlkjfslkf");
 
     QVBoxLayout *viewlayout = new QVBoxLayout;
     viewlayout->setMargin(0);
