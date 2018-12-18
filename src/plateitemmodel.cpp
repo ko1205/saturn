@@ -7,7 +7,12 @@ PlateItemModel::PlateItemModel()
 
 QVariant PlateItemModel::data(const QModelIndex &index, int role) const
 {
-    return "test";
+    if(role == Qt::DisplayRole)
+    {
+        return "test";
+    }else{
+        return QVariant();
+    }
 }
 
 int PlateItemModel::rowCount(const QModelIndex &parent) const
