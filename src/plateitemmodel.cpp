@@ -22,7 +22,7 @@ int PlateItemModel::rowCount(const QModelIndex &parent) const
 
 int PlateItemModel::columnCount(const QModelIndex &parent) const
 {
-    return 5;
+    return 6;
 }
 
 QModelIndex PlateItemModel::index(int row, int column, const QModelIndex &parent) const
@@ -33,4 +33,39 @@ QModelIndex PlateItemModel::index(int row, int column, const QModelIndex &parent
 QModelIndex PlateItemModel::parent(const QModelIndex &child) const
 {
     return QModelIndex();
+}
+
+QVariant PlateItemModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if(role != Qt::DisplayRole)
+        return QVariant();
+
+    if(orientation == Qt::Horizontal)
+    {
+        switch (section) {
+        case 0:
+            return "Thumbnail";
+
+        case 1:
+            return "File Name";
+
+        case 2:
+            return "Frame Range";
+
+        case 3:
+            return "Scene";
+
+        case 4:
+            return "Shot";
+
+        case 5:
+            return "ColorSpace";
+
+        default:
+            return section+1;
+        }
+
+    }else{
+        return section+1;
+    }
 }
