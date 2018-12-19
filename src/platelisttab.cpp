@@ -1,6 +1,7 @@
 #include "platelisttab.h"
 #include <QSplitter>
 #include <QGridLayout>
+#include <QtDebug>
 
 PlateListTab::PlateListTab(QWidget *parent) : QWidget(parent)
 {
@@ -35,9 +36,22 @@ PlateListTab::PlateListTab(QWidget *parent) : QWidget(parent)
     connect(this,SIGNAL(searchFinish(bool)),dirSelector,SLOT(setEnableCancelButton(bool)));
 }
 
+void PlateListTab::searchPlateLoop(QString path)
+{
+#ifdef QT_DEBUG
+    qDebug() << "searching "+path;
+#endif
+    QDir rootDir = path;
+    QStringList dirList = rootDir.entryList(QDir::AllDirs|QDir::NoDotAndDotDot);
+    foreach (QString dir, dirList) {
+        QString subDir = path+"/"+dir;
+        searchPlateLoop(subDir);
+    }
+}
+
 void PlateListTab::searchPlate(QString path)
 {
-
+    searchPlateLoop(path);
 
     emit searchFinish(true);
 }
