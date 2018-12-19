@@ -12,8 +12,11 @@ public:
     PlateListTab(QWidget *parent = 0);
 
 signals:
+    void searchFinish(bool finish);
 
 public slots:
+    void searchPlate(QString path);
+
 
 private:
     DirSelector *dirSelector;
