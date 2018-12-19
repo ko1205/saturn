@@ -27,10 +27,12 @@ SOURCES += main.cpp\
         ../../src/dirselector.cpp \
         ../../src/plateviewcontroller.cpp\
         ../../src/plateitemmodel.cpp\
-    ../../src/platelisttab.cpp
+    ../../src/platelisttab.cpp \
+    ../../src/searchthread.cpp
 
 HEADERS  += ../../src/dirselector.h \
         ../../src/plateviewcontroller.h\
        ../../src/plateitemmodel.h\
-    ../../src/platelisttab.h
+    ../../src/platelisttab.h \
+    ../../src/searchthread.h
 

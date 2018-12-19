@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "dirselector.h"
 #include "plateviewcontroller.h"
+#include "searchthread.h"
 
 class PlateListTab : public QWidget
 {
@@ -17,13 +18,15 @@ signals:
 
 public slots:
     void searchPlate(QString path);
+    void searchCancel();
 
 
 private:
     void searchPlateLoop(QString path);
+
     DirSelector *dirSelector;
     PlateViewController *plateViewController;
-
+    SearchThread *searchThread;
 };
 
 #endif // PLATELISTTAB_H

@@ -32,26 +32,20 @@ PlateListTab::PlateListTab(QWidget *parent) : QWidget(parent)
 
     setLayout(layout);
 
-    connect(dirSelector,SIGNAL(clickedSearchButton(QString)),this,SLOT(searchPlate(QString)));
-    connect(this,SIGNAL(searchFinish(bool)),dirSelector,SLOT(setEnableCancelButton(bool)));
-}
+    searchThread = new SearchThread;
 
-void PlateListTab::searchPlateLoop(QString path)
-{
-#ifdef QT_DEBUG
-    qDebug() << "searching "+path;
-#endif
-    QDir rootDir = path;
-    QStringList dirList = rootDir.entryList(QDir::AllDirs|QDir::NoDotAndDotDot);
-    foreach (QString dir, dirList) {
-        QString subDir = path+"/"+dir;
-        searchPlateLoop(subDir);
-    }
+    connect(dirSelector,SIGNAL(clickedSearchButton(QString)),this,SLOT(searchPlate(QString)));
+    connect(dirSelector,SIGNAL(clickedCancelButton(bool)),this,SLOT(searchCancel()));
+    connect(searchThread,SIGNAL(searchFinish(bool)),dirSelector,SLOT(setEnableCancelButton(bool)));
 }
 
 void PlateListTab::searchPlate(QString path)
 {
-    searchPlateLoop(path);
+    searchThread->setRootPath(path);
+    searchThread->start();
+}
 
-    emit searchFinish(true);
+void PlateListTab::searchCancel()
+{
+    searchThread->setStatus();
 }
