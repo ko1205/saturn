@@ -16,6 +16,7 @@ public:
 signals:
     void searchFinish(bool finish);
     void searchingDir(QString dir);
+    void findedSequence(QString fileName);
 
 protected:
     void run();
@@ -24,6 +25,7 @@ private:
     QString rootPath;
     bool status;
     void searchPlateLoop(QDir path);
+    void searchSequence(const QDir path);
 
 };
 
