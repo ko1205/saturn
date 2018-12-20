@@ -5,10 +5,7 @@
 #include <QTabWidget>
 #include <QTextBrowser>
 #include <QPushButton>
-//#include <QTreeView>
-//#include <QFileSystemModel>
-#include "dirselector.h"
-#include "plateviewcontroller.h"
+#include "platelisttab.h"
 
 class CentralWidget : public QWidget
 {
@@ -30,8 +27,9 @@ private:
 //    QFileSystemModel *fileModel;
 //    QTreeView *dirView;
 
-    DirSelector *dirSelector;
-    PlateViewController *plateViewController;
+//    DirSelector *dirSelector;
+//    PlateViewController *plateViewController;
+    PlateListTab *plateListTab;
 
 
 

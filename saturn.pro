@@ -25,11 +25,13 @@ SOURCES += src/main.cpp \
     src/centralwidget.cpp\
     src/dirselector.cpp \
     src/plateviewcontroller.cpp\
-    src/plateitemmodel.cpp
+    src/plateitemmodel.cpp\
+    src/platelisttab.cpp\
 
 HEADERS += \
     src/mainwindow.h \
     src/centralwidget.h\
     src/dirselector.h \
     src/plateviewcontroller.h\
-    src/plateitemmodel.h
+    src/plateitemmodel.h\
+    src/platelisttab.h\

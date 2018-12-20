@@ -7,23 +7,24 @@
 
 CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 {
-    dirSelector = new DirSelector;
-    plateViewController = new PlateViewController;
+    plateListTab = new PlateListTab;
+//    dirSelector = new DirSelector;
+//    plateViewController = new PlateViewController;
 
-    QSplitter *mainSplitter = new QSplitter;
+//    QSplitter *mainSplitter = new QSplitter;
 
-    mainSplitter->addWidget(dirSelector);
-    mainSplitter->addWidget(plateViewController);
+//    mainSplitter->addWidget(dirSelector);
+//    mainSplitter->addWidget(plateViewController);
 
-    mainSplitter->setStretchFactor(0,0);
-    mainSplitter->setStretchFactor(1,1);
+//    mainSplitter->setStretchFactor(0,0);
+//    mainSplitter->setStretchFactor(1,1);
 
     /*
      * setCollapsible 합수는 Splitter 화면이 완전히 접혀 들어갈지
      * 여부를 판단 한다. (int index, bool collapse) index는 창순서, collapse는 true,false 값을 가진다.
      */
-    mainSplitter->setCollapsible(0,false);
-    mainSplitter->setCollapsible(1,false);
+//    mainSplitter->setCollapsible(0,false);
+//    mainSplitter->setCollapsible(1,false);
 
     tab = new QTabWidget;
 //    tab->setDocumentMode(true);
@@ -32,7 +33,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
      /*
      * 샷 리스트 뷰 화면
      */
-    tab->addTab(mainSplitter,"List");
+    tab->addTab(plateListTab,"List");
 
     /*
      * 변환 포멧 설정 화면
