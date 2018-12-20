@@ -1,6 +1,7 @@
 #include "platelisttab.h"
 #include <QSplitter>
 #include <QGridLayout>
+#include <QtDebug>
 
 PlateListTab::PlateListTab(QWidget *parent) : QWidget(parent)
 {
@@ -31,13 +32,22 @@ PlateListTab::PlateListTab(QWidget *parent) : QWidget(parent)
 
     setLayout(layout);
 
+    searchThread = new SearchThread;
+
     connect(dirSelector,SIGNAL(clickedSearchButton(QString)),this,SLOT(searchPlate(QString)));
-    connect(this,SIGNAL(searchFinish(bool)),dirSelector,SLOT(setEnableCancelButton(bool)));
+    connect(dirSelector,SIGNAL(clickedCancelButton(bool)),this,SLOT(searchCancel()));
+    connect(searchThread,SIGNAL(searchFinish(bool)),dirSelector,SLOT(setEnableCancelButton(bool)));
+    connect(searchThread,SIGNAL(searchingDir(QString)),this,SIGNAL(searchingDir(QString)));
+    connect(searchThread,SIGNAL(searchFinish(bool)),this,SIGNAL(searchFinish(bool)));
 }
 
 void PlateListTab::searchPlate(QString path)
 {
+    searchThread->setRootPath(path);
+    searchThread->start();
+}
 
-
-    emit searchFinish(true);
+void PlateListTab::searchCancel()
+{
+    searchThread->setStatus();
 }
