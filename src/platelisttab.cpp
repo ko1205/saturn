@@ -39,6 +39,7 @@ PlateListTab::PlateListTab(QWidget *parent) : QWidget(parent)
     connect(searchThread,SIGNAL(searchFinish(bool)),dirSelector,SLOT(setEnableCancelButton(bool)));
     connect(searchThread,SIGNAL(searchingDir(QString)),this,SIGNAL(searchingDir(QString)));
     connect(searchThread,SIGNAL(searchFinish(bool)),this,SIGNAL(searchFinish(bool)));
+    connect(searchThread,SIGNAL(findedSequence(QString)),this,SIGNAL(findedSequence(QString)));
 }
 
 void PlateListTab::searchPlate(QString path)
