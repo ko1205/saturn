@@ -19,6 +19,7 @@ signals:
 public slots:
     void searchingDir(QString dir);
     void searchFinish(bool finish);
+    void findedSequence(QString fileName);
 
 private:
     QTabWidget *tab;

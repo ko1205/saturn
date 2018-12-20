@@ -52,11 +52,12 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 
     connect(plateListTab,SIGNAL(searchingDir(QString)),this,SLOT(searchingDir(QString)));
     connect(plateListTab,SIGNAL(searchFinish(bool)),this,SLOT(searchFinish(bool)));
+    connect(plateListTab,SIGNAL(findedSequence(QString)),this,SLOT(findedSequence(QString)));
 }
 
 void CentralWidget::searchingDir(QString dir)
 {
-    messageview->appendPlainText("Searching........... "+dir);
+    messageview->appendHtml("<font color=black>Searching........... "+dir+"</font>");
     QScrollBar *scrollbar = messageview->verticalScrollBar();
     scrollbar->setValue(scrollbar->maximum());
 }
@@ -66,5 +67,13 @@ void CentralWidget::searchFinish(bool finish)
     messageview->appendHtml("<font color=blue> Search Finish</font>");
     QScrollBar *scrollbar = messageview->verticalScrollBar();
     scrollbar->setValue(scrollbar->maximum());
+}
+
+void CentralWidget::findedSequence(QString fileName)
+{
+    messageview->appendHtml("<font color=green> find sequence....." + fileName +"</font>");
+    QScrollBar *scrollbar = messageview->verticalScrollBar();
+    scrollbar->setValue(scrollbar->maximum());
+
 }
 
