@@ -2,6 +2,7 @@
 #include <QVBoxLayout>
 #include <QTableView>
 #include <QSplitter>
+#include <QScrollBar>
 //#include "dirselector.h"
 //#include <QDebug>
 
@@ -45,14 +46,16 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
      */
     tab->addTab(new QWidget,"path");
 
-    messageview = new QTextBrowser;
+//    messageview = new QTextBrowser;
+    messageview = new QPlainTextEdit;
+    messageview->setReadOnly(true);
 //    messageview->setTextColor(QColor(Qt::black));
 //    messageview->setText("test");
-    messageview->setHtml("<font color = red> test </font>");
-    messageview->setTextColor(QColor(Qt::blue));
-    messageview->append("dsdlkjfslkf");
-    messageview->setTextColor(QColor(Qt::green));
-    messageview->append("dsdlkjfslkf");
+//    messageview->setHtml("<font color = red> test </font>");
+//    messageview->setTextColor(QColor(Qt::blue));
+//    messageview->append("dsdlkjfslkf");
+//    messageview->setTextColor(QColor(Qt::green));
+//    messageview->append("dsdlkjfslkf");
 
     QVBoxLayout *viewlayout = new QVBoxLayout;
     viewlayout->setMargin(0);
@@ -73,8 +76,26 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 
     setLayout(layout);
 //    connect(dirView,SIGNAL(clicked(QModelIndex)),this,SLOT(printPath(QModelIndex)));
+    connect(plateListTab,SIGNAL(searchingDir(QString)),this,SLOT(searchingDir(QString)));
+    connect(plateListTab,SIGNAL(searchFinish(bool)),this,SLOT(searchFinish(bool)));
 }
 
+void CentralWidget::searchingDir(QString dir)
+{
+    messageview->appendPlainText("Searching........... "+dir);
+//    messageview->append("Searching "+dir);
+    QScrollBar *scrollbar = messageview->verticalScrollBar();
+    scrollbar->setValue(scrollbar->maximum());
+}
+
+void CentralWidget::searchFinish(bool finish)
+{
+//    Q_UNUSED finish;
+    messageview->appendHtml("<font color=blue> Search Finish</font>");
+    QScrollBar *scrollbar = messageview->verticalScrollBar();
+    scrollbar->setValue(scrollbar->maximum());
+
+}
 
 void CentralWidget::printPath(QModelIndex index)
 {

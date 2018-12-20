@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTabWidget>
 #include <QTextBrowser>
+#include <QPlainTextEdit>
 #include <QPushButton>
 #include "platelisttab.h"
 
@@ -18,10 +19,13 @@ signals:
 
 public slots:
     void printPath(QModelIndex index);
+    void searchingDir(QString dir);
+    void searchFinish(bool finish);
 
 private:
     QTabWidget *tab;
-    QTextBrowser *messageview;
+//    QTextBrowser *messageview;
+    QPlainTextEdit *messageview;
 //    QPushButton *upButton;
     QPushButton *downButton;
 //    QFileSystemModel *fileModel;
