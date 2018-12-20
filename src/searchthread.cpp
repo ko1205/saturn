@@ -60,7 +60,7 @@ void SearchThread::searchSequence(const QDir path)
 
             QString sequenceName = prefix + QString("%1") + suffix;
 
-            int frameNum= padding.toInt();
+            long long frameNum= padding.toLongLong();
             sequence = sequenceName;
 
 //            item.sequenceName = sequenceName;
