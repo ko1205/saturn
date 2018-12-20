@@ -15,6 +15,7 @@ public:
 signals:
     void searchingDir(QString dir);
     void searchFinish(bool finish);
+    void findedSequence(QString fileName);
 
 public slots:
     void searchPlate(QString path);
