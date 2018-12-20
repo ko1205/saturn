@@ -45,6 +45,9 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     splitter->addWidget(topWidget);
     splitter->addWidget(messageview);
 
+    splitter->setStretchFactor(0,1);
+    splitter->setStretchFactor(1,0);
+
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(splitter);
 
