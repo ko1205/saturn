@@ -15,6 +15,7 @@ public:
 
 signals:
     void searchFinish(bool finish);
+    void searchingDir(QString dir);
 
 protected:
     void run();

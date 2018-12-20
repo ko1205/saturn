@@ -27,6 +27,7 @@ void SearchThread::searchPlateLoop(QDir path)
 {
     if(status){
         QDir searchPath = path;
+        emit searchingDir(path.absolutePath());
 #ifdef QT_DEBUG
         qDebug() << "searching "+searchPath.absolutePath();
 #endif
