@@ -1,13 +1,14 @@
 #include "searchthread.h"
 #include <QDebug>
 
-SearchThread::SearchThread()
+SearchThread::SearchThread(PlateViewController *PlateController)
 {
-
+    controller = PlateController;
 }
 
 void SearchThread::run()
 {
+
     status = true;
     searchPlateLoop(rootPath);
     emit searchFinish(true);
@@ -83,6 +84,7 @@ void SearchThread::searchSequence(const QDir path)
         }
 //        sequenceItems.append(item);
         emit findedSequence(sequence);
+        controller->findedSequence(sequence);
     }
 //    return sequenceItems;
 

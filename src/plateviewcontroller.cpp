@@ -2,11 +2,12 @@
 #include "plateitemmodel.h"
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QDebug>
 
 PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
 {
     plateSequenceView = new QTableView();
-    PlateItemModel *model = new PlateItemModel();
+    model = new PlateItemModel();
 
     plateSequenceView->setModel(model);
 
@@ -29,4 +30,13 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
     setLayout(layout);
     resize(800,500);
 
+}
+
+void PlateViewController::findedSequence(QString path)
+{
+#ifdef QT_DEBUG
+    qDebug()<<"find emit" << path;
+#endif
+    PlateItem item;
+    model->appendRow(item);
 }
