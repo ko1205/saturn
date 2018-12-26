@@ -4,17 +4,14 @@
 SearchThread::SearchThread(PlateViewController *PlateController)
 {
     controller = PlateController;
-//    connect(this,SIGNAL(findedSequence(QString)),controller,SLOT(findedSequence(QString)));
 }
 
 void SearchThread::run()
 {
 
-//    connect(this,SIGNAL(findedSequence(QString)),controller,SLOT(findedSequence(QString)));
     status = true;
     searchPlateLoop(rootPath);
     emit searchFinish(true);
-//    disconnect(this,SIGNAL(findedSequence(QString)),controller,SLOT(findedSequence(QString)));
 }
 
 void SearchThread::setRootPath(QString path)

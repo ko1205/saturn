@@ -10,11 +10,11 @@ class PlateViewController : public QWidget
     Q_OBJECT
 public:
     PlateViewController(QWidget *parent = 0);
+    void findedSequence(QString path);
 
 signals:
 
 public slots:
-    void findedSequence(QString path);
 
 private:
     QTableView *plateSequenceView;
