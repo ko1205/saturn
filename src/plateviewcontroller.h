@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTableView>
+#include "plateitemmodel.h"
 
 class PlateViewController : public QWidget
 {
@@ -13,9 +14,11 @@ public:
 signals:
 
 public slots:
+    void findedSequence(QString path);
 
 private:
     QTableView *plateSequenceView;
+    PlateItemModel *model;
 
 };
 
