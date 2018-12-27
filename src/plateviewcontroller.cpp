@@ -36,11 +36,11 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
 
 }
 
-void PlateViewController::findedSequence(QString path)
+void PlateViewController::findedSequence(PlateItem item)
 {
 #ifdef QT_DEBUG
-    qDebug()<<"find emit" << path;
+    qDebug()<<"find emit" << item.fileName;
 #endif
-    PlateItem item;
+//    PlateItem item;
     model->appendRow(item);
 }

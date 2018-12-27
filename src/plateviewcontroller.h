@@ -10,7 +10,7 @@ class PlateViewController : public QWidget
     Q_OBJECT
 public:
     PlateViewController(QWidget *parent = 0);
-    void findedSequence(QString path);
+    void findedSequence(PlateItem item);
 
 signals:
 

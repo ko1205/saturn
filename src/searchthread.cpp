@@ -46,6 +46,7 @@ void SearchThread::searchPlateLoop(QDir path)
 
 void SearchThread::searchSequence(const QDir path)
 {
+    PlateItem item;
     QString sequence;
     QStringList nameFilter = (QStringList() << "*.dpx" << "*.exr" << "*.jpg" << "*.jpeg");
     QStringList imageFiles =  path.entryList(nameFilter,QDir::Files|QDir::NoDotAndDotDot);
@@ -63,6 +64,8 @@ void SearchThread::searchSequence(const QDir path)
 
             long long frameNum= padding.toLongLong();
             sequence = sequenceName.arg("#",padding.count(),QLatin1Char('#'));
+            item.fileName = sequence;
+            item.frame.first = frameNum;
 
 //            item.sequenceName = sequenceName;
 //            item.startFrame = frameNum;
@@ -73,6 +76,7 @@ void SearchThread::searchSequence(const QDir path)
                 imageFiles.removeAt(index);
                 frameNum++;
             }
+            item.frame.second = frameNum-1;
 //            item.endFrame = frameNum-1;
 
         }else{
@@ -81,10 +85,16 @@ void SearchThread::searchSequence(const QDir path)
 //             item.endFrame = -1;
             sequence = imageFiles.first();
             imageFiles.removeFirst();
+
+            item.fileName = sequence;
+            item.frame.first = -1;
+            item.frame.second = -1;
         }
 //        sequenceItems.append(item);
         emit findedSequence(sequence);
-        controller->findedSequence(sequence);
+        item.path = path;
+
+        controller->findedSequence(item);
     }
 //    return sequenceItems;
 
