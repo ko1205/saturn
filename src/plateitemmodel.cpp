@@ -24,7 +24,10 @@ QVariant PlateItemModel::data(const QModelIndex &index, int role) const
     case 0:
         if(role == Qt::DecorationRole)
         {
-            return item.thumbnail.scaled(100,100,Qt::KeepAspectRatio);
+            /*
+             * 아래 scaled함수는 정리후 Delegate class로 이동 예정
+             */
+            return item.thumbnail.scaled(300,100,Qt::KeepAspectRatio);
         }else{
             return QVariant();
         }
