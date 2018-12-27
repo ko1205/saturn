@@ -25,7 +25,7 @@ protected:
 private:
     QString rootPath;
     PlateViewController *controller;
-    bool status;
+    volatile bool status;
     void searchPlateLoop(QDir path);
     void searchSequence(const QDir path);
 
