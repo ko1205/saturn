@@ -3,6 +3,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QDebug>
+#include <QHeaderView>
 
 PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
 {
@@ -10,6 +11,9 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
     model = new PlateItemModel();
 
     plateSequenceView->setModel(model);
+    QHeaderView *headerView = plateSequenceView->verticalHeader();
+    headerView->setDefaultSectionSize(150);
+
 
     QPushButton *upButton = new QPushButton("Up");
     QPushButton *downButton = new QPushButton("Down");
