@@ -38,6 +38,25 @@ QVariant PlateItemModel::data(const QModelIndex &index, int role) const
         }else{
             return QVariant();
         }
+    case 2:
+        if(role == Qt::DisplayRole)
+        {
+            if(!item.singleFrame){
+                 return QString::number(item.frame.first) + "~" + QString::number(item.frame.second);
+            }else {
+                return "Single Frame";
+            }
+        }else{
+            return QVariant();
+        }
+    case 3:
+        if(role == Qt::DisplayRole)
+        {
+            return QDir::toNativeSeparators(item.path.absolutePath());
+        }else{
+            return QVariant();
+        }
+
     default:
         return QVariant();
     }
@@ -50,7 +69,7 @@ int PlateItemModel::rowCount(const QModelIndex &parent) const
 
 int PlateItemModel::columnCount(const QModelIndex &parent) const
 {
-    return 6;
+    return 7;
 }
 
 QModelIndex PlateItemModel::index(int row, int column, const QModelIndex &parent) const
@@ -81,12 +100,15 @@ QVariant PlateItemModel::headerData(int section, Qt::Orientation orientation, in
             return "Frame Range";
 
         case 3:
-            return "Scene";
+            return "Source Path";
 
         case 4:
-            return "Shot";
+            return "Scene";
 
         case 5:
+            return "Shot";
+
+        case 6:
             return "ColorSpace";
 
         default:

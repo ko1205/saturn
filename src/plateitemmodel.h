@@ -16,6 +16,8 @@ public:
     QString secne;
     QString shot;
     QString colorSpace;
+    QString firstFileName;
+    bool singleFrame;
 
 };
 

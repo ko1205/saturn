@@ -28,7 +28,7 @@ private:
     volatile bool status;
     void searchPlateLoop(QDir path);
     void searchSequence(const QDir path);
-
+    void finalizeItem(PlateItem &item);
 };
 
 #endif // SEARCHTHREAD_H

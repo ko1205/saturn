@@ -66,6 +66,7 @@ void SearchThread::searchSequence(const QDir path)
             sequence = sequenceName.arg("#",padding.count(),QLatin1Char('#'));
             item.fileName = sequence;
             item.frame.first = frameNum;
+            item.firstFileName = imageFiles.first();
 
 //            item.sequenceName = sequenceName;
 //            item.startFrame = frameNum;
@@ -84,18 +85,56 @@ void SearchThread::searchSequence(const QDir path)
 //             item.startFrame = -1;
 //             item.endFrame = -1;
             sequence = imageFiles.first();
-            imageFiles.removeFirst();
+//            imageFiles.removeFirst();
 
             item.fileName = sequence;
+            item.firstFileName = imageFiles.first();
             item.frame.first = -1;
             item.frame.second = -1;
+
+            imageFiles.removeFirst();
         }
 //        sequenceItems.append(item);
         emit findedSequence(sequence);
         item.path = path;
 
+        finalizeItem(item);
         controller->findedSequence(item);
     }
 //    return sequenceItems;
+
+}
+
+void SearchThread::finalizeItem(PlateItem &item)
+{
+#include <QFileInfo>
+    QFileInfo fileName(item.path,item.firstFileName);
+    QString ext = fileName.suffix();
+    QStringList extType = {"jpg","jpeg"};
+    QImage image;
+    if(item.frame.first == item.frame.second)
+    {
+        item.singleFrame = true;
+        item.fileName = item.firstFileName;
+    }else{
+        item.singleFrame = false;
+    }
+    switch (extType.indexOf(ext.toLower())) {
+    case 0:
+        if(image.load(fileName.absoluteFilePath())){
+            item.thumbnail = image;
+        }else{
+
+        }
+        break;
+    case 1:
+         if(image.load(fileName.absoluteFilePath())){
+            item.thumbnail = image;
+        }else{
+
+        }
+        break;
+
+    }
 
 }
