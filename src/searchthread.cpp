@@ -110,7 +110,7 @@ void SearchThread::finalizeItem(PlateItem &item)
 #include <QFileInfo>
     QFileInfo fileName(item.path,item.firstFileName);
     QString ext = fileName.suffix();
-    QStringList extType = {"jpg","jpeg"};
+    QStringList extType = {"jpg","jpeg","dpx","exr"};
     QImage image;
     if(item.frame.first == item.frame.second)
     {
@@ -119,22 +119,29 @@ void SearchThread::finalizeItem(PlateItem &item)
     }else{
         item.singleFrame = false;
     }
+
     switch (extType.indexOf(ext.toLower())) {
     case 0:
         if(image.load(fileName.absoluteFilePath())){
             item.thumbnail = image;
         }else{
-
+            /*
+             * 이미지 로딩 실패시 표시할 이미지 로딩
+             */
         }
         break;
     case 1:
          if(image.load(fileName.absoluteFilePath())){
             item.thumbnail = image;
         }else{
-
+             /*
+              * 이미지 로딩 실패시 표시할 이미지 로딩
+              */
         }
         break;
+    case 3:
 
+        break;
     }
 
 }
