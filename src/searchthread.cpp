@@ -1,4 +1,5 @@
 #include "searchthread.h"
+#include "dpxreader.h"
 #include <QDebug>
 
 SearchThread::SearchThread(PlateViewController *PlateController)
@@ -139,8 +140,16 @@ void SearchThread::finalizeItem(PlateItem &item)
               */
         }
         break;
-    case 3:
-
+    case 2:
+        DpxReader reader(fileName.absoluteFilePath());
+        if(reader.isValid)
+        {
+            item.thumbnail = reader.getQImage();
+        }else{
+              /*
+              * 이미지 로딩 실패시 표시할 이미지 로딩
+              */
+        }
         break;
     }
 

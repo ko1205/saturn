@@ -27,7 +27,8 @@ SOURCES += src/main.cpp \
     src/plateviewcontroller.cpp\
     src/plateitemmodel.cpp\
     src/platelisttab.cpp\
-    src/searchthread.cpp
+    src/searchthread.cpp \
+    src/dpxreader.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -36,4 +37,6 @@ HEADERS += \
     src/plateviewcontroller.h\
     src/plateitemmodel.h\
     src/platelisttab.h\
-    src/searchthread.h
+    src/searchthread.h \
+    src/dpxreader.h \
+    src/DPXimage_Header.h
