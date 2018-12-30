@@ -142,6 +142,7 @@ void SearchThread::finalizeItem(PlateItem &item)
         }
         break;
     case 2:
+    {
         DpxReader dpxReader(fileName.absoluteFilePath());
         if(dpxReader.isValid)
         {
@@ -151,19 +152,19 @@ void SearchThread::finalizeItem(PlateItem &item)
              * 이미지 로딩 실패시 표시할 이미지 로딩
              */
         }
+    }
         break;
     case 3:
-        int aa;
-//        ExrReader exrReader(fileName.absoluteFilePath());
-//        if(exrReader.isValid)
-//        {
-//            item.thumbnail = exrReader.getQImage();
-//        }else{
-//            /*
-//             * 이미지 로딩 실패시 표시할 이미지 로딩
-//             */
+        ExrReader exrReader(fileName.absoluteFilePath());
+        if(exrReader.isValid)
+        {
+            item.thumbnail = exrReader.getQImage();
+        }else{
+            /*
+             * 이미지 로딩 실패시 표시할 이미지 로딩
+             */
 
-//        }
+        }
         break;
     }
 

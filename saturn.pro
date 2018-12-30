@@ -42,3 +42,10 @@ HEADERS += \
     src/dpxreader.h \
     src/DPXimage_Header.h\
     src/exrreader.h
+
+INCLUDEPATH +=/usr/local/include/OpenEXR
+
+LIBS += \
+    /usr/local/lib/libIlmImf.dylib\
+    /usr/local/lib/libHalf.dylib
+
