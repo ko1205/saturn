@@ -76,6 +76,9 @@ QImage DpxReader::getQImage()
         unsigned char *buff = image.bits();
         for(int i = 0; i < width*height; i++)
         {
+            /*
+             * QImage의 Fromat_RGB32에서 0xFF000000 자리에 FF값이 Alpha 처럼 작동한다. 추가 해주지않으면 흰색으로 나옴
+             */
             bits[i] = ((bits[i]&0x00000FFC)>>4)|((bits[i]&0x003FC000)>>6)|((bits[i]&0xFF000000)>>8)|(0xFF000000);
         }
         memcpy(buff,bits,width*height*4);
