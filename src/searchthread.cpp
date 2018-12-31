@@ -155,6 +155,7 @@ void SearchThread::finalizeItem(PlateItem &item)
     }
         break;
     case 3:
+    {
         ExrReader exrReader(fileName.absoluteFilePath());
         if(exrReader.isValid)
         {
@@ -166,6 +167,7 @@ void SearchThread::finalizeItem(PlateItem &item)
 
         }
         break;
+    }
     }
 
 }
