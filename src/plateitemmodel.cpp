@@ -1,7 +1,8 @@
 #include "plateitemmodel.h"
 #include <QPixmap>
 
-PlateItemModel::PlateItemModel()
+PlateItemModel::PlateItemModel(QObject *parent)
+    : QAbstractItemModel(parent)
 {
 //    for(int i = 0;i < 30; i++)
 //    {
@@ -125,6 +126,13 @@ void PlateItemModel::appendRow(PlateItem item)
     beginInsertRows(QModelIndex(),0,0);
     items.append(item);
     endInsertRows();
+}
+
+void PlateItemModel::clear()
+{
+    beginResetModel();
+    items.clear();
+    endResetModel();
 }
 
 PlateItem::PlateItem()

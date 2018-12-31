@@ -17,6 +17,7 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
 
     QPushButton *upButton = new QPushButton("Up");
     QPushButton *downButton = new QPushButton("Down");
+    QPushButton *clearButton = new QPushButton("Clear");
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->setMargin(0);
@@ -24,6 +25,7 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
     buttonLayout->addWidget(upButton);
     buttonLayout->addWidget(downButton);
     buttonLayout->addStretch();
+    buttonLayout->addWidget(clearButton);
 
     QVBoxLayout *layout = new QVBoxLayout();
 
@@ -33,6 +35,8 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
 
     setLayout(layout);
     resize(800,500);
+
+    connect(clearButton,SIGNAL(clicked()),model,SLOT(clear()));
 
 }
 
@@ -44,3 +48,5 @@ void PlateViewController::findedSequence(PlateItem item)
 //    PlateItem item;
     model->appendRow(item);
 }
+
+
