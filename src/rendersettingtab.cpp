@@ -176,6 +176,7 @@ QGroupBox *RenderSettingTab::createQuickMovSetting()
     QLabel *quicktimeMovHeightLabel = new QLabel("Height Size : ");
     QLabel *quicktimeMovColorspaceLabel = new QLabel("Output ColorSpace : ");
     QLabel *quicktimeMovCodecLabel= new QLabel("Output Codec : ");
+    QLabel *quicktimeMovFrameRateLabel= new QLabel("Output FrameRate : ");
 
     QSpinBox *quicktimeMovWidthSpinBox = new QSpinBox;
     QSpinBox *quicktimeMovHeightSpinBox = new QSpinBox;
@@ -191,6 +192,13 @@ QGroupBox *RenderSettingTab::createQuickMovSetting()
     quicktimeMovCodecCombo->addItem("ProRess422 Proxy");
     quicktimeMovCodecCombo->addItem("H264");
 
+    QComboBox *quicktimeMovFrameRateCombo = new QComboBox;
+    quicktimeMovFrameRateCombo->addItem("23.976");
+    quicktimeMovFrameRateCombo->addItem("24");
+    quicktimeMovFrameRateCombo->addItem("25");
+    quicktimeMovFrameRateCombo->addItem("29.97");
+    quicktimeMovFrameRateCombo->addItem("30");
+
     QGridLayout *quicktimeMovLayout = new QGridLayout;
 
     quicktimeMovLayout->addWidget(quicktimeMovWidthLabel,0,0);
@@ -198,9 +206,19 @@ QGroupBox *RenderSettingTab::createQuickMovSetting()
     quicktimeMovLayout->addWidget(quicktimeMovWidthSpinBox,0,1);
     quicktimeMovLayout->addWidget(quicktimeMovHeightSpinBox,1,1);
     quicktimeMovLayout->addWidget(quicktimeMovColorspaceLabel,2,0);
-    quicktimeMovLayout->addWidget(quicktimeMovColorspaceCombo,2,1);
+    quicktimeMovLayout->addWidget(quicktimeMovColorspaceCombo,2,1,1,2);
     quicktimeMovLayout->addWidget(quicktimeMovCodecLabel,3,0);
-    quicktimeMovLayout->addWidget(quicktimeMovCodecCombo,3,1);
+    quicktimeMovLayout->addWidget(quicktimeMovCodecCombo,3,1,1,2);
+    quicktimeMovLayout->addWidget(quicktimeMovFrameRateLabel,4,0);
+    quicktimeMovLayout->addWidget(quicktimeMovFrameRateCombo,4,1,1,2);
+
+    quicktimeMovLayout->setColumnStretch(0,0);
+    quicktimeMovLayout->setColumnStretch(1,0);
+    quicktimeMovLayout->setColumnStretch(2,0);
+    quicktimeMovLayout->setColumnStretch(3,1);
+
+    quicktimeMovLayout->setRowStretch(0,0);
+    quicktimeMovLayout->setRowStretch(5,1);
 
 
     quicktimeMovGrp->setLayout(quicktimeMovLayout);
