@@ -6,6 +6,7 @@
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include "platelisttab.h"
+#include "rendersettingtab.h"
 
 class CentralWidget : public QWidget
 {
@@ -27,6 +28,7 @@ private:
     QPushButton *downButton;
 
     PlateListTab *plateListTab;
+    RenderSettingTab *renderSettingTab;
 
 
 

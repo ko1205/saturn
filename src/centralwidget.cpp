@@ -7,6 +7,7 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QSpinBox>
+#include "rendersettingtab.h"
 
 //#include "dirselector.h"
 //#include <QDebug>
@@ -14,6 +15,8 @@
 CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 {
     plateListTab = new PlateListTab;
+    renderSettingTab = new RenderSettingTab;
+
     tab = new QTabWidget;
 //    tab->setDocumentMode(true);
 //    tab->setStyleSheet("QTabWidget:tab-bar { left: 0em;} QTabBar:tab:selected{background-color:darkgray}");
@@ -26,49 +29,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     /*
      * 변환 포멧 설정 화면
      */
-    QGroupBox *groupBox = new QGroupBox("Thumbnail Setting");
-    groupBox->setCheckable(true);
-    groupBox->setChecked(true);
-
-    QLabel *width = new QLabel("Width Size : ");
-    QLabel *height = new QLabel ("Height Size : ");
-
-    QSpinBox *widthSpin = new QSpinBox;
-    QSpinBox *heightSpin = new QSpinBox;
-
-    QLabel *label = new QLabel("Jpge Quality");
-    QSlider *slider = new QSlider(Qt::Horizontal);
-    QSpinBox *spinBox = new QSpinBox();
-
-
-    QGridLayout *inGroup = new QGridLayout;
-    QSpacerItem *spacer = new QSpacerItem(0,0);
-
-    inGroup->addWidget(width,0,0);
-    inGroup->addWidget(height,1,0);
-    inGroup->addWidget(widthSpin,0,1);
-    inGroup->addWidget(heightSpin,1,1);
-
-    inGroup->addWidget(label,2,0);
-    inGroup->addWidget(slider,2,1,1,2);
-    inGroup->addWidget(spinBox,2,3);
-
-    inGroup->addItem(spacer,3,0);
-
-    inGroup->setRowStretch(0,0);
-    inGroup->setRowStretch(1,0);
-    inGroup->setRowStretch(2,0);
-    inGroup->setRowStretch(3,1);
-
-    groupBox->setLayout(inGroup);
-
-    QVBoxLayout *tabMain = new QVBoxLayout;
-    tabMain->addWidget(groupBox);
-
-    QWidget *settingTab = new QWidget;
-    settingTab->setLayout(tabMain);
-
-    tab->addTab(settingTab,"setting");
+    tab->addTab(renderSettingTab,"setting");
 
     /*
      * 경로 설정 템플릿 화면
