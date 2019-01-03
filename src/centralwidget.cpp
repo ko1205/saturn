@@ -16,6 +16,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 {
     plateListTab = new PlateListTab;
     renderSettingTab = new RenderSettingTab;
+    dirSettingTab = new DirSettingTab;
 
     tab = new QTabWidget;
 //    tab->setDocumentMode(true);
@@ -34,7 +35,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     /*
      * 경로 설정 템플릿 화면
      */
-    tab->addTab(new QWidget,"path");
+    tab->addTab(dirSettingTab,"path");
 
     messageview = new QPlainTextEdit;
     messageview->setReadOnly(true);

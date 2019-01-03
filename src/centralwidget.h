@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include "platelisttab.h"
 #include "rendersettingtab.h"
+#include "dirsettingtab.h"
 
 class CentralWidget : public QWidget
 {
@@ -29,6 +30,7 @@ private:
 
     PlateListTab *plateListTab;
     RenderSettingTab *renderSettingTab;
+    DirSettingTab *dirSettingTab;
 
 
 
