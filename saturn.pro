@@ -30,7 +30,8 @@ SOURCES += src/main.cpp \
     src/searchthread.cpp \
     src/dpxreader.cpp\
     src/exrreader.cpp \
-    src/rendersettingtab.cpp
+    src/rendersettingtab.cpp \
+    src/plateviewdelegate.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -43,7 +44,8 @@ HEADERS += \
     src/dpxreader.h \
     src/DPXimage_Header.h\
     src/exrreader.h \
-    src/rendersettingtab.h
+    src/rendersettingtab.h \
+    src/plateviewdelegate.h
 
 INCLUDEPATH +=/usr/local/include/OpenEXR
 

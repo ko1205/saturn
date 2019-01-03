@@ -28,7 +28,8 @@ QVariant PlateItemModel::data(const QModelIndex &index, int role) const
             /*
              * 아래 scaled함수는 정리후 Delegate class로 이동 예정
              */
-            return item.thumbnail.scaled(300,100,Qt::KeepAspectRatio);
+//            return item.thumbnail.scaled(300,100,Qt::KeepAspectRatio);
+            return item.thumbnail;
         }else{
             return QVariant();
         }
@@ -42,11 +43,12 @@ QVariant PlateItemModel::data(const QModelIndex &index, int role) const
     case 2:
         if(role == Qt::DisplayRole)
         {
-            if(!item.singleFrame){
-                 return QString::number(item.frame.first) + "~" + QString::number(item.frame.second);
-            }else {
-                return "Single Frame";
-            }
+//            if(!item.singleFrame){
+//                 return QString::number(item.frame.first) + "~" + QString::number(item.frame.second);
+//            }else {
+//                return "Single Frame";
+//            }
+            return QVariant::fromValue(item.frame);
         }else{
             return QVariant();
         }

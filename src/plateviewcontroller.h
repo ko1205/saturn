@@ -15,6 +15,7 @@ public:
 signals:
 
 public slots:
+    void rowResiz(int index, int oldSize, int newSize);
 
 private:
     QTableView *plateSequenceView;
