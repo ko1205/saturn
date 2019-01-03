@@ -1,5 +1,6 @@
 #include "plateviewcontroller.h"
 #include "plateitemmodel.h"
+#include "plateviewdelegate.h"
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QDebug>
@@ -9,8 +10,10 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
 {
     plateSequenceView = new QTableView();
     model = new PlateItemModel();
+    PlateViewDelegate *delegate = new PlateViewDelegate;
 
     plateSequenceView->setModel(model);
+    plateSequenceView->setItemDelegate(delegate);
     QHeaderView *headerView = plateSequenceView->verticalHeader();
     headerView->setDefaultSectionSize(150);
 
@@ -37,6 +40,7 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
     resize(800,500);
 
     connect(clearButton,SIGNAL(clicked()),model,SLOT(clear()));
+    connect(plateSequenceView->verticalHeader(),SIGNAL(sectionResized(int,int,int)),this,SLOT(rowResiz(int,int,int)));
 
 }
 
@@ -47,6 +51,16 @@ void PlateViewController::findedSequence(PlateItem item)
 #endif
 //    PlateItem item;
     model->appendRow(item);
+}
+
+void PlateViewController::rowResiz(int index, int oldSize, int newSize)
+{
+    /*
+     * rowSize 일괄변경 함수;
+     */
+    for(int i =0; i < model->rowCount(QModelIndex());i++){
+    plateSequenceView->setRowHeight(i,newSize);
+    }
 }
 
 
