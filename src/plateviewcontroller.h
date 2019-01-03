@@ -11,11 +11,13 @@ class PlateViewController : public QWidget
 public:
     PlateViewController(QWidget *parent = 0);
     void findedSequence(PlateItem item);
+    int oldScrollMax;
 
 signals:
 
 public slots:
     void rowResiz(int index, int oldSize, int newSize);
+    void autoScroll(int min,int max);
 
 private:
     QTableView *plateSequenceView;

@@ -5,10 +5,12 @@
 #include <QPushButton>
 #include <QDebug>
 #include <QHeaderView>
+#include <QScrollBar>
 
 PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
 {
     plateSequenceView = new QTableView();
+    oldScrollMax = 0;
     model = new PlateItemModel();
     PlateViewDelegate *delegate = new PlateViewDelegate;
 
@@ -16,7 +18,6 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
     plateSequenceView->setItemDelegate(delegate);
     QHeaderView *headerView = plateSequenceView->verticalHeader();
     headerView->setDefaultSectionSize(150);
-
 
     QPushButton *upButton = new QPushButton("Up");
     QPushButton *downButton = new QPushButton("Down");
@@ -41,6 +42,7 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
 
     connect(clearButton,SIGNAL(clicked()),model,SLOT(clear()));
     connect(plateSequenceView->verticalHeader(),SIGNAL(sectionResized(int,int,int)),this,SLOT(rowResiz(int,int,int)));
+    connect(plateSequenceView->verticalScrollBar(),SIGNAL(rangeChanged(int,int)),this,SLOT(autoScroll(int,int)));
 
 }
 
@@ -58,9 +60,22 @@ void PlateViewController::rowResiz(int index, int oldSize, int newSize)
     /*
      * rowSize 일괄변경 함수;
      */
+    oldScrollMax = plateSequenceView->verticalScrollBar()->maximum();
+    disconnect(plateSequenceView->verticalHeader(),SIGNAL(sectionResized(int,int,int)),this,SLOT(rowResiz(int,int,int)));
+
     for(int i =0; i < model->rowCount(QModelIndex());i++){
     plateSequenceView->setRowHeight(i,newSize);
     }
+
+    connect(plateSequenceView->verticalHeader(),SIGNAL(sectionResized(int,int,int)),this,SLOT(rowResiz(int,int,int)));
 }
 
-
+void PlateViewController::autoScroll(int min, int max)
+{
+    int value = plateSequenceView->verticalScrollBar()->value();
+    if(value!=0){
+        float valuePerOldMax = (float)value/oldScrollMax;
+        plateSequenceView->verticalScrollBar()->setValue(valuePerOldMax*max);
+    }
+    oldScrollMax = max;
+}
