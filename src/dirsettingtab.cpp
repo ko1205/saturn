@@ -5,16 +5,9 @@
 
 DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
 {
-    QStandardItemModel *templateModel = new QStandardItemModel;
-
-    templateView = new QTreeView;
+    templateView = new TemplateView;
     preView = new QTreeView;
     propertyView = new QWidget;
-
-    templateModel->setHorizontalHeaderLabels(QStringList("TemplateView"));
-    templateView->setModel(templateModel);
-
-    templateModel->appendRow(new QStandardItem("/"));
 
     QSplitter *splitter = new QSplitter;
     splitter->addWidget(templateView);

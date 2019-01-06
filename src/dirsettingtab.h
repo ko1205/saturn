@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTreeView>
+#include "templateview.h"
 
 class DirSettingTab : public QWidget
 {
@@ -15,7 +16,7 @@ signals:
 public slots:
 
 private:
-    QTreeView *templateView;
+    TemplateView *templateView;
     QTreeView *preView;
     QWidget *propertyView;
 };
