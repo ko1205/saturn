@@ -17,6 +17,7 @@ public:
 public slots:
     void insertFolder();
     void deleteFolder();
+    void newFileSlot();
     void setRootFolderName();
 
 private:
@@ -27,6 +28,7 @@ private:
 
     QMenu *popupMenu;
     QAction *insertFolderAct;
+    QAction *newFile;
 
     QIcon folderIcon;
     QIcon fileIcon;

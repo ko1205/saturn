@@ -3,11 +3,33 @@
 #include <QGridLayout>
 #include <QStandardItemModel>
 
+#include <QLabel>
+#include <QLineEdit>
+#include <QComboBox>
+
 DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
 {
     templateView = new TemplateView;
     preView = new QTreeView;
     propertyView = new QWidget;
+
+    QLabel *label = new QLabel("Name : ");
+    QLineEdit *lineEdit = new QLineEdit();
+
+    QLabel *type = new QLabel("Type : ");
+    QComboBox *typeCombo =new QComboBox;
+    typeCombo->addItem("File Copy");
+    typeCombo->addItem("Thumbnail");
+    typeCombo->addItem("Jpeg proxy");
+    typeCombo->addItem("PreView Mov");
+
+    QGridLayout *layoutTmp = new QGridLayout;
+    layoutTmp->addWidget(label,0,0);
+    layoutTmp->addWidget(lineEdit,0,1);
+    layoutTmp->addWidget(type,1,0);
+    layoutTmp->addWidget(typeCombo,1,1);
+
+    propertyView->setLayout(layoutTmp);
 
     QSplitter *splitter = new QSplitter;
     splitter->addWidget(templateView);
@@ -18,6 +40,8 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
 
     layout->addWidget(splitter,0,0);
     layout->addWidget(propertyView,0,1);
+    layout->setColumnStretch(0,1);
+    layout->setColumnStretch(1,0);
 
     setLayout(layout);
 

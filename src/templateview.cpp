@@ -14,10 +14,13 @@ TemplateView::TemplateView(QWidget *parent)
 
     popupMenu = new QMenu(this);
     insertFolderAct = new QAction("Create Folder",this);
+    newFile = new QAction("Create File",this);
 
     popupMenu->addAction(insertFolderAct);
+    popupMenu->addAction(newFile);
 
     connect(insertFolderAct,SIGNAL(triggered(bool)),this,SLOT(insertFolder()));
+    connect(newFile,SIGNAL(triggered(bool)),this,SLOT(newFileSlot()));
 
 }
 
@@ -51,7 +54,16 @@ void TemplateView::insertFolder()
     newFolder->setIcon(folderIcon);
 //    index == rootIndex() ||
     templateModel->itemFromIndex(index)->appendRow(newFolder);
+    expand(index);
+}
 
+void TemplateView::newFileSlot()
+{
+    QModelIndex index = currentIndex();
+    QStandardItem *newFile = new QStandardItem("newFilew");
+    newFile->setIcon(fileIcon);
+    templateModel->itemFromIndex(index)->appendRow(newFile);
+    expand(index);
 }
 
 void TemplateView::deleteFolder()
