@@ -19,6 +19,8 @@ public slots:
     void deleteFolder();
     void newFileSlot();
     void setRootFolderName();
+    bool checkSameName(QString name,bool isFolder,const QModelIndex &parent);
+    QString autoRename(QString name,bool isFolder,const QModelIndex &parent,int count = 0);
 
 private:
     void createIcon();

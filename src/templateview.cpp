@@ -5,7 +5,7 @@ TemplateView::TemplateView(QWidget *parent)
 {
     templateModel = new QStandardItemModel;
 
-    templateModel->setHorizontalHeaderLabels(QStringList()<<"TemplateView" << "type");
+    templateModel->setHorizontalHeaderLabels(QStringList()<<"Name" << "Type");
 
     createIcon();
     createRootFolder();
@@ -58,7 +58,10 @@ void TemplateView::insertFolder()
     {
         index = index.parent();
     }
-    QStandardItem *newFolder = new QStandardItem("test_Folder");
+    QString folderName = "NewFolder%1";
+//    folderName.arg("test Code");
+    QString sub = autoRename(folderName,true,index);
+    QStandardItem *newFolder = new QStandardItem(folderName.arg(sub));
     newFolder->setData(true,Qt::UserRole);
     newFolder->setIcon(folderIcon);
     templateModel->itemFromIndex(index)->appendRow(QList<QStandardItem*>()<<newFolder << new QStandardItem("folder"));
@@ -97,4 +100,38 @@ void TemplateView::deleteFolder()
 void TemplateView::setRootFolderName()
 {
 
+}
+
+bool TemplateView::checkSameName(QString name,bool isFolder, const QModelIndex &parent)
+{
+    int rowCount = templateModel->rowCount(parent);
+    for(int i=0;i<rowCount;i++)
+    {
+        QString rowName = parent.child(i,0).data().toString();
+        bool rowIsFolder = parent.child(i,1).data().toBool();
+       if(rowName.toUpper() == name.toUpper() && isFolder == rowIsFolder)
+       {
+           return true;
+       }
+    }
+    return false;
+}
+
+QString TemplateView::autoRename(QString name, bool isFolder, const QModelIndex &parent,int count)
+{
+    if(count == 0){
+        if(checkSameName(name.arg(""),isFolder,parent))
+        {
+            return autoRename(name,isFolder,parent,1);
+        }else{
+            return QString("");
+        }
+    }else{
+        if(checkSameName(name.arg("("+QString::number(count)+")"),isFolder,parent))
+        {
+            return autoRename(name,isFolder,parent,++count);
+        }else{
+            return QString("(%1)").arg(QString::number(count));
+        }
+    }
 }
