@@ -1,4 +1,5 @@
 #include "templateview.h"
+#include <QMessageBox>
 
 TemplateView::TemplateView(QWidget *parent)
     :QTreeView(parent)
@@ -19,9 +20,16 @@ TemplateView::TemplateView(QWidget *parent)
     popupMenu->addAction(insertFolderAct);
     popupMenu->addAction(newFile);
 
+    /*
+     * 현재 enter key로 edit 모드 진입시 old name이 저장 되지 않으므로
+     * delegate 에서 재구현 할때 까지 DoubleClick 시에만 edit가 되도록 설정
+     */
+    setEditTriggers(QAbstractItemView::DoubleClicked);
+
     connect(insertFolderAct,SIGNAL(triggered(bool)),this,SLOT(insertFolder()));
     connect(newFile,SIGNAL(triggered(bool)),this,SLOT(newFileSlot()));
-
+    connect(this,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(storOldName(QModelIndex)));
+    connect(templateModel,SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),this,SLOT(checkRename(QModelIndex)));
 }
 
 void TemplateView::createIcon()
@@ -38,7 +46,9 @@ void TemplateView::createRootFolder()
     rootItem = new QStandardItem("/");
     rootItem->setData(true,Qt::UserRole);
     rootItem->setIcon(folderIcon);
-    templateModel->appendRow(QList<QStandardItem*>()<<rootItem << new QStandardItem("folder"));
+    QStandardItem *type = new QStandardItem("folder");
+    type->setEditable(false);
+    templateModel->appendRow(QList<QStandardItem*>()<<rootItem << type);
     rootItem->setEditable(false);
 }
 
@@ -64,7 +74,9 @@ void TemplateView::insertFolder()
     QStandardItem *newFolder = new QStandardItem(folderName.arg(sub));
     newFolder->setData(true,Qt::UserRole);
     newFolder->setIcon(folderIcon);
-    templateModel->itemFromIndex(index)->appendRow(QList<QStandardItem*>()<<newFolder << new QStandardItem("folder"));
+    QStandardItem *type = new QStandardItem("folder");
+    type->setEditable(false);
+    templateModel->itemFromIndex(index)->appendRow(QList<QStandardItem*>()<< newFolder << type);
 
     /*
      * 1차 nameing 순으로 정렬후 다시 타입 순으로 정렬 parent폴더 expand;
@@ -83,10 +95,14 @@ void TemplateView::newFileSlot()
     {
         index = index.parent();
     }
-    QStandardItem *newFile = new QStandardItem("newFilew");
+    QString fileName = "NewFile%1";
+    QString sub = autoRename(fileName,false,index);
+    QStandardItem *newFile = new QStandardItem(fileName.arg(sub));
     newFile->setData(false,Qt::UserRole);
     newFile->setIcon(fileIcon);
-    templateModel->itemFromIndex(index)->appendRow(QList<QStandardItem*>()<<newFile << new QStandardItem("file"));
+    QStandardItem *type = new QStandardItem("file");
+    type->setEditable(false);
+    templateModel->itemFromIndex(index)->appendRow(QList<QStandardItem*>()<<newFile << type);
     rootItem->sortChildren(0);
     rootItem->sortChildren(1,Qt::DescendingOrder);
     expand(index);
@@ -102,19 +118,20 @@ void TemplateView::setRootFolderName()
 
 }
 
-bool TemplateView::checkSameName(QString name,bool isFolder, const QModelIndex &parent)
+int TemplateView::checkSameName(QString name,bool isFolder, const QModelIndex &parent)
 {
+    int count = 0;
     int rowCount = templateModel->rowCount(parent);
     for(int i=0;i<rowCount;i++)
     {
         QString rowName = parent.child(i,0).data().toString();
-        bool rowIsFolder = parent.child(i,1).data().toBool();
+        bool rowIsFolder = parent.child(i,0).data(Qt::UserRole).toBool();
        if(rowName.toUpper() == name.toUpper() && isFolder == rowIsFolder)
        {
-           return true;
+           count++;
        }
     }
-    return false;
+    return count;
 }
 
 QString TemplateView::autoRename(QString name, bool isFolder, const QModelIndex &parent,int count)
@@ -134,4 +151,31 @@ QString TemplateView::autoRename(QString name, bool isFolder, const QModelIndex 
             return QString("(%1)").arg(QString::number(count));
         }
     }
+}
+
+void TemplateView::storOldName(const QModelIndex &index)
+{
+    oldName = index.data().toString();
+}
+
+void TemplateView::checkRename(const QModelIndex &index)
+{
+    /*
+     * 이름 체크 부분에서 enter key 로 수정 모드 진입시 old name 저장이 되지 않는다.
+     * 나중에 delegate에서 edit 모드 진입시에 체크 하게 변경할 필요 있음
+     */
+    QString newName = index.data().toString();
+    bool isFolder = index.data(Qt::UserRole).toBool();
+    QModelIndex parent = index.parent();
+    bool isSameName = false;
+    QRegExp rx("[\\\\ \\/ \\: \? \" \\* \\< \\> \\|]");
+    if(checkSameName(newName,isFolder,parent) == 2)
+    {
+        templateModel->setData(index,oldName,Qt::DisplayRole);
+        QMessageBox::information(this,tr("Information"),tr("That Name Already Exists"),QMessageBox::Yes);
+    }else if(newName.contains(rx)){
+        templateModel->setData(index,oldName,Qt::DisplayRole);
+        QMessageBox::information(this,"","Can not use \\ / : * ? \" < >",QMessageBox::Yes);
+    }
+
 }

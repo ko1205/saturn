@@ -43,6 +43,8 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     layout->setColumnStretch(0,1);
     layout->setColumnStretch(1,0);
 
+    label->setVisible(false);
+    lineEdit->setVisible(false);
     setLayout(layout);
 
 }

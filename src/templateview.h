@@ -19,12 +19,13 @@ public slots:
     void deleteFolder();
     void newFileSlot();
     void setRootFolderName();
-    bool checkSameName(QString name,bool isFolder,const QModelIndex &parent);
-    QString autoRename(QString name,bool isFolder,const QModelIndex &parent,int count = 0);
 
 private:
     void createIcon();
     void createRootFolder();
+    int checkSameName(QString name,bool isFolder,const QModelIndex &parent);
+    QString autoRename(QString name,bool isFolder,const QModelIndex &parent,int count = 0);
+
     QStandardItemModel *templateModel;
     QStandardItem *rootItem;
 
@@ -34,6 +35,12 @@ private:
 
     QIcon folderIcon;
     QIcon fileIcon;
+
+    QString oldName;
+
+private slots:
+    void storOldName(const QModelIndex &index);
+    void checkRename(const QModelIndex &index);
 
 };
 
