@@ -59,6 +59,20 @@ QVariant PlateItemModel::data(const QModelIndex &index, int role) const
         }else{
             return QVariant();
         }
+    case 4:
+        if(role == Qt::DisplayRole)
+        {
+            return item.secne;
+        }else{
+            return QVariant();
+        }
+    case 5:
+        if(role == Qt::DisplayRole)
+        {
+            return item.shot;
+        }else{
+            return QVariant();
+        }
 
     default:
         return QVariant();
@@ -121,6 +135,34 @@ QVariant PlateItemModel::headerData(int section, Qt::Orientation orientation, in
     }else{
         return section+1;
     }
+}
+
+Qt::ItemFlags PlateItemModel::flags(const QModelIndex &index) const
+{
+    if(index.column() == 4 || index.column() == 5)
+    {
+        return Qt::ItemIsSelectable
+                |Qt::ItemIsEnabled
+                |Qt::ItemIsEditable;
+    }else{
+        return Qt::ItemIsSelectable
+                |Qt::ItemIsEnabled;
+    }
+}
+
+bool PlateItemModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if(index.column() == 4)
+    {
+        items[index.row()].secne = value.toString();
+        emit dataChanged(index, index, {role});
+        return true;
+   }else if(index.column() == 5){
+        items[index.row()].shot = value.toString();
+        emit dataChanged(index, index, {role});
+        return true;
+    }
+    return false;
 }
 
 void PlateItemModel::appendRow(PlateItem item)
