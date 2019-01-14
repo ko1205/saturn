@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTreeView>
 #include "templateview.h"
+#include "pathpreview.h"
 
 class DirSettingTab : public QWidget
 {
@@ -17,7 +18,7 @@ public slots:
 
 private:
     TemplateView *templateView;
-    QTreeView *preView;
+    PathPreView *preView;
     QWidget *propertyView;
 };
 

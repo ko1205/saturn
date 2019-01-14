@@ -33,7 +33,8 @@ SOURCES += src/main.cpp \
     src/rendersettingtab.cpp \
     src/plateviewdelegate.cpp \
     src/dirsettingtab.cpp \
-    src/templateview.cpp
+    src/templateview.cpp \
+    src/pathpreview.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -49,7 +50,8 @@ HEADERS += \
     src/rendersettingtab.h \
     src/plateviewdelegate.h \
     src/dirsettingtab.h \
-    src/templateview.h
+    src/templateview.h \
+    src/pathpreview.h
 
 INCLUDEPATH +=/usr/local/include/OpenEXR
 

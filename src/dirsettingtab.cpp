@@ -10,8 +10,10 @@
 DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
 {
     templateView = new TemplateView;
-    preView = new QTreeView;
+    preView = new PathPreView;
     propertyView = new QWidget;
+
+    preView->setTemplateModel(templateView->model());
 
     QLabel *label = new QLabel("Name : ");
     QLineEdit *lineEdit = new QLineEdit();
