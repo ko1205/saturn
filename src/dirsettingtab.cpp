@@ -14,6 +14,7 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     propertyView = new QWidget;
 
     preView->setTemplateModel(templateView->model());
+    templateView->setPathPreview(preView);
 
     QLabel *label = new QLabel("Name : ");
     QLineEdit *lineEdit = new QLineEdit();
@@ -49,4 +50,9 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     lineEdit->setVisible(false);
     setLayout(layout);
 
+}
+
+void DirSettingTab::setPlateLIstModel(QAbstractItemModel *model)
+{
+    preView->setPlateListModel(model);
 }

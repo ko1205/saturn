@@ -52,3 +52,8 @@ void PlateListTab::searchCancel()
 {
     searchThread->setStatus();
 }
+
+QAbstractItemModel *PlateListTab::getTableModel()
+{
+    return plateViewController->getModel();
+}

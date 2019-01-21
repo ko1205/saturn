@@ -10,16 +10,22 @@ class PathPreView : public QTreeView
 public:
     PathPreView(QWidget *parent=0);
     void setTemplateModel(QAbstractItemModel *model);
+    void setPlateListModel(QAbstractItemModel *model);
+    void updatePrevew();
 
 private:
     void createIcon();
     void createRootFolder();
-    void readTemplateView();
+    QStandardItem  *readTemplateViewLoop(QModelIndex &index,QModelIndex &previewIndex,QStandardItem *parentItem = 0, int deepth = 0);
+    QString replaceName(QString Name,int num);
+    QStandardItem *testFunc(int num,QStandardItem *templateItem,QStandardItem *preViewParentItem = 0);
     QStandardItemModel *preViewModel;
     QStandardItemModel *templateModel;
     QIcon folderIcon;
     QIcon fileIcon;
     QStandardItem *rootItem;
+
+    QAbstractItemModel *plateListModel;
 };
 
 #endif // PATHPREVIEW_H

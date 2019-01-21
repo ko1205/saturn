@@ -1,5 +1,7 @@
 #include "templateview.h"
 #include <QMessageBox>
+#include <QShortcut>
+#include <QDebug>
 
 TemplateView::TemplateView(QWidget *parent)
     :QTreeView(parent)
@@ -16,9 +18,12 @@ TemplateView::TemplateView(QWidget *parent)
     popupMenu = new QMenu(this);
     insertFolderAct = new QAction("Create Folder",this);
     newFile = new QAction("Create File",this);
+    deleteAct = new QAction("Delete",this);
 
     popupMenu->addAction(insertFolderAct);
     popupMenu->addAction(newFile);
+    popupMenu->addSeparator();
+    popupMenu->addAction(deleteAct);
 
     /*
      * 현재 enter key로 edit 모드 진입시 old name이 저장 되지 않으므로
@@ -26,9 +31,17 @@ TemplateView::TemplateView(QWidget *parent)
      */
     setEditTriggers(QAbstractItemView::DoubleClicked);
 
+    /*
+     * deletekey 삭제 기능
+     */
+//    QShortcut *deleteKey = new QShortcut(QKeySequence(Qt::Key_Delete),this);
+    QShortcut *deleteKey = new QShortcut(QKeySequence(Qt::Key_Backspace),this);
+
     connect(insertFolderAct,SIGNAL(triggered(bool)),this,SLOT(insertFolder()));
     connect(newFile,SIGNAL(triggered(bool)),this,SLOT(newFileSlot()));
+    connect(deleteAct,SIGNAL(triggered(bool)),this,SLOT(deleteFolder()));
     connect(this,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(storOldName(QModelIndex)));
+    connect(deleteKey,SIGNAL(activated()),this,SLOT(deleteFolder()));
     connect(templateModel,SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),this,SLOT(checkRename(QModelIndex)));
 }
 
@@ -86,6 +99,7 @@ void TemplateView::insertFolder()
     rootItem->sortChildren(0);
     rootItem->sortChildren(1,Qt::DescendingOrder);
     expand(index);
+    pathPreviewIns->updatePrevew();
 }
 
 void TemplateView::newFileSlot()
@@ -106,10 +120,19 @@ void TemplateView::newFileSlot()
     rootItem->sortChildren(0);
     rootItem->sortChildren(1,Qt::DescendingOrder);
     expand(index);
+    pathPreviewIns->updatePrevew();
 }
 
 void TemplateView::deleteFolder()
 {
+    QModelIndex index = currentIndex();
+    QStandardItem *item = templateModel->itemFromIndex(index);
+    if(item != rootItem)
+    {
+        templateModel->removeRow(index.row(),item->parent()->index());
+        qDebug()<<"delete Key!!!";
+        pathPreviewIns->updatePrevew();
+    }
 
 }
 
@@ -177,5 +200,11 @@ void TemplateView::checkRename(const QModelIndex &index)
         templateModel->setData(index,oldName,Qt::DisplayRole);
         QMessageBox::information(this,"","Can not use \\ / : * ? \" < >",QMessageBox::Yes);
     }
+    pathPreviewIns->updatePrevew();
 
+}
+
+void TemplateView::setPathPreview(PathPreView *preview)
+{
+    pathPreviewIns = preview;
 }

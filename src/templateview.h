@@ -6,6 +6,7 @@
 #include <QMenu>
 #include <QAction>
 #include <QContextMenuEvent>
+#include "pathpreview.h"
 
 class TemplateView : public QTreeView
 {
@@ -13,6 +14,8 @@ class TemplateView : public QTreeView
 public:
     TemplateView(QWidget *parent = 0);
     void contextMenuEvent(QContextMenuEvent *event) override;
+    void setPathPreview(PathPreView *preview);
+
 
 public slots:
     void insertFolder();
@@ -32,11 +35,13 @@ private:
     QMenu *popupMenu;
     QAction *insertFolderAct;
     QAction *newFile;
+    QAction *deleteAct;
 
     QIcon folderIcon;
     QIcon fileIcon;
 
     QString oldName;
+    PathPreView *pathPreviewIns;
 
 private slots:
     void storOldName(const QModelIndex &index);

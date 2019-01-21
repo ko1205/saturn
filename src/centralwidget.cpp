@@ -18,6 +18,8 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     renderSettingTab = new RenderSettingTab;
     dirSettingTab = new DirSettingTab;
 
+    dirSettingTab->setPlateLIstModel(plateListTab->getTableModel());
+
     tab = new QTabWidget;
 //    tab->setDocumentMode(true);
 //    tab->setStyleSheet("QTabWidget:tab-bar { left: 0em;} QTabBar:tab:selected{background-color:darkgray}");

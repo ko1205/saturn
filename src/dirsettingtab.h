@@ -11,6 +11,7 @@ class DirSettingTab : public QWidget
     Q_OBJECT
 public:
     DirSettingTab(QWidget *parent = 0);
+    void setPlateLIstModel(QAbstractItemModel* model);
 
 signals:
 

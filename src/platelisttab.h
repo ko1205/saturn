@@ -11,6 +11,7 @@ class PlateListTab : public QWidget
     Q_OBJECT
 public:
     PlateListTab(QWidget *parent = 0);
+    QAbstractItemModel *getTableModel();
 
 signals:
     void searchingDir(QString dir);

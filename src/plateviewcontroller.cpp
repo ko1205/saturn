@@ -79,3 +79,8 @@ void PlateViewController::autoScroll(int min, int max)
     }
     oldScrollMax = max;
 }
+
+QAbstractItemModel *PlateViewController::getModel()
+{
+    return model;
+}

@@ -12,6 +12,7 @@ public:
     PlateViewController(QWidget *parent = 0);
     void findedSequence(PlateItem item);
     int oldScrollMax;
+    QAbstractItemModel *getModel();
 
 signals:
 
