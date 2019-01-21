@@ -43,6 +43,7 @@ TemplateView::TemplateView(QWidget *parent)
     connect(this,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(storOldName(QModelIndex)));
     connect(deleteKey,SIGNAL(activated()),this,SLOT(deleteFolder()));
     connect(templateModel,SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),this,SLOT(checkRename(QModelIndex)));
+    connect(this,SIGNAL(clicked(QModelIndex)),this,SLOT(setinfo(QModelIndex)));
 }
 
 void TemplateView::createIcon()
@@ -73,6 +74,10 @@ void TemplateView::contextMenuEvent(QContextMenuEvent *event)
 void TemplateView::insertFolder()
 {
     QModelIndex index = currentIndex();
+    if(index.column() != 0)
+    {
+        index = templateModel->index(index.row(),0,index.parent());
+    }
     /*
      * 선택된 Item이 폴더일 경우에만 children 생성
      * 폴더일떄 와 파일일때 함수구조가 같으므로 나중에 하나의 함수로 통합정리
@@ -126,6 +131,10 @@ void TemplateView::newFileSlot()
 void TemplateView::deleteFolder()
 {
     QModelIndex index = currentIndex();
+    if(index.column() != 0)
+    {
+        index = templateModel->index(index.row(),0,index.parent());
+    }
     QStandardItem *item = templateModel->itemFromIndex(index);
     if(item != rootItem)
     {
@@ -151,6 +160,9 @@ int TemplateView::checkSameName(QString name,bool isFolder, const QModelIndex &p
         bool rowIsFolder = parent.child(i,0).data(Qt::UserRole).toBool();
        if(rowName.toUpper() == name.toUpper() && isFolder == rowIsFolder)
        {
+           /*
+            * 항상 자기 자신 한개가 존재 하므로 bool 형으로 처리가 되지 않아 count 로 2개 이상일때 를 체크
+            */
            count++;
        }
     }
@@ -207,4 +219,9 @@ void TemplateView::checkRename(const QModelIndex &index)
 void TemplateView::setPathPreview(PathPreView *preview)
 {
     pathPreviewIns = preview;
+}
+
+void TemplateView::setinfo(const QModelIndex &index)
+{
+    qDebug() << templateModel->data(index,Qt::DisplayRole).toString();
 }

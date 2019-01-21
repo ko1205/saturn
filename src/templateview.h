@@ -46,7 +46,7 @@ private:
 private slots:
     void storOldName(const QModelIndex &index);
     void checkRename(const QModelIndex &index);
-
+    void setinfo(const QModelIndex &index);
 };
 
 #endif // TEMPLATEVIEW_H
