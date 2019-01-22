@@ -58,7 +58,7 @@ void TemplateView::createIcon()
 void TemplateView::createRootFolder()
 {
     rootItem = new QStandardItem("/");
-    rootItem->setData(true,Qt::UserRole);
+    rootItem->setData(0,Qt::UserRole);
     rootItem->setIcon(folderIcon);
     QStandardItem *type = new QStandardItem("folder");
     type->setEditable(false);
@@ -82,15 +82,15 @@ void TemplateView::insertFolder()
      * 선택된 Item이 폴더일 경우에만 children 생성
      * 폴더일떄 와 파일일때 함수구조가 같으므로 나중에 하나의 함수로 통합정리
      */
-    if(!index.data(Qt::UserRole).toBool())
+    if(index.data(Qt::UserRole).toInt())
     {
         index = index.parent();
     }
     QString folderName = "NewFolder%1";
 //    folderName.arg("test Code");
-    QString sub = autoRename(folderName,true,index);
+    QString sub = autoRename(folderName,0,index);
     QStandardItem *newFolder = new QStandardItem(folderName.arg(sub));
-    newFolder->setData(true,Qt::UserRole);
+    newFolder->setData(0,Qt::UserRole);
     newFolder->setIcon(folderIcon);
     QStandardItem *type = new QStandardItem("folder");
     type->setEditable(false);
@@ -110,14 +110,14 @@ void TemplateView::insertFolder()
 void TemplateView::newFileSlot()
 {
     QModelIndex index = currentIndex();
-    if(!index.data(Qt::UserRole).toBool())
+    if(index.data(Qt::UserRole).toInt())
     {
         index = index.parent();
     }
     QString fileName = "NewFile%1";
-    QString sub = autoRename(fileName,false,index);
+    QString sub = autoRename(fileName,1,index);
     QStandardItem *newFile = new QStandardItem(fileName.arg(sub));
-    newFile->setData(false,Qt::UserRole);
+    newFile->setData(1,Qt::UserRole);
     newFile->setIcon(fileIcon);
     QStandardItem *type = new QStandardItem("file");
     type->setEditable(false);
@@ -150,14 +150,14 @@ void TemplateView::setRootFolderName()
 
 }
 
-int TemplateView::checkSameName(QString name,bool isFolder, const QModelIndex &parent)
+int TemplateView::checkSameName(QString name,int isFolder, const QModelIndex &parent)
 {
     int count = 0;
     int rowCount = templateModel->rowCount(parent);
     for(int i=0;i<rowCount;i++)
     {
         QString rowName = parent.child(i,0).data().toString();
-        bool rowIsFolder = parent.child(i,0).data(Qt::UserRole).toBool();
+        int rowIsFolder = parent.child(i,0).data(Qt::UserRole).toInt();
        if(rowName.toUpper() == name.toUpper() && isFolder == rowIsFolder)
        {
            /*
@@ -169,7 +169,7 @@ int TemplateView::checkSameName(QString name,bool isFolder, const QModelIndex &p
     return count;
 }
 
-QString TemplateView::autoRename(QString name, bool isFolder, const QModelIndex &parent,int count)
+QString TemplateView::autoRename(QString name, int isFolder, const QModelIndex &parent,int count)
 {
     if(count == 0){
         if(checkSameName(name.arg(""),isFolder,parent))
@@ -200,7 +200,7 @@ void TemplateView::checkRename(const QModelIndex &index)
      * 나중에 delegate에서 edit 모드 진입시에 체크 하게 변경할 필요 있음
      */
     QString newName = index.data().toString();
-    bool isFolder = index.data(Qt::UserRole).toBool();
+    int isFolder = index.data(Qt::UserRole).toInt();
     QModelIndex parent = index.parent();
     bool isSameName = false;
     QRegExp rx("[\\\\ \\/ \\: \? \" \\* \\< \\> \\|]");
@@ -223,5 +223,14 @@ void TemplateView::setPathPreview(PathPreView *preview)
 
 void TemplateView::setinfo(const QModelIndex &index)
 {
-    qDebug() << templateModel->data(index,Qt::DisplayRole).toString();
+    QModelIndex newIndex = index;
+    QStandardItem *item;
+
+    if(index.column() != 0)
+    {
+        newIndex = templateModel->index(index.row(),0,index.parent());
+    }
+    qDebug() << templateModel->data(newIndex,Qt::DisplayRole).toString();
+    item = templateModel->itemFromIndex(newIndex);
+    emit itemClickedView(item);
 }

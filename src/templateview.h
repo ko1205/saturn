@@ -16,6 +16,8 @@ public:
     void contextMenuEvent(QContextMenuEvent *event) override;
     void setPathPreview(PathPreView *preview);
 
+signals:
+    void itemClickedView(QStandardItem *item);
 
 public slots:
     void insertFolder();
@@ -26,8 +28,8 @@ public slots:
 private:
     void createIcon();
     void createRootFolder();
-    int checkSameName(QString name,bool isFolder,const QModelIndex &parent);
-    QString autoRename(QString name,bool isFolder,const QModelIndex &parent,int count = 0);
+    int checkSameName(QString name,int isFolder,const QModelIndex &parent);
+    QString autoRename(QString name,int isFolder,const QModelIndex &parent,int count = 0);
 
     QStandardItemModel *templateModel;
     QStandardItem *rootItem;
