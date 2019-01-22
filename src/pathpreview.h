@@ -17,7 +17,7 @@ private:
     void createIcon();
     void createRootFolder();
     QStandardItem  *readTemplateViewLoop(QModelIndex &index,QModelIndex &previewIndex,QStandardItem *parentItem = 0, int deepth = 0);
-    QString replaceName(QString Name,int num);
+    QString replaceName(QStandardItem *item, int num);
     QStandardItem *testFunc(int num,QStandardItem *templateItem,QStandardItem *preViewParentItem = 0);
     QStandardItemModel *preViewModel;
     QStandardItemModel *templateModel;

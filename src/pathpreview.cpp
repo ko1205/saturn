@@ -1,4 +1,5 @@
 #include "pathpreview.h"
+#include <QFileInfo>
 #include <QMessageBox>
 #include <QDebug>
 
@@ -27,7 +28,9 @@ void PathPreView::createRootFolder()
 {
     rootItem = new QStandardItem("/");
     rootItem->setIcon(folderIcon);
-    preViewModel->appendRow(rootItem);
+    QStandardItem *type = new QStandardItem("folder");
+    preViewModel->appendRow(QList<QStandardItem*>() << rootItem << type);
+
 }
 
 void PathPreView::setTemplateModel(QAbstractItemModel *model)
@@ -102,27 +105,110 @@ void PathPreView::updatePrevew()
 //    qDebug() << templateModel->rowCount(templateModel->index(0,0));
 }
 
-QString PathPreView::replaceName(QString Name,int num)
+QString PathPreView::replaceName(QStandardItem *item, int num)
 {
+    int pending;
+    int start;
+    int end;
+//    int step;
+    QModelIndex index = plateListModel->index(num,2);
+    QPair<long long,long long> frame = qvariant_cast<QPair<long long, long long>>(index.data());
+    index = plateListModel->index(num,1);
+    QString orgName = index.data().toString();
+    QFileInfo orgFileInfo(orgName);
+
+    QString name = item->data(Qt::DisplayRole).toString();
+    int type = item->data(Qt::UserRole).toInt();
+
     QModelIndex sceneIndex = plateListModel->index(num,4);
     QString sceneData = plateListModel->data(sceneIndex).toString();
-    Name.replace("[scene]",sceneData);
+    name.replace("[scene]",sceneData);
 
     QModelIndex shotIndex = plateListModel->index(num,5);
     QString shotData = plateListModel->data(shotIndex).toString();
-    Name.replace("[shot]",shotData);
+    name.replace("[shot]",shotData);
 
-    return Name;
+    name.replace("[filename]",orgFileInfo.baseName().replace("#",""));
+
+    switch (type) {
+    case 1:
+        if(frame.first != frame.second)
+        {
+            if(item->data(Qt::UserRole+3).toBool())
+            {
+                pending = item->data(Qt::UserRole+1).toInt();
+                start = item->data(Qt::UserRole+2).toInt();
+                end = start + (frame.second - frame.first);
+            }else{
+                pending = orgName.count('#');
+                start = frame.first;
+                end = frame.second;
+            }
+            if(name != "")
+            {
+                name = name+".";
+            }
+            name = (name+"[%1-%2].ext").arg(start,pending,10,QLatin1Char('0')).arg(end,pending,10,QLatin1Char('0'));
+        }else{
+            if(!item->data(Qt::UserRole+3).toBool())
+            {
+                name = orgName;
+            }
+        }
+        break;
+    case 2:
+        if(frame.first == frame.second && name == "")
+        {
+            name = orgFileInfo.completeBaseName() + ".jpg";
+        }else{
+            name = name + ".jpg";
+        }
+        break;
+    case 3:
+        if(frame.first != frame.second)
+        {
+            if(item->data(Qt::UserRole+3).toBool())
+            {
+                pending = item->data(Qt::UserRole+1).toInt();
+                start = item->data(Qt::UserRole+2).toInt();
+                end = start + (frame.second - frame.first);
+            }else{
+                pending = orgName.count('#');
+                start = frame.first;
+                end = frame.second;
+            }
+            if(name != "")
+            {
+                name = name+".";
+            }
+            name = (name+"[%1-%2].jpg").arg(start,pending,10,QLatin1Char('0')).arg(end,pending,10,QLatin1Char('0'));
+        }else{
+            if(!item->data(Qt::UserRole+3).toBool())
+            {
+                name = orgName;
+            }
+        }
+        break;
+    case 4:
+        name = name + ".mov";
+        break;
+
+    default:
+        break;
+    }
+
+    return name;
 }
 
 QStandardItem *PathPreView::testFunc(int num,QStandardItem *templateItem,QStandardItem *preViewParentItem)
 {
     bool hasSameItem = false;
     QStandardItem *item;
+    QStandardItem *type;
     int previewRowCount;
     QString templatName = templateItem->data(Qt::DisplayRole).toString();
     int templateIsFolder = templateItem->data(Qt::UserRole).toInt();
-    templatName = replaceName(templatName,num);
+    templatName = replaceName(templateItem,num);
     if(preViewParentItem)
     {
         previewRowCount = preViewParentItem->rowCount();
@@ -155,21 +241,50 @@ QStandardItem *PathPreView::testFunc(int num,QStandardItem *templateItem,QStanda
     }
     if(!hasSameItem)
     {
-        if(!templateIsFolder)
-        {
+        switch (templateIsFolder) {
+        case 0:
             item = new QStandardItem(folderIcon,templatName);
             item->setData(0,Qt::UserRole);
-        }else{
+            type = new QStandardItem("folder");
+            break;
+        case 1:
             item = new QStandardItem(fileIcon,templatName);
             item->setData(1,Qt::UserRole);
+            type = new QStandardItem("file copy");
+            break;
+        case 2:
+            item = new QStandardItem(fileIcon,templatName);
+            item->setData(2,Qt::UserRole);
+            type = new QStandardItem("thumbnail");
+            break;
+        case 3:
+            item = new QStandardItem(fileIcon,templatName);
+            item->setData(3,Qt::UserRole);
+            type = new QStandardItem("jpeg proxy");
+            break;
+        case 4:
+            item = new QStandardItem(fileIcon,templatName);
+            item->setData(4,Qt::UserRole);
+            type = new QStandardItem("preview Mov");
+            break;
+        default:
+            break;
         }
+//        if(!templateIsFolder)
+//        {
+//            item = new QStandardItem(folderIcon,templatName);
+//            item->setData(0,Qt::UserRole);
+//        }else{
+//            item = new QStandardItem(fileIcon,templatName);
+//            item->setData(1,Qt::UserRole);
+//        }
 
         if(preViewParentItem)
         {
-            preViewParentItem->appendRow(item);
+            preViewParentItem->appendRow(QList<QStandardItem*>() << item << type);
             expandAll();
         }else{
-            preViewModel->appendRow(item);
+            preViewModel->appendRow(QList<QStandardItem*>() << item << type);
             expandAll();
         }
     }
