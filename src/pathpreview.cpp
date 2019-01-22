@@ -121,7 +121,7 @@ QStandardItem *PathPreView::testFunc(int num,QStandardItem *templateItem,QStanda
     QStandardItem *item;
     int previewRowCount;
     QString templatName = templateItem->data(Qt::DisplayRole).toString();
-    bool templateIsFolder = templateItem->data(Qt::UserRole).toBool();
+    int templateIsFolder = templateItem->data(Qt::UserRole).toInt();
     templatName = replaceName(templatName,num);
     if(preViewParentItem)
     {
@@ -130,7 +130,7 @@ QStandardItem *PathPreView::testFunc(int num,QStandardItem *templateItem,QStanda
         {
             QStandardItem *child =  preViewParentItem->child(i);
             QString childName = child->data(Qt::DisplayRole).toString();
-            bool childIsFolder = child->data(Qt::UserRole).toBool();
+            int childIsFolder = child->data(Qt::UserRole).toInt();
             if(templatName == childName && templateIsFolder == childIsFolder)
             {
                 hasSameItem = true;
@@ -145,7 +145,7 @@ QStandardItem *PathPreView::testFunc(int num,QStandardItem *templateItem,QStanda
             QModelIndex index = preViewModel->index(i,0);
             QStandardItem *child =  preViewModel->itemFromIndex(index);
             QString childName = child->data(Qt::DisplayRole).toString();
-            bool childIsFolder = child->data(Qt::UserRole).toBool();
+            int childIsFolder = child->data(Qt::UserRole).toInt();
             if(templatName == childName && templateIsFolder == childIsFolder)
             {
                 hasSameItem = true;
@@ -155,13 +155,13 @@ QStandardItem *PathPreView::testFunc(int num,QStandardItem *templateItem,QStanda
     }
     if(!hasSameItem)
     {
-        if(templateIsFolder)
+        if(!templateIsFolder)
         {
             item = new QStandardItem(folderIcon,templatName);
-            item->setData(true,Qt::UserRole);
+            item->setData(0,Qt::UserRole);
         }else{
             item = new QStandardItem(fileIcon,templatName);
-            item->setData(false,Qt::UserRole);
+            item->setData(1,Qt::UserRole);
         }
 
         if(preViewParentItem)
@@ -173,7 +173,7 @@ QStandardItem *PathPreView::testFunc(int num,QStandardItem *templateItem,QStanda
             expandAll();
         }
     }
-    if(templateIsFolder)
+    if(!templateIsFolder)
     {
         int templateChildCount = templateItem->rowCount();
         if(templateChildCount != 0)
