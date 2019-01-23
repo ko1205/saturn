@@ -5,7 +5,7 @@
 
 #include <QLabel>
 #include <QLineEdit>
-#include <QComboBox>
+//#include <QComboBox>
 
 DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
 {
@@ -20,11 +20,12 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     QLineEdit *lineEdit = new QLineEdit();
 
     QLabel *type = new QLabel("Type : ");
-    QComboBox *typeCombo =new QComboBox;
+    typeCombo =new QComboBox;
+//    typeCombo->addItem("folder");
     typeCombo->addItem("File Copy");
     typeCombo->addItem("Thumbnail");
     typeCombo->addItem("Jpeg proxy");
-    typeCombo->addItem("PreView Mov");
+    typeCombo->addItem("Preview Mov");
 
     QGridLayout *layoutTmp = new QGridLayout;
     layoutTmp->addWidget(label,0,0);
@@ -49,10 +50,50 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     label->setVisible(false);
     lineEdit->setVisible(false);
     setLayout(layout);
+    propertyView->setDisabled(true);
+
+    connect(templateView,SIGNAL(itemClickedView(QStandardItem*)),this,SLOT(connectItem(QStandardItem*)));
+    connect(typeCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(changeType(int)));
 
 }
 
 void DirSettingTab::setPlateLIstModel(QAbstractItemModel *model)
 {
     preView->setPlateListModel(model);
+}
+
+void DirSettingTab::connectItem(QStandardItem *item)
+{
+    currentItem = item;
+    int type = item->data(Qt::UserRole).toInt();
+
+    switch (type) {
+    case 0:
+        propertyView->setDisabled(true);
+        break;
+    case 1:
+        propertyView->setDisabled(false);
+        typeCombo->setCurrentIndex(0);
+        break;
+    case 2:
+        propertyView->setDisabled(false);
+        typeCombo->setCurrentIndex(1);
+        break;
+    case 3:
+        propertyView->setDisabled(false);
+        typeCombo->setCurrentIndex(2);
+        break;
+    case 4:
+        propertyView->setDisabled(false);
+        typeCombo->setCurrentIndex(3);
+        break;
+
+    default:
+        break;
+    }
+}
+
+void DirSettingTab::changeType(int index)
+{
+    currentItem->setData(index+1,Qt::UserRole);
 }

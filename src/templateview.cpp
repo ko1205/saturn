@@ -110,6 +110,10 @@ void TemplateView::insertFolder()
 void TemplateView::newFileSlot()
 {
     QModelIndex index = currentIndex();
+    if(index.column() != 0)
+    {
+        index = templateModel->index(index.row(),0,index.parent());
+    }
     if(index.data(Qt::UserRole).toInt())
     {
         index = index.parent();
@@ -205,15 +209,31 @@ void TemplateView::checkRename(const QModelIndex &index)
     QString newName = index.data().toString();
     int isFolder = index.data(Qt::UserRole).toInt();
     QModelIndex parent = index.parent();
+    QModelIndex typeIndex = templateModel->index(index.row(),1,parent);
     bool isSameName = false;
     QRegExp rx("[\\\\ \\/ \\: \? \" \\* \\< \\> \\|]");
     if(checkSameName(newName,isFolder,parent) == 2)
     {
         templateModel->setData(index,oldName,Qt::DisplayRole);
         QMessageBox::information(this,tr("Information"),tr("That Name Already Exists"),QMessageBox::Yes);
-    }else if(newName.contains(rx)){
+    }else if(newName.contains(rx) && index.column() == 0){
         templateModel->setData(index,oldName,Qt::DisplayRole);
         QMessageBox::information(this,"","Can not use \\ / : * ? \" < >",QMessageBox::Yes);
+    }
+    switch (isFolder) {
+    case 1:
+        templateModel->setData(typeIndex,"file copy",Qt::DisplayRole);
+        break;
+    case 2:
+        templateModel->setData(typeIndex,"thumbnail",Qt::DisplayRole);
+        break;
+    case 3:
+        templateModel->setData(typeIndex,"jpeg proxy",Qt::DisplayRole);
+        break;
+    case 4:
+        templateModel->setData(typeIndex,"mov preview",Qt::DisplayRole);
+    default:
+        break;
     }
     pathPreviewIns->updatePrevew();
 

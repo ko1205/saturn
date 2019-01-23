@@ -150,10 +150,7 @@ QString PathPreView::replaceName(QStandardItem *item, int num)
             }
             name = (name+"[%1-%2].ext").arg(start,pending,10,QLatin1Char('0')).arg(end,pending,10,QLatin1Char('0'));
         }else{
-            if(!item->data(Qt::UserRole+3).toBool())
-            {
-                name = orgName;
-            }
+            name = name + ".ext";
         }
         break;
     case 2:
@@ -183,10 +180,7 @@ QString PathPreView::replaceName(QStandardItem *item, int num)
             }
             name = (name+"[%1-%2].jpg").arg(start,pending,10,QLatin1Char('0')).arg(end,pending,10,QLatin1Char('0'));
         }else{
-            if(!item->data(Qt::UserRole+3).toBool())
-            {
-                name = orgName;
-            }
+            name = name + ".ext";
         }
         break;
     case 4:

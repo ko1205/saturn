@@ -5,6 +5,7 @@
 #include <QTreeView>
 #include "templateview.h"
 #include "pathpreview.h"
+#include <QComboBox>
 
 class DirSettingTab : public QWidget
 {
@@ -16,11 +17,16 @@ public:
 signals:
 
 public slots:
+    void connectItem(QStandardItem *item);
+    void changeType(int index);
+
 
 private:
     TemplateView *templateView;
     PathPreView *preView;
     QWidget *propertyView;
+    QStandardItem *currentItem;
+    QComboBox *typeCombo;
 };
 
 #endif // DIRSETTINGTAB_H
