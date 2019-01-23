@@ -60,14 +60,17 @@ QVariant PlateItemModel::data(const QModelIndex &index, int role) const
             return QVariant();
         }
     case 4:
-        if(role == Qt::DisplayRole)
+        /*
+         * 수정이 필요한곳에는 data() 함수의 Qt::EditRole 도 지정을 해주어야 delegate의 edit에서 값을 받을수 있다
+         */
+        if(role == Qt::DisplayRole || role == Qt::EditRole)
         {
             return item.secne;
         }else{
             return QVariant();
         }
     case 5:
-        if(role == Qt::DisplayRole)
+        if(role == Qt::DisplayRole || role == Qt::EditRole)
         {
             return item.shot;
         }else{
