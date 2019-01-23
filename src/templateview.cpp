@@ -124,7 +124,7 @@ void TemplateView::newFileSlot()
     newFile->setData(1,Qt::UserRole);
     newFile->setData(5,Qt::UserRole+1);
     newFile->setData(1001,Qt::UserRole+2);
-    newFile->setData(false,Qt::UserRole+3);
+    newFile->setData(true,Qt::UserRole+3);
     newFile->setIcon(fileIcon);
     QStandardItem *type = new QStandardItem("file copy");
     type->setEditable(false);

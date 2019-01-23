@@ -6,6 +6,8 @@
 #include "templateview.h"
 #include "pathpreview.h"
 #include <QComboBox>
+#include <QGroupBox>
+#include <QSpinBox>
 
 class DirSettingTab : public QWidget
 {
@@ -19,7 +21,9 @@ signals:
 public slots:
     void connectItem(QStandardItem *item);
     void changeType(int index);
-
+    void setRenumber(bool check);
+    void setStartNum(int value);
+    void setDigitNum(int value);
 
 private:
     TemplateView *templateView;
@@ -27,6 +31,9 @@ private:
     QWidget *propertyView;
     QStandardItem *currentItem;
     QComboBox *typeCombo;
+    QGroupBox *renumberGrp;
+    QSpinBox *startNumEdit;
+    QSpinBox *digitNumEdit;
 };
 
 #endif // DIRSETTINGTAB_H

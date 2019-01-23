@@ -76,6 +76,13 @@ QVariant PlateItemModel::data(const QModelIndex &index, int role) const
         }else{
             return QVariant();
         }
+    case 6:
+        if(role == Qt::DisplayRole || role == Qt::EditRole)
+        {
+            return item.subName;
+        }else{
+            return QVariant();
+        }
 
     default:
         return QVariant();
@@ -89,7 +96,7 @@ int PlateItemModel::rowCount(const QModelIndex &parent) const
 
 int PlateItemModel::columnCount(const QModelIndex &parent) const
 {
-    return 7;
+    return 8;
 }
 
 QModelIndex PlateItemModel::index(int row, int column, const QModelIndex &parent) const
@@ -129,6 +136,9 @@ QVariant PlateItemModel::headerData(int section, Qt::Orientation orientation, in
             return "Shot";
 
         case 6:
+            return "Sub Name";
+
+        case 7:
             return "ColorSpace";
 
         default:
@@ -142,7 +152,7 @@ QVariant PlateItemModel::headerData(int section, Qt::Orientation orientation, in
 
 Qt::ItemFlags PlateItemModel::flags(const QModelIndex &index) const
 {
-    if(index.column() == 4 || index.column() == 5)
+    if(index.column() == 4 || index.column() == 5 || index.column() == 6)
     {
         return Qt::ItemIsSelectable
                 |Qt::ItemIsEnabled
@@ -155,16 +165,38 @@ Qt::ItemFlags PlateItemModel::flags(const QModelIndex &index) const
 
 bool PlateItemModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if(index.column() == 4)
-    {
-        items[index.row()].secne = value.toString();
+    switch (index.column()) {
+    case 4:
+         items[index.row()].secne = value.toString();
         emit dataChanged(index, index, {role});
         return true;
-   }else if(index.column() == 5){
-        items[index.row()].shot = value.toString();
+        break;
+
+    case 5:
+         items[index.row()].shot = value.toString();
         emit dataChanged(index, index, {role});
         return true;
+        break;
+
+    case 6:
+        items[index.row()].subName = value.toString();
+        emit dataChanged(index, index, {role});
+        return true;
+        break;
+
+    default:
+        break;
     }
+//    if(index.column() == 4)
+//    {
+//        items[index.row()].secne = value.toString();
+//        emit dataChanged(index, index, {role});
+//        return true;
+//   }else if(index.column() == 5){
+//        items[index.row()].shot = value.toString();
+//        emit dataChanged(index, index, {role});
+//        return true;
+//    }
     return false;
 }
 

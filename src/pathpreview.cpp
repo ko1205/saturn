@@ -128,6 +128,11 @@ QString PathPreView::replaceName(QStandardItem *item, int num)
     QString shotData = plateListModel->data(shotIndex).toString();
     name.replace("[shot]",shotData);
 
+    QModelIndex subnameIndex = plateListModel->index(num,6);
+    QString subnameData = plateListModel->data(subnameIndex).toString();
+    name.replace("[subname]",subnameData);
+
+
     name.replace("[filename]",orgFileInfo.baseName().replace("#",""));
 
     switch (type) {

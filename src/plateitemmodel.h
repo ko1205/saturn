@@ -18,6 +18,7 @@ public:
     QString colorSpace;
     QString firstFileName;
     bool singleFrame;
+    QString subName;
 
 };
 
