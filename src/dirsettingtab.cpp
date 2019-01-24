@@ -183,3 +183,13 @@ void DirSettingTab::setDigitNum(int value)
 {
     currentItem->setData(value,Qt::UserRole+1);
 }
+
+QStandardItemModel *DirSettingTab::getTemplateModel()
+{
+    return qobject_cast<QStandardItemModel*>(templateView->model());
+}
+
+TemplateView *DirSettingTab::getTemplateView()
+{
+    return templateView;
+}

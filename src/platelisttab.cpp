@@ -32,7 +32,7 @@ PlateListTab::PlateListTab(QWidget *parent) : QWidget(parent)
 
     setLayout(layout);
 
-    searchThread = new SearchThread(plateViewController);
+    searchThread = new SearchThread(plateViewController,this);
 
     connect(dirSelector,SIGNAL(clickedSearchButton(QString)),this,SLOT(searchPlate(QString)));
     connect(dirSelector,SIGNAL(clickedCancelButton(bool)),this,SLOT(searchCancel()));

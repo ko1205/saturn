@@ -7,7 +7,8 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QSpinBox>
-#include "rendersettingtab.h"
+//#include "rendersettingtab.h"
+//#include "renderthread.h"
 
 //#include "dirselector.h"
 //#include <QDebug>
@@ -39,6 +40,18 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
      */
     tab->addTab(dirSettingTab,"path");
 
+    QProgressBar *progress = new QProgressBar();
+    progress->setTextVisible(true);
+    progress->setRange(0,100);
+    progress->setValue(80);
+    QPushButton *renderButton = new QPushButton("Render start");
+    QPushButton *renderCancelButton = new QPushButton("Render Cancel");
+
+    QHBoxLayout *renderButtonLayout = new QHBoxLayout;
+    renderButtonLayout->addWidget(progress);
+    renderButtonLayout->addWidget(renderButton);
+    renderButtonLayout->addWidget(renderCancelButton);
+
     messageview = new QPlainTextEdit;
     messageview->setReadOnly(true);
 
@@ -47,6 +60,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     viewlayout->setContentsMargins(0,0,0,0);
 
     viewlayout->addWidget(tab);
+    viewlayout->addLayout(renderButtonLayout);
 
     QWidget *topWidget = new QWidget;
     topWidget->setLayout(viewlayout);
@@ -64,9 +78,16 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 
     setLayout(layout);
 
+    renderThread = new RenderThread(this);
+    renderThread->setPlateListModel(plateListTab->getTableModel());
+    renderThread->setTemplateModel(dirSettingTab->getTemplateModel());
+    renderThread->setTemplateView(dirSettingTab->getTemplateView());
+    renderThread->setRenderSetting(renderSettingTab);
+
     connect(plateListTab,SIGNAL(searchingDir(QString)),this,SLOT(searchingDir(QString)));
     connect(plateListTab,SIGNAL(searchFinish(bool)),this,SLOT(searchFinish(bool)));
     connect(plateListTab,SIGNAL(findedSequence(QString)),this,SLOT(findedSequence(QString)));
+    connect(renderButton,SIGNAL(clicked(bool)),this,SLOT(startRender()));
 }
 
 void CentralWidget::searchingDir(QString dir)
@@ -89,5 +110,10 @@ void CentralWidget::findedSequence(QString fileName)
     QScrollBar *scrollbar = messageview->verticalScrollBar();
     scrollbar->setValue(scrollbar->maximum());
 
+}
+
+void CentralWidget::startRender()
+{
+    renderThread->start();
 }
 

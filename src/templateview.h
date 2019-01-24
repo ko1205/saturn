@@ -15,6 +15,7 @@ public:
     TemplateView(QWidget *parent = 0);
     void contextMenuEvent(QContextMenuEvent *event) override;
     void setPathPreview(PathPreView *preview);
+    int getFileCount();
 
 signals:
     void itemClickedView(QStandardItem *item);
@@ -30,6 +31,7 @@ private:
     void createRootFolder();
     int checkSameName(QString name,int isFolder,const QModelIndex &parent);
     QString autoRename(QString name,int isFolder,const QModelIndex &parent,int count = 0);
+    int countChildFile(QStandardItem *item);
 
     QStandardItemModel *templateModel;
     QStandardItem *rootItem;
@@ -44,6 +46,7 @@ private:
 
     QString oldName;
     PathPreView *pathPreviewIns;
+    int fileCount;
 
 private slots:
     void storOldName(const QModelIndex &index);

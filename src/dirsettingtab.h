@@ -15,6 +15,8 @@ class DirSettingTab : public QWidget
 public:
     DirSettingTab(QWidget *parent = 0);
     void setPlateLIstModel(QAbstractItemModel* model);
+    QStandardItemModel *getTemplateModel();
+    TemplateView *getTemplateView();
 
 signals:
 

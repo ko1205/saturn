@@ -6,6 +6,7 @@
 TemplateView::TemplateView(QWidget *parent)
     :QTreeView(parent)
 {
+    fileCount = 0;
     templateModel = new QStandardItemModel;
 
     templateModel->setHorizontalHeaderLabels(QStringList()<<"Name" << "Type");
@@ -129,6 +130,7 @@ void TemplateView::newFileSlot()
     QStandardItem *type = new QStandardItem("file copy");
     type->setEditable(false);
     templateModel->itemFromIndex(index)->appendRow(QList<QStandardItem*>()<<newFile << type);
+    fileCount++;
     rootItem->sortChildren(0);
     rootItem->sortChildren(1,Qt::DescendingOrder);
     expand(index);
@@ -145,11 +147,32 @@ void TemplateView::deleteFolder()
     QStandardItem *item = templateModel->itemFromIndex(index);
     if(item != rootItem)
     {
+        if(item->data(Qt::UserRole).toInt() != 0)
+        {
+            fileCount--;
+        }else{
+            fileCount -= countChildFile(item);
+        }
         templateModel->removeRow(index.row(),item->parent()->index());
         qDebug()<<"delete Key!!!";
         pathPreviewIns->updatePrevew();
     }
-
+}
+int TemplateView::countChildFile(QStandardItem *item)
+{
+    int childFileCount = 0;
+    int row = item->rowCount();
+    for(int i = 0; i < row ; i++)
+    {
+        QStandardItem *child = item->child(i);
+        if(child->data(Qt::UserRole).toInt() != 0)
+        {
+            childFileCount++;
+        }else{
+            childFileCount += countChildFile(child);
+        }
+    }
+    return childFileCount;
 }
 
 void TemplateView::setRootFolderName()
@@ -256,4 +279,9 @@ void TemplateView::setinfo(const QModelIndex &index)
     qDebug() << templateModel->data(newIndex,Qt::DisplayRole).toString();
     item = templateModel->itemFromIndex(newIndex);
     emit itemClickedView(item);
+}
+
+int TemplateView::getFileCount()
+{
+    return fileCount;
 }

@@ -3,7 +3,8 @@
 #include "exrreader.h"
 #include <QDebug>
 
-SearchThread::SearchThread(PlateViewController *PlateController)
+SearchThread::SearchThread(PlateViewController *PlateController,QObject *parent)
+    :QThread(parent)
 {
     controller = PlateController;
 }

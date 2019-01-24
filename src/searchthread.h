@@ -10,7 +10,7 @@ class SearchThread : public QThread
     Q_OBJECT
 
 public:
-    SearchThread(PlateViewController *plateController);
+    SearchThread(PlateViewController *plateController,QObject *parent = 0);
     void setRootPath(QString path);
     void setStatus();
 
