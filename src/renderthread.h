@@ -6,6 +6,7 @@
 #include "rendersettingtab.h"
 #include <QStandardItemModel>
 #include "templateview.h"
+#include "plateitemmodel.h"
 
 class RenderThread : public QThread
 {
@@ -25,7 +26,7 @@ protected:
     void run();
 
 private:
-    QAbstractItemModel *plateListModel;
+    PlateItemModel *plateListModel;
     RenderSettingTab *renderSetting;
     QStandardItemModel *templateModel;
     TemplateView *templateView;

@@ -1,9 +1,11 @@
 #include "renderthread.h"
 #include <QDebug>
+#include <Python.h>
 
 RenderThread::RenderThread(QObject *parent)
     :QThread(parent)
 {
+//    Py_Initialize();
 
 }
 
@@ -27,8 +29,7 @@ void RenderThread::run()
 
 void RenderThread::setPlateListModel(QAbstractItemModel *model)
 {
-    plateListModel = model;
-
+    plateListModel = qobject_cast<PlateItemModel*>(model);
 }
 
 void RenderThread::setTemplateModel(QStandardItemModel *model)

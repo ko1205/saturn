@@ -56,8 +56,13 @@ HEADERS += \
     src/renderthread.h
 
 INCLUDEPATH +=/usr/local/include/OpenEXR
+INCLUDEPATH +=/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
+
+QMAKE_LFLAGS += -F/System/Library/Frameworks/Python.framework/
 
 LIBS += \
     /usr/local/lib/libIlmImf.dylib\
     /usr/local/lib/libHalf.dylib
+LIBS += -framework Python
+
 
