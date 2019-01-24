@@ -9,6 +9,7 @@
 
 class RenderThread : public QThread
 {
+    Q_OBJECT
 public:
     RenderThread(QObject *parent = 0);
     void setPlateListModel(QAbstractItemModel *model);
@@ -18,6 +19,7 @@ public:
 
 signals:
     void renderStart(int processCount);
+    void processDone();
 
 protected:
     void run();
@@ -27,6 +29,7 @@ private:
     RenderSettingTab *renderSetting;
     QStandardItemModel *templateModel;
     TemplateView *templateView;
+    bool status;
 };
 
 #endif // RENDERTHREAD_H

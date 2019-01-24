@@ -9,10 +9,20 @@ RenderThread::RenderThread(QObject *parent)
 
 void RenderThread::run()
 {
+    status = true;
+    int plateListCount = plateListModel->rowCount();
+    int templateFileCount = templateView->getFileCount();
+    int processCount = plateListCount*templateFileCount;
+    emit renderStart(processCount);
+    for(int i = 0; i < plateListCount;i++)
+    {
+
+    }
+
     qDebug() << "render Thread run";
-    qDebug() << plateListModel->rowCount();
-    qDebug() << templateModel->rowCount();
-    qDebug() << templateView->getFileCount();
+    qDebug() << plateListCount;
+    qDebug() << templateFileCount;
+    qDebug() << processCount;
 }
 
 void RenderThread::setPlateListModel(QAbstractItemModel *model)

@@ -40,15 +40,15 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
      */
     tab->addTab(dirSettingTab,"path");
 
-    QProgressBar *progress = new QProgressBar();
-    progress->setTextVisible(true);
-    progress->setRange(0,100);
-    progress->setValue(80);
+    renderProgress = new QProgressBar();
+    renderProgress ->setTextVisible(true);
+    renderProgress ->setRange(0,100);
+    renderProgress ->setValue(80);
     QPushButton *renderButton = new QPushButton("Render start");
     QPushButton *renderCancelButton = new QPushButton("Render Cancel");
 
     QHBoxLayout *renderButtonLayout = new QHBoxLayout;
-    renderButtonLayout->addWidget(progress);
+    renderButtonLayout->addWidget(renderProgress);
     renderButtonLayout->addWidget(renderButton);
     renderButtonLayout->addWidget(renderCancelButton);
 
@@ -88,6 +88,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     connect(plateListTab,SIGNAL(searchFinish(bool)),this,SLOT(searchFinish(bool)));
     connect(plateListTab,SIGNAL(findedSequence(QString)),this,SLOT(findedSequence(QString)));
     connect(renderButton,SIGNAL(clicked(bool)),this,SLOT(startRender()));
+    connect(renderThread,SIGNAL(renderStart(int)),this,SLOT(startedRender(int)));
 }
 
 void CentralWidget::searchingDir(QString dir)
@@ -117,3 +118,8 @@ void CentralWidget::startRender()
     renderThread->start();
 }
 
+void CentralWidget::startedRender(int processCount)
+{
+    renderProgress->setMaximum(processCount);
+    renderProgress->setValue(30);
+}

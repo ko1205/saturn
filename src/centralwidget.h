@@ -25,6 +25,7 @@ public slots:
     void searchFinish(bool finish);
     void findedSequence(QString fileName);
     void startRender();
+    void startedRender(int processCount);
 
 private:
     QTabWidget *tab;
@@ -35,6 +36,7 @@ private:
     RenderSettingTab *renderSettingTab;
     DirSettingTab *dirSettingTab;
     RenderThread *renderThread;
+    QProgressBar *renderProgress;
 };
 
 #endif // CENTRALWIDGET_H
