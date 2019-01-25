@@ -19,6 +19,7 @@ public:
     QString firstFileName;
     bool singleFrame;
     QString subName;
+    int pendingCount;
 
 };
 
@@ -36,6 +37,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     bool setData(const QModelIndex &index, const QVariant &value, int role) override;
     void appendRow(PlateItem item);
+    PlateItem *getItem(int row);
 
 public slots:
     void clear();

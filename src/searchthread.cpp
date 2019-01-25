@@ -70,6 +70,7 @@ void SearchThread::searchSequence(const QDir path)
             item.fileName = sequence;
             item.frame.first = frameNum;
             item.firstFileName = imageFiles.first();
+            item.pendingCount = padding.count();
 
 //            item.sequenceName = sequenceName;
 //            item.startFrame = frameNum;

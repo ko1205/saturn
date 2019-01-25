@@ -26,6 +26,7 @@ public slots:
     void findedSequence(QString fileName);
     void startRender();
     void startedRender(int processCount);
+    void processDone();
 
 private:
     QTabWidget *tab;

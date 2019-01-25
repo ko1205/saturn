@@ -7,6 +7,7 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QSpinBox>
+#include <QMessageBox>
 //#include "rendersettingtab.h"
 //#include "renderthread.h"
 
@@ -89,6 +90,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     connect(plateListTab,SIGNAL(findedSequence(QString)),this,SLOT(findedSequence(QString)));
     connect(renderButton,SIGNAL(clicked(bool)),this,SLOT(startRender()));
     connect(renderThread,SIGNAL(renderStart(int)),this,SLOT(startedRender(int)));
+    connect(renderThread,SIGNAL(processDone()),this,SLOT(processDone()));
 }
 
 void CentralWidget::searchingDir(QString dir)
@@ -121,5 +123,15 @@ void CentralWidget::startRender()
 void CentralWidget::startedRender(int processCount)
 {
     renderProgress->setMaximum(processCount);
-    renderProgress->setValue(30);
+    renderProgress->setValue(0);
+}
+
+void CentralWidget::processDone()
+{
+    int currentValue = renderProgress->value();
+    renderProgress->setValue(currentValue+1);
+    if(renderProgress->value() == renderProgress->maximum())
+    {
+        QMessageBox::information(this,"renderInfo", "Render Finish",QMessageBox::Yes);
+    }
 }

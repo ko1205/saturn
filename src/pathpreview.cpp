@@ -74,6 +74,7 @@ QStandardItem *PathPreView::readTemplateViewLoop(QModelIndex &index,QModelIndex 
      * 다시 작성
      */
 
+
 }
 
 

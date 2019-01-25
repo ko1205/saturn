@@ -214,6 +214,11 @@ void PlateItemModel::clear()
     endResetModel();
 }
 
+PlateItem *PlateItemModel::getItem(int row)
+{
+    return &items[row];
+}
+
 PlateItem::PlateItem()
 {
     thumbnail.load("/Users/ghchoi/storage/Data/test_images/A193_C003_0704V4_289/JPEG/A193_C003_0704V4.0000289.jpg");

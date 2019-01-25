@@ -26,11 +26,17 @@ protected:
     void run();
 
 private:
+    void readTemplateLoop(QModelIndex index,QDir path);
+    QString replaceName(QString name);
+    void sequenceFileCopy(QStandardItem *item,QDir path,QString targetName);
+    QString replaceOrgName(QString filename,int num, int pendingCount);
     PlateItemModel *plateListModel;
     RenderSettingTab *renderSetting;
     QStandardItemModel *templateModel;
     TemplateView *templateView;
     bool status;
+    QDir targetPath;
+    PlateItem *currentItem;
 };
 
 #endif // RENDERTHREAD_H
