@@ -1,7 +1,7 @@
 #include <QLabel>
 #include <QLineEdit>
-#include <QSpinBox>
-#include <QSlider>
+//#include <QSpinBox>
+//#include <QSlider>
 #include <QPushButton>
 #include <QComboBox>
 #include "rendersettingtab.h"
@@ -29,17 +29,29 @@ QGroupBox *RenderSettingTab::createThumbnailSetting()
     QLabel *thumbnailWidthLabel = new QLabel("Width Size : ");
     QLabel *thumbnailHeightLabel = new QLabel("Height Size : ");
 
-    QSpinBox *thumbnailWidthSpinBox = new QSpinBox;
-    QSpinBox *thumbnailHeightSpinBox = new QSpinBox;
+    thumbnailWidthSpinBox = new QSpinBox;
+    thumbnailHeightSpinBox = new QSpinBox;
     thumbnailWidthSpinBox->setMinimum(0);
-    thumbnailWidthSpinBox->setMaximum(999);
+    thumbnailWidthSpinBox->setMaximum(9999);
+    thumbnailHeightSpinBox->setMinimum(0);
+    thumbnailHeightSpinBox->setMaximum(9999);
+
+    thumbnailWidthSpinBox->setValue(320);
+    thumbnailHeightSpinBox->setValue(240);
 
 
     QLabel *jpegQualityLabel = new QLabel("Jpeg Quality");
-    QSlider *jpegQualitySlider = new QSlider(Qt::Horizontal);
+    thumbnailJpegQualitySlider = new QSlider(Qt::Horizontal);
     QSpinBox *jpegQualitySpinBox = new QSpinBox;
     jpegQualitySpinBox->setMinimum(0);
     jpegQualitySpinBox->setMaximum(100);
+
+    thumbnailJpegQualitySlider->setMinimum(0);
+    thumbnailJpegQualitySlider->setMaximum(100);
+
+    connect(thumbnailJpegQualitySlider,SIGNAL(valueChanged(int)),jpegQualitySpinBox,SLOT(setValue(int)));
+    connect(jpegQualitySpinBox,SIGNAL(valueChanged(int)),thumbnailJpegQualitySlider,SLOT(setValue(int)));
+    jpegQualitySpinBox->setValue(80);
 
     QGridLayout *thumbnailLayout = new QGridLayout;
 
@@ -54,7 +66,7 @@ QGroupBox *RenderSettingTab::createThumbnailSetting()
     thumbnailLayout->setColumnStretch(2,1);
 
     thumbnailLayout->addWidget(jpegQualityLabel,2,0);
-    thumbnailLayout->addWidget(jpegQualitySlider,2,1,1,2);
+    thumbnailLayout->addWidget(thumbnailJpegQualitySlider,2,1,1,2);
     thumbnailLayout->addWidget(jpegQualitySpinBox,2,3);
 //    thumbnailLayout->addItem(new QSpacerItem(0,0),3,0);
 
@@ -224,4 +236,20 @@ QGroupBox *RenderSettingTab::createQuickMovSetting()
     quicktimeMovGrp->setLayout(quicktimeMovLayout);
 
     return quicktimeMovGrp;
+}
+
+
+int RenderSettingTab::getThumbnailWidth()
+{
+    return thumbnailWidthSpinBox->value();
+}
+
+int RenderSettingTab::getThumbnailHeight()
+{
+    return thumbnailHeightSpinBox->value();
+}
+
+int RenderSettingTab::getThumbnailQuality()
+{
+    return thumbnailJpegQualitySlider->value();
 }

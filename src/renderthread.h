@@ -29,6 +29,7 @@ private:
     void readTemplateLoop(QModelIndex index,QDir path);
     QString replaceName(QString name);
     void sequenceFileCopy(QStandardItem *item,QDir path,QString targetName);
+    void makeThumbnail(QDir path,QString targetName);
     QString replaceOrgName(QString filename,int num, int pendingCount);
     PlateItemModel *plateListModel;
     RenderSettingTab *renderSetting;

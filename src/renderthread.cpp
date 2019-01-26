@@ -1,5 +1,7 @@
 #include "renderthread.h"
 #include <QDebug>
+#include "dpxreader.h"
+#include "exrreader.h"
 #include <Python.h>
 
 RenderThread::RenderThread(QObject *parent)
@@ -92,6 +94,10 @@ void RenderThread::readTemplateLoop(QModelIndex index,QDir path)
         }
             emit processDone();
             break;
+        case 2:
+            makeThumbnail(path,targetName);
+            emit processDone();
+            break;
         default:
             break;
         }
@@ -170,4 +176,48 @@ QString RenderThread::replaceOrgName(QString filename,int num, int pendingCount)
 {
     QRegExp regex("[#]+");
     return filename.replace(regex,"%1").arg(num,pendingCount,10,QLatin1Char('0'));
+}
+
+void RenderThread::makeThumbnail(QDir path, QString targetName)
+{
+    QString fileName = currentItem->firstFileName;
+    QDir orgPath = currentItem->path;
+    QFileInfo firstFileInfo(orgPath,fileName);
+    QStringList extType = {"jpg","jpeg","dpx","exr"};
+    QString ext = firstFileInfo.suffix();
+    QImage image;
+    QFileInfo targetFileInfo(path,targetName+".jpg");
+    switch (extType.indexOf(ext.toLower())) {
+    case 0:
+        image.load(firstFileInfo.absoluteFilePath());
+        break;
+    case 1:
+        image.load(firstFileInfo.absoluteFilePath());
+        break;
+    case 2:
+    {
+        DpxReader dpxReader(firstFileInfo.absoluteFilePath());
+        if(dpxReader.isValid)
+        {
+            image = dpxReader.getQImage();
+        }
+    }
+        break;
+    case 3:
+    {
+        ExrReader exrReader(firstFileInfo.absoluteFilePath());
+        if(exrReader.isValid)
+        {
+            image = exrReader.getQImage();
+        }
+    }
+        break;
+    default:
+        break;
+    }
+    int width = renderSetting->getThumbnailWidth();
+    int height = renderSetting->getThumbnailHeight();
+    int quality = renderSetting->getThumbnailQuality();
+    image = image.scaled(width,height,Qt::KeepAspectRatio);
+    image.save(targetFileInfo.absoluteFilePath(),"jpg",quality);
 }
