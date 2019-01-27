@@ -103,6 +103,8 @@ void RenderThread::readTemplateLoop(QModelIndex index,QDir path)
             emit processDone();
             break;
         case 4:
+            makePreviewMov(path,targetName);
+            emit processDone();
             break;
         default:
             break;
@@ -325,4 +327,9 @@ QImage RenderThread::loadImage(QFileInfo file)
         break;
     }
     return image;
+}
+
+void RenderThread::makePreviewMov(QDir path, QString targetName)
+{
+
 }
