@@ -44,7 +44,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     renderProgress = new QProgressBar();
     renderProgress ->setTextVisible(true);
     renderProgress ->setRange(0,100);
-    renderProgress ->setValue(80);
+    renderProgress ->setValue(0);
     QPushButton *renderButton = new QPushButton("Render start");
     QPushButton *renderCancelButton = new QPushButton("Render Cancel");
 

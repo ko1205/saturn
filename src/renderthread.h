@@ -30,6 +30,8 @@ private:
     QString replaceName(QString name);
     void sequenceFileCopy(QStandardItem *item,QDir path,QString targetName);
     void makeThumbnail(QDir path,QString targetName);
+    void makeJpegProxy(QStandardItem *item, QDir path,QString targetName);
+    QImage loadImage(QFileInfo file);
     QString replaceOrgName(QString filename,int num, int pendingCount);
     PlateItemModel *plateListModel;
     RenderSettingTab *renderSetting;

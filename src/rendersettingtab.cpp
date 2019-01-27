@@ -87,20 +87,22 @@ QGroupBox *RenderSettingTab::createJpegProxySetting()
     jpegProxyGrp->setCheckable(true);
     jpegProxyGrp->setChecked(true);
 
-    QGroupBox *jpegSize = new QGroupBox("Custom Size");
+    jpegSize = new QGroupBox("Custom Size");
     jpegSize->setCheckable(true);
     jpegSize->setChecked(false);
 
     QLabel *proxyWidthLabel = new QLabel("Width Size : ");
     QLabel *proxyHeightLabel = new QLabel("Height Size : ");
 
-    QSpinBox *proxyWidthSpinBox = new QSpinBox;
+    proxyWidthSpinBox = new QSpinBox;
     proxyWidthSpinBox->setMinimum(0);
     proxyWidthSpinBox->setMaximum(9999);
+    proxyWidthSpinBox->setValue(1024);
 
-    QSpinBox *proxyHeightSpinBox = new QSpinBox;
+    proxyHeightSpinBox = new QSpinBox;
     proxyHeightSpinBox->setMinimum(0);
     proxyHeightSpinBox->setMaximum(9999);
+    proxyHeightSpinBox->setValue(540);
 
    QGridLayout *proxySizeLayout = new QGridLayout;
 
@@ -115,10 +117,17 @@ QGroupBox *RenderSettingTab::createJpegProxySetting()
     QGridLayout *proxyLayout = new QGridLayout;
 
     QLabel *proxyQualityLabel = new QLabel("Jpeg Quality");
-    QSlider *proxyQualitySlider = new QSlider(Qt::Horizontal);
+    proxyQualitySlider = new QSlider(Qt::Horizontal);
+    proxyQualitySlider->setMinimum(0);
+    proxyQualitySlider->setMaximum(100);
+
     QSpinBox *proxyQualitySpinBox = new QSpinBox;
     proxyQualitySpinBox->setMinimum(0);
     proxyQualitySpinBox->setMaximum(100);
+
+    connect(proxyQualitySlider,SIGNAL(valueChanged(int)),proxyQualitySpinBox,SLOT(setValue(int)));
+    connect(proxyQualitySpinBox,SIGNAL(valueChanged(int)),proxyQualitySlider,SLOT(setValue(int)));
+    proxyQualitySlider->setValue(80);
 
     QLabel *proxyColorspaceLabel = new QLabel("Output ColorSpace : ");
     QComboBox *proxyColorspaceCombo = new QComboBox;
@@ -252,4 +261,25 @@ int RenderSettingTab::getThumbnailHeight()
 int RenderSettingTab::getThumbnailQuality()
 {
     return thumbnailJpegQualitySlider->value();
+}
+
+
+int RenderSettingTab::getProxyWidth()
+{
+    return proxyWidthSpinBox->value();
+}
+
+int RenderSettingTab::getProxyHeight()
+{
+    return proxyHeightSpinBox->value();
+}
+
+int RenderSettingTab::getProxyQuality()
+{
+    return proxyQualitySlider->value();
+}
+
+bool RenderSettingTab::isProxyReScale()
+{
+    return jpegSize->isChecked();
 }

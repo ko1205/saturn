@@ -98,6 +98,12 @@ void RenderThread::readTemplateLoop(QModelIndex index,QDir path)
             makeThumbnail(path,targetName);
             emit processDone();
             break;
+        case 3:
+            makeJpegProxy(item,path,targetName);
+            emit processDone();
+            break;
+        case 4:
+            break;
         default:
             break;
         }
@@ -220,4 +226,103 @@ void RenderThread::makeThumbnail(QDir path, QString targetName)
     int quality = renderSetting->getThumbnailQuality();
     image = image.scaled(width,height,Qt::KeepAspectRatio);
     image.save(targetFileInfo.absoluteFilePath(),"jpg",quality);
+}
+
+void RenderThread::makeJpegProxy(QStandardItem *item, QDir path, QString targetName)
+{
+    bool isRenumbering = item->data(Qt::UserRole+3).toBool();
+    int pending = item->data(Qt::UserRole+1).toInt();
+    int start = item->data(Qt::UserRole+2).toInt();
+    QDir orgPath = currentItem->path;
+    QString orgFIlename = currentItem->fileName;
+    int orgStartNum = currentItem->frame.first;
+    int orgEndNum = currentItem->frame.second;
+    int druration = orgEndNum - orgStartNum + 1;
+    int targetStartNum;
+    int orgPendingCount = currentItem->pendingCount;
+    QFileInfo orgFileInfo;
+    QFileInfo targetFileInfo;
+    QImage image;
+
+    if(!currentItem->singleFrame)
+    {
+
+        if(isRenumbering)
+        {
+            targetStartNum = start;
+        }else{
+            targetStartNum = orgStartNum;
+            pending = orgPendingCount;
+        }
+        for(int i = 0; i < druration; i++)
+        {
+            QString realFIleName = replaceOrgName(orgFIlename,orgStartNum,orgPendingCount);
+            orgFileInfo = QFileInfo(currentItem->path,realFIleName);
+
+            //        qDebug() << orgFileInfo.absoluteFilePath();
+            QString realTargetName = (targetName+".%1.jpg").arg(targetStartNum,pending,10,QLatin1Char('0'));
+            targetFileInfo = QFileInfo(path,realTargetName);
+            orgStartNum++;
+            targetStartNum++;
+            image = loadImage(orgFileInfo);
+            if(renderSetting->isProxyReScale())
+            {
+                int width = renderSetting->getProxyWidth();
+                int height = renderSetting->getProxyHeight();
+                image = image.scaled(width,height,Qt::KeepAspectRatio);
+
+                qDebug() << orgFileInfo.absoluteFilePath() << targetFileInfo.absoluteFilePath() << width << height;
+            }
+            int quality = renderSetting->getProxyQuality();
+            image.save(targetFileInfo.absoluteFilePath(),"jpg",quality);
+        }
+    }else{
+        orgFileInfo = QFileInfo(currentItem->path,currentItem->firstFileName);
+        targetFileInfo = QFileInfo(path,targetName + ".jpg");
+        image = loadImage(orgFileInfo);
+        if(renderSetting->isProxyReScale())
+        {
+            int width = renderSetting->getProxyWidth();
+            int height = renderSetting->getProxyHeight();
+            image = image.scaled(width,height,Qt::KeepAspectRatio);
+        }
+        int quality = renderSetting->getProxyQuality();
+        image.save(targetFileInfo.absoluteFilePath(),"jpg",quality);
+    }
+}
+
+QImage RenderThread::loadImage(QFileInfo file)
+{
+    QString ext = file.suffix();
+    QStringList extType = {"jpg","jpeg","dpx","exr"};
+    QImage image;
+    switch (extType.indexOf(ext.toLower())) {
+    case 0:
+        image.load(file.absoluteFilePath());
+        break;
+    case 1:
+        image.load(file.absoluteFilePath());
+        break;
+    case 2:
+    {
+        DpxReader dpxReader(file.absoluteFilePath());
+        if(dpxReader.isValid)
+        {
+            image = dpxReader.getQImage();
+        }
+    }
+        break;
+    case 3:
+    {
+        ExrReader exrReader(file.absoluteFilePath());
+        if(exrReader.isValid)
+        {
+            image = exrReader.getQImage();
+        }
+    }
+        break;
+    default:
+        break;
+    }
+    return image;
 }

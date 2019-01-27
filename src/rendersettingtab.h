@@ -16,6 +16,11 @@ public:
     int getThumbnailHeight();
     int getThumbnailQuality();
 
+    int getProxyWidth();
+    int getProxyHeight();
+    int getProxyQuality();
+    bool isProxyReScale();
+
 signals:
 
 public slots:
@@ -30,6 +35,11 @@ private:
     QSpinBox *thumbnailWidthSpinBox;
     QSpinBox *thumbnailHeightSpinBox;
     QSlider *thumbnailJpegQualitySlider;
+
+    QGroupBox *jpegSize;
+    QSpinBox *proxyWidthSpinBox;
+    QSpinBox *proxyHeightSpinBox;
+    QSlider *proxyQualitySlider;
 };
 
 #endif // RENDERSETTINGTAB_H
