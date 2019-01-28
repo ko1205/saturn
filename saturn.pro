@@ -47,9 +47,15 @@ HEADERS += \
     src/rendersettingtab.h \
     src/plateviewdelegate.h
 
-INCLUDEPATH +=/usr/local/include/OpenEXR
+DEFINES += OPENEXR_DLL
 
-LIBS += \
-    /usr/local/lib/libIlmImf.dylib\
-    /usr/local/lib/libHalf.dylib
+#INCLUDEPATH +=/usr/local/include/OpenEXR
+INCLUDEPATH +=C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\include\OpenEXR
 
+#LIBS += \
+#    /usr/local/lib/libIlmImf.dylib\
+#    /usr/local/lib/libHalf.dylib
+
+LIBS +=\
+      C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\lib\IlmImf-2_2.lib\
+      C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\lib\Half.lib
