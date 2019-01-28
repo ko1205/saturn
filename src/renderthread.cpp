@@ -3,6 +3,7 @@
 #include "dpxreader.h"
 #include "exrreader.h"
 #include <Python.h>
+#include "createmov.h"
 
 RenderThread::RenderThread(QObject *parent)
     :QThread(parent)
@@ -228,6 +229,7 @@ void RenderThread::makeThumbnail(QDir path, QString targetName)
     int quality = renderSetting->getThumbnailQuality();
     image = image.scaled(width,height,Qt::KeepAspectRatio);
     image.save(targetFileInfo.absoluteFilePath(),"jpg",quality);
+
 }
 
 void RenderThread::makeJpegProxy(QStandardItem *item, QDir path, QString targetName)
@@ -331,5 +333,7 @@ QImage RenderThread::loadImage(QFileInfo file)
 
 void RenderThread::makePreviewMov(QDir path, QString targetName)
 {
+    QFileInfo targetFileInfo(path,targetName);
+    CreateMov movMaker();
 
 }

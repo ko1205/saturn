@@ -35,7 +35,8 @@ SOURCES += src/main.cpp \
     src/dirsettingtab.cpp \
     src/templateview.cpp \
     src/pathpreview.cpp \
-    src/renderthread.cpp
+    src/renderthread.cpp \
+    src/createmov.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -53,16 +54,31 @@ HEADERS += \
     src/dirsettingtab.h \
     src/templateview.h \
     src/pathpreview.h \
-    src/renderthread.h
+    src/renderthread.h \
+    src/createmov.h
 
-INCLUDEPATH +=/usr/local/include/OpenEXR
+INCLUDEPATH +=/usr/local/include/OpenEXR\
+        /usr/local/include
+
 INCLUDEPATH +=/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
 
 QMAKE_LFLAGS += -F/System/Library/Frameworks/Python.framework/
 
 LIBS += \
     /usr/local/lib/libIlmImf.dylib\
-    /usr/local/lib/libHalf.dylib
+    /usr/local/lib/libHalf.dylib\
+    /usr/local/lib/libavformat.dylib\
+    /usr/local/lib/libavcodec.dylib\
+
+#LIBS += -L/usr/local/lib/ -lavformat\
+#        -lavcodec\
+#        -lavutil\
+#        -lswscale\
+#        -lswresample\
+#        -lavfilter\
+#        -lIlmImf\
+#        -lHalf
+
 LIBS += -framework Python
 
 
