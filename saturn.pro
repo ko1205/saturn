@@ -57,18 +57,19 @@ HEADERS += \
     src/renderthread.h \
     src/createmov.h
 
-INCLUDEPATH +=/usr/local/include/OpenEXR\
-        /usr/local/include
 
-INCLUDEPATH +=/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
+#INCLUDEPATH +=/usr/local/include/OpenEXR\
+#        /usr/local/include
 
-QMAKE_LFLAGS += -F/System/Library/Frameworks/Python.framework/
+#INCLUDEPATH +=/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
 
-LIBS += \
-    /usr/local/lib/libIlmImf.dylib\
-    /usr/local/lib/libHalf.dylib\
-    /usr/local/lib/libavformat.dylib\
-    /usr/local/lib/libavcodec.dylib\
+#QMAKE_LFLAGS += -F/System/Library/Frameworks/Python.framework/
+
+#LIBS += \
+#    /usr/local/lib/libIlmImf.dylib\
+#    /usr/local/lib/libHalf.dylib\
+#    /usr/local/lib/libavformat.dylib\
+#    /usr/local/lib/libavcodec.dylib\
 
 #LIBS += -L/usr/local/lib/ -lavformat\
 #        -lavcodec\
@@ -79,6 +80,19 @@ LIBS += \
 #        -lIlmImf\
 #        -lHalf
 
-LIBS += -framework Python
+#LIBS += -framework Python
 
+#=======
+DEFINES += OPENEXR_DLL
 
+#INCLUDEPATH +=/usr/local/include/OpenEXR
+INCLUDEPATH +=C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\include\OpenEXR
+#>>>>>>> win_branch
+
+#LIBS += \
+#    /usr/local/lib/libIlmImf.dylib\
+#    /usr/local/lib/libHalf.dylib
+
+LIBS +=\
+      C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\lib\IlmImf-2_2.lib\
+      C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\lib\Half.lib
