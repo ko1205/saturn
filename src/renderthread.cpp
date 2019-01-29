@@ -19,7 +19,7 @@ void RenderThread::run()
     int templateFileCount = templateView->getFileCount();
     int processCount = plateListCount*templateFileCount;
     emit renderStart(processCount);
-    targetPath = "C:\\test_bolder";
+//    targetPath = "/Users/ghchoi/Desktop/test";
     for(int i = 0; i < plateListCount;i++)
     {
         currentItem = plateListModel->getItem(i);
@@ -336,4 +336,9 @@ void RenderThread::makePreviewMov(QDir path, QString targetName)
     QFileInfo targetFileInfo(path,targetName);
     CreateMov movMaker();
 
+}
+
+void RenderThread::setTargetPath(QDir path)
+{
+    targetPath = path;
 }

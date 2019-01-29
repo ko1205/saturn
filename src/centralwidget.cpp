@@ -91,6 +91,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     connect(renderButton,SIGNAL(clicked(bool)),this,SLOT(startRender()));
     connect(renderThread,SIGNAL(renderStart(int)),this,SLOT(startedRender(int)));
     connect(renderThread,SIGNAL(processDone()),this,SLOT(processDone()));
+    connect(dirSettingTab,SIGNAL(setTargetPath(QDir)),renderThread,SLOT(setTargetPath(QDir)));
 }
 
 void CentralWidget::searchingDir(QString dir)

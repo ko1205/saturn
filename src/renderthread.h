@@ -22,6 +22,9 @@ signals:
     void renderStart(int processCount);
     void processDone();
 
+public slots:
+    void setTargetPath(QDir path);
+
 protected:
     void run();
 

@@ -7,6 +7,7 @@
 #include <QAction>
 #include <QContextMenuEvent>
 #include "pathpreview.h"
+#include <QDir>
 
 class TemplateView : public QTreeView
 {
@@ -24,7 +25,7 @@ public slots:
     void insertFolder();
     void deleteFolder();
     void newFileSlot();
-    void setRootFolderName();
+    void setRootFolderName(QDir path);
 
 private:
     void createIcon();
