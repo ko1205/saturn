@@ -33,9 +33,9 @@ void SearchThread::searchPlateLoop(QDir path)
         QDir searchPath = path;
         emit searchingDir(path.absolutePath());
         searchSequence(path);
-#ifdef QT_DEBUG
+//#ifdef QT_DEBUG
         qDebug() << "searching "+searchPath.absolutePath();
-#endif
+//#endif
         QStringList dirList = searchPath.entryList(QDir::AllDirs|QDir::NoDotAndDotDot);
         foreach (QString dir, dirList) {
             searchPath.cd(dir);

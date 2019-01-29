@@ -1,6 +1,8 @@
 #include "exrreader.h"
 #include <fstream>
 #include <string>
+#include <QDebug>
+#include <OpenEXRConfig.h>
 
 ExrReader::ExrReader()
 {
@@ -9,7 +11,8 @@ ExrReader::ExrReader()
 
 ExrReader::ExrReader(QString path)
 {
-    Imf::RgbaInputFile inFile(path.toLocal8Bit());
+//    Imf::RgbaInputFile inFile(path.toLocal8Bit());
+    Imf::RgbaInputFile inFile("C:\\Users\\ghchoi\\Documents\\projects\\openexr_sample\\openexr-images-1.7.0\\Chromaticities\\Rec709.exr");
     Imath::Box2i dw = inFile.dataWindow();
     width = dw.max.x - dw.min.x+1;
     height = dw.max.y - dw.min.y+1;
@@ -17,44 +20,6 @@ ExrReader::ExrReader(QString path)
     inFile.setFrameBuffer(&pixels[0] - dw.min.x - dw.min.y * width,1,width);
     inFile.readPixels(dw.min.y,dw.max.y);
     isValid = true;
-
-//    dpxHeader = new DpxHeader();
-//    std::ifstream iFile;
-//    iFile.open(path.toLocal8Bit(),std::ios::binary|std::ios::in);
-//    iFile.read((char*)dpxHeader,sizeof(DPXHeader));
-//    if(dpxHeader->file.magic_num == DPX_MAGIC)
-//    {
-//        isBigEndian = false;
-//    }else if(dpxHeader->file.magic_num == DPX_MAGIC_FLIPPED){
-//        isBigEndian = true;
-//    }else{
-//        isValid = false;
-//        return;
-//    }
-
-//    isValid = true;
-//    if(isBigEndian)
-//    {
-//        dpxHeader->file.offset = Endian32_Swap(dpxHeader->file.offset);
-//        dpxHeader->image.pixels_per_line = Endian32_Swap(dpxHeader->image.pixels_per_line);
-//        dpxHeader->image.lines_per_image_ele = Endian32_Swap(dpxHeader->image.lines_per_image_ele);
-//    }
-//    width = dpxHeader->image.pixels_per_line;
-//    height = dpxHeader->image.lines_per_image_ele;
-//    offset = dpxHeader->file.offset;
-//    bits = new unsigned int[width*height];
-//    iFile.seekg(offset);
-
-//    iFile.read((char*)bits,width*height*4);
-//    if(isBigEndian)
-//    {
-//        for(int i=0;i<width*height;i++)
-//        {
-//            bits[i] = Endian32_Swap(bits[i]);
-//        }
-//    }
-
-//    iFile.close();
 }
 
 ExrReader::~ExrReader()

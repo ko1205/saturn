@@ -2,10 +2,10 @@
 #define CREATEMOV_H
 
 #include <QObject>
-extern "C"{
-#include <libavformat/avformat.h>
-#include <libavutil/timestamp.h>
-}
+//extern "C"{
+//#include <libavformat/avformat.h>
+//#include <libavutil/timestamp.h>
+//}
 
 class CreateMov : public QObject
 {
@@ -19,13 +19,13 @@ signals:
 public slots:
 
 private:
-    AVFormatContext *oc;
-    AVCodec *codec;
-    AVStream *stream;
-    AVCodecContext *codectx;
-    AVFrame *frame;
-    int got_packet = 0;
-    AVPacket pkt = {0};
+//    AVFormatContext *oc;
+//    AVCodec *codec;
+//    AVStream *stream;
+//    AVCodecContext *codectx;
+//    AVFrame *frame;
+//    int got_packet = 0;
+//    AVPacket pkt = {0};
 };
 
 #endif // CREATEMOV_H

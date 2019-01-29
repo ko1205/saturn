@@ -36,7 +36,7 @@ SOURCES += src/main.cpp \
     src/templateview.cpp \
     src/pathpreview.cpp \
     src/renderthread.cpp \
-    src/createmov.cpp
+#    src/createmov.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -55,7 +55,7 @@ HEADERS += \
     src/templateview.h \
     src/pathpreview.h \
     src/renderthread.h \
-    src/createmov.h
+#    src/createmov.h
 
 
 #INCLUDEPATH +=/usr/local/include/OpenEXR\
@@ -86,7 +86,8 @@ HEADERS += \
 DEFINES += OPENEXR_DLL
 
 #INCLUDEPATH +=/usr/local/include/OpenEXR
-INCLUDEPATH +=C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\include\OpenEXR
+INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.0/deploy/include/OpenEXR
+#              C:/Python27/include
 #>>>>>>> win_branch
 
 #LIBS += \
@@ -96,3 +97,4 @@ INCLUDEPATH +=C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\include\OpenEXR
 LIBS +=\
       C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\lib\IlmImf-2_2.lib\
       C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\lib\Half.lib
+#      C:\Python27\libs\python27.lib

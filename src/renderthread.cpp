@@ -2,7 +2,7 @@
 #include <QDebug>
 #include "dpxreader.h"
 #include "exrreader.h"
-#include <Python.h>
+//#include <Python.h>
 #include "createmov.h"
 
 RenderThread::RenderThread(QObject *parent)
@@ -19,7 +19,7 @@ void RenderThread::run()
     int templateFileCount = templateView->getFileCount();
     int processCount = plateListCount*templateFileCount;
     emit renderStart(processCount);
-    targetPath = "/Users/ghchoi/Desktop/test";
+    targetPath = "C:\\test_bolder";
     for(int i = 0; i < plateListCount;i++)
     {
         currentItem = plateListModel->getItem(i);
