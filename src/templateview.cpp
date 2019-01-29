@@ -175,9 +175,10 @@ int TemplateView::countChildFile(QStandardItem *item)
     return childFileCount;
 }
 
-void TemplateView::setRootFolderName()
+void TemplateView::setRootFolderName(QDir path)
 {
-
+    QString dirName = path.dirName();
+    rootItem->setData(dirName,Qt::DisplayRole);
 }
 
 int TemplateView::checkSameName(QString name,int isFolder, const QModelIndex &parent)

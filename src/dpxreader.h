@@ -22,6 +22,8 @@ private:
     int width;
     int height;
     int offset;
+    void nukeLutMake();
+    unsigned char lut[1024];
 };
 
 #endif // DPXREADER_H

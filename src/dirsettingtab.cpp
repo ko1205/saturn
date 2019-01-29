@@ -7,6 +7,8 @@
 #include <QLineEdit>
 //#include <QComboBox>
 #include <QDebug>
+#include <QHBoxLayout>
+#include <QFileDialog>
 
 DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
 {
@@ -68,12 +70,26 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
 
     layout->addWidget(splitter,0,0);
     layout->addWidget(propertyView,0,1);
-    layout->setColumnStretch(0,1);
-    layout->setColumnStretch(1,0);
+//    layout->setColumnStretch(0,1);
+//    layout->setColumnStretch(1,0);
+    QLabel *targetPathLabel = new QLabel("Path : ");
+    targetPathEdit = new QLineEdit;
+    targetPathButton = new QPushButton("....");
+
+    QHBoxLayout *targetPathLayout = new QHBoxLayout;
+    targetPathLayout->addWidget(targetPathLabel);
+    targetPathLayout->addWidget(targetPathEdit);
+    targetPathLayout->addWidget(targetPathButton);
+    targetPathLayout->setMargin(0);
+
+    QVBoxLayout *tabLayout = new QVBoxLayout;
+    tabLayout->addLayout(targetPathLayout);
+    tabLayout->addLayout(layout);
+    tabLayout->setMargin(0);
 
     label->setVisible(false);
     lineEdit->setVisible(false);
-    setLayout(layout);
+    setLayout(tabLayout);
     propertyView->setDisabled(true);
 
     connect(templateView,SIGNAL(itemClickedView(QStandardItem*)),this,SLOT(connectItem(QStandardItem*)));
@@ -81,7 +97,8 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     connect(renumberGrp,SIGNAL(clicked(bool)),this,SLOT(setRenumber(bool)));
     connect(startNumEdit,SIGNAL(valueChanged(int)),this,SLOT(setStartNum(int)));
     connect(digitNumEdit,SIGNAL(valueChanged(int)),this,SLOT(setDigitNum(int)));
-
+    connect(targetPathButton,SIGNAL(clicked(bool)),this,SLOT(selectDir()));
+    connect(this,SIGNAL(setTargetPath(QDir)),templateView,SLOT(setRootFolderName(QDir)));
 }
 
 void DirSettingTab::setPlateLIstModel(QAbstractItemModel *model)
@@ -192,4 +209,15 @@ QStandardItemModel *DirSettingTab::getTemplateModel()
 TemplateView *DirSettingTab::getTemplateView()
 {
     return templateView;
+}
+
+void DirSettingTab::selectDir()
+{
+    QString folderName = QFileDialog::getExistingDirectory(this,"set root path",QDir::home().path());
+    if(folderName!=""){
+        targetPathEdit->setText(folderName);
+        QDir dirName(folderName);
+//	    templateView->setRootFolderName(dirName.dirName());
+        emit setTargetPath(dirName);
+    }
 }

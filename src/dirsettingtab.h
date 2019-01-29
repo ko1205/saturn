@@ -8,6 +8,8 @@
 #include <QComboBox>
 #include <QGroupBox>
 #include <QSpinBox>
+#include <QPushButton>
+#include <QDir>
 
 class DirSettingTab : public QWidget
 {
@@ -19,6 +21,7 @@ public:
     TemplateView *getTemplateView();
 
 signals:
+    void setTargetPath(QDir path);
 
 public slots:
     void connectItem(QStandardItem *item);
@@ -26,6 +29,7 @@ public slots:
     void setRenumber(bool check);
     void setStartNum(int value);
     void setDigitNum(int value);
+    void selectDir();
 
 private:
     TemplateView *templateView;
@@ -36,6 +40,8 @@ private:
     QGroupBox *renumberGrp;
     QSpinBox *startNumEdit;
     QSpinBox *digitNumEdit;
+    QLineEdit *targetPathEdit;
+    QPushButton *targetPathButton;
 };
 
 #endif // DIRSETTINGTAB_H
