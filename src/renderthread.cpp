@@ -333,8 +333,42 @@ QImage RenderThread::loadImage(QFileInfo file)
 
 void RenderThread::makePreviewMov(QDir path, QString targetName)
 {
-    QFileInfo targetFileInfo(path,targetName);
-    CreateMov movMaker();
+    QFileInfo targetFileInfo(path,targetName+".mov");
+    CreateMov movMaker;
+    movMaker.setOutFile(targetFileInfo);
+
+    QDir orgPath = currentItem->path;
+    QString orgFIlename = currentItem->fileName;
+    int orgStartNum = currentItem->frame.first;
+    int orgEndNum = currentItem->frame.second;
+    int druration = orgEndNum - orgStartNum + 1;
+    int orgPendingCount = currentItem->pendingCount;
+    QFileInfo orgFileInfo;
+    QImage image;
+    orgFileInfo = QFileInfo(currentItem->path,currentItem->firstFileName);
+    image = loadImage(orgFileInfo);
+    image = image.scaled(1920,1080,Qt::KeepAspectRatio);
+
+    movMaker.setSize(image.width(),image.height());
+    movMaker.setFrameRate(24);
+    movMaker.avinit();
+    movMaker.avFrameSetting();
+
+    if(!currentItem->singleFrame)
+    {
+        for(int i = 0; i < druration; i++)
+        {
+            QString realFIleName = replaceOrgName(orgFIlename,orgStartNum,orgPendingCount);
+            orgFileInfo = QFileInfo(currentItem->path,realFIleName);
+
+            orgStartNum++;
+            image = loadImage(orgFileInfo);
+            image = image.scaled(1920,1080,Qt::KeepAspectRatio);
+            movMaker.getVideoFrame(image,i);
+
+        }
+        movMaker.releaseMov();
+    }
 
 }
 

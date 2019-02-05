@@ -69,6 +69,7 @@ LIBS += \
     /usr/local/lib/libHalf.dylib\
     /usr/local/lib/libavformat.dylib\
     /usr/local/lib/libavcodec.dylib\
+    /usr/local/lib/libswscale.dylib\
 
 #LIBS += -L/usr/local/lib/ -lavformat\
 #        -lavcodec\
