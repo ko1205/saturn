@@ -86,7 +86,7 @@ HEADERS += \
 DEFINES += OPENEXR_DLL
 
 #INCLUDEPATH +=/usr/local/include/OpenEXR
-INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.0/deploy/include/OpenEXR
+INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/include/OpenEXR
 #              C:/Python27/include
 #>>>>>>> win_branch
 
@@ -95,6 +95,6 @@ INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.0/deploy/include/OpenEXR
 #    /usr/local/lib/libHalf.dylib
 
 LIBS +=\
-      C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\lib\IlmImf-2_2.lib\
-      C:\thirdparty\vs2015\x64\openexr-2.2.0\deploy\lib\Half.lib
+      C:\thirdparty\vs2015\x64\openexr-2.2.1\deploy\lib\IlmImf-2_2.lib\
+      C:\thirdparty\vs2015\x64\openexr-2.2.1\deploy\lib\Half.lib
 #      C:\Python27\libs\python27.lib

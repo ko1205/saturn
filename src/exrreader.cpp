@@ -11,8 +11,8 @@ ExrReader::ExrReader()
 
 ExrReader::ExrReader(QString path)
 {
-//    Imf::RgbaInputFile inFile(path.toLocal8Bit());
-    Imf::RgbaInputFile inFile("C:\\Users\\ghchoi\\Documents\\projects\\openexr_sample\\openexr-images-1.7.0\\Chromaticities\\Rec709.exr");
+    Imf::RgbaInputFile inFile(path.toLocal8Bit());
+//    Imf::RgbaInputFile inFile("C:\\Users\\ghchoi\\Documents\\projects\\openexr_sample\\openexr-images-1.7.0\\Chromaticities\\Rec709.exr");
     Imath::Box2i dw = inFile.dataWindow();
     width = dw.max.x - dw.min.x+1;
     height = dw.max.y - dw.min.y+1;
