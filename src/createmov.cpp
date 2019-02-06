@@ -73,7 +73,7 @@ void CreateMov::avFrameSetting()
 
 }
 
-void CreateMov::getVideoFrame(QImage image,int num)
+void CreateMov::getVideoFrame(QImage image,int num, bool isLast)
 {
     int x,y;
     av_frame_make_writable(frame);
@@ -86,7 +86,12 @@ void CreateMov::getVideoFrame(QImage image,int num)
     }
     sws_ctx = sws_getContext(width,height,AV_PIX_FMT_RGB24,width,height,AV_PIX_FMT_YUV422P10LE,SWS_BICUBIC,NULL,NULL,NULL);
     sws_scale(sws_ctx,(const uint8_t * const *)frame_tmp->data,frame_tmp->linesize,0,height,frame->data,frame->linesize);
-    frame->pts = num;
+    if(isLast)
+    {
+        frame->pts = num +1;
+    }else{
+        frame->pts = num;
+    }
     av_init_packet(&pkt);
     avcodec_encode_video2(codectx,&pkt,frame,&got_packet);
 

@@ -364,8 +364,11 @@ void RenderThread::makePreviewMov(QDir path, QString targetName)
             orgStartNum++;
             image = loadImage(orgFileInfo);
             image = image.scaled(1920,1080,Qt::KeepAspectRatio);
-            movMaker.getVideoFrame(image,i);
-
+            if(i == (druration -1)){
+                movMaker.getVideoFrame(image,i,true);
+            }else{
+                movMaker.getVideoFrame(image,i,false);
+            }
         }
         movMaker.releaseMov();
     }

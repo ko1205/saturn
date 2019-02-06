@@ -20,7 +20,7 @@ public:
     void setSize(int w, int h);
     void setFrameRate(float rate);
     void avFrameSetting();
-    void getVideoFrame(QImage image,int num);
+    void getVideoFrame(QImage image,int num,bool isLast);
     void releaseMov();
 signals:
 
