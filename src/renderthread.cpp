@@ -2,13 +2,13 @@
 #include <QDebug>
 #include "dpxreader.h"
 #include "exrreader.h"
-//#include <Python.h>
+#include <Python.h>
 #include "createmov.h"
 
 RenderThread::RenderThread(QObject *parent)
     :QThread(parent)
 {
-//    Py_Initialize();
+    Py_Initialize();
 
 }
 
