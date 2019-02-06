@@ -36,7 +36,7 @@ SOURCES += src/main.cpp \
     src/templateview.cpp \
     src/pathpreview.cpp \
     src/renderthread.cpp \
-#    src/createmov.cpp
+    src/createmov.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -55,7 +55,7 @@ HEADERS += \
     src/templateview.h \
     src/pathpreview.h \
     src/renderthread.h \
-#    src/createmov.h
+    src/createmov.h
 
 
 #INCLUDEPATH +=/usr/local/include/OpenEXR\
@@ -70,6 +70,8 @@ HEADERS += \
 #    /usr/local/lib/libHalf.dylib\
 #    /usr/local/lib/libavformat.dylib\
 #    /usr/local/lib/libavcodec.dylib\
+#    /usr/local/lib/libswscale.dylib\
+
 
 #LIBS += -L/usr/local/lib/ -lavformat\
 #        -lavcodec\
@@ -82,13 +84,11 @@ HEADERS += \
 
 #LIBS += -framework Python
 
-#=======
 DEFINES += OPENEXR_DLL
 
 #INCLUDEPATH +=/usr/local/include/OpenEXR
 INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/include/OpenEXR
 #              C:/Python27/include
-#>>>>>>> win_branch
 
 #LIBS += \
 #    /usr/local/lib/libIlmImf.dylib\
