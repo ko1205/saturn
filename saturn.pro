@@ -87,7 +87,8 @@ HEADERS += \
 DEFINES += OPENEXR_DLL
 
 #INCLUDEPATH +=/usr/local/include/OpenEXR
-INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/include/OpenEXR
+INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/include/OpenEXR\
+              C:/thirdparty/vs2015/x64/ffmpeg-4.1-win64-dev/include
 #              C:/Python27/include
 
 #LIBS += \
@@ -96,5 +97,9 @@ INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/include/OpenEXR
 
 LIBS +=\
       C:\thirdparty\vs2015\x64\openexr-2.2.1\deploy\lib\IlmImf-2_2.lib\
-      C:\thirdparty\vs2015\x64\openexr-2.2.1\deploy\lib\Half.lib
+      C:\thirdparty\vs2015\x64\openexr-2.2.1\deploy\lib\Half.lib\
+      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\avformat.lib\
+      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\avcodec.lib\
+      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\swscale.lib\
+      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\avutil.lib
 #      C:\Python27\libs\python27.lib
