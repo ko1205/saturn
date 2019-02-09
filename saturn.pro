@@ -95,11 +95,28 @@ INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/include/OpenEXR\
 #    /usr/local/lib/libIlmImf.dylib\
 #    /usr/local/lib/libHalf.dylib
 
-LIBS +=\
-      C:\thirdparty\vs2015\x64\openexr-2.2.1\deploy\lib\IlmImf-2_2.lib\
-      C:\thirdparty\vs2015\x64\openexr-2.2.1\deploy\lib\Half.lib\
-      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\avformat.lib\
-      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\avcodec.lib\
-      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\swscale.lib\
-      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\avutil.lib\
-      C:\Python27\libs\python27.lib
+#LIBS +=\
+#      C:\thirdparty\vs2015\x64\openexr-2.2.1\deploy\lib\IlmImf-2_2.lib\
+#      C:\thirdparty\vs2015\x64\openexr-2.2.1\deploy\lib\Half.lib\
+#      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\avformat.lib\
+#      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\avcodec.lib\
+#      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\swscale.lib\
+#      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\avutil.lib\
+#      C:\Python27\libs\python27.lib
+
+LIBS += -LC:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/lib\
+        -lIlmImf-2_2\
+        -lHalf\
+        -LC:/thirdparty/vs2015/x64/ffmpeg-4.1-win64-dev/lib\
+        -lavformat\
+        -lavcodec\
+        -lswscale\
+        -lavutil\
+        -LC:/Python27/libs\
+        -lpython27
+
+
+
+
+
+
