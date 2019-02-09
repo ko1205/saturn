@@ -57,43 +57,115 @@ HEADERS += \
     src/renderthread.h \
     src/createmov.h
 
-
-#INCLUDEPATH +=/usr/local/include/OpenEXR\
-#        /usr/local/include
-
-#INCLUDEPATH +=/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
-
-#QMAKE_LFLAGS += -F/System/Library/Frameworks/Python.framework/
-
-#LIBS += \
-#    /usr/local/lib/libIlmImf.dylib\
-#    /usr/local/lib/libHalf.dylib\
-#    /usr/local/lib/libavformat.dylib\
-#    /usr/local/lib/libavcodec.dylib\
-#    /usr/local/lib/libswscale.dylib\
-
-
-#LIBS += -L/usr/local/lib/ -lavformat\
-#        -lavcodec\
-#        -lavutil\
-#        -lswscale\
-#        -lswresample\
-#        -lavfilter\
-#        -lIlmImf\
-#        -lHalf
-
-#LIBS += -framework Python
+win32 {
 
 DEFINES += OPENEXR_DLL
 
-#INCLUDEPATH +=/usr/local/include/OpenEXR
-INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/include/OpenEXR\
-              C:/thirdparty/vs2015/x64/ffmpeg-4.1-win64-dev/include\
-              C:/Python27/include
+OPENEXR_INCLUDE = "C:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/include/OpenEXR"
+OPENEXR_LIB_PATH = "C:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/lib"
 
-#LIBS += \
-#    /usr/local/lib/libIlmImf.dylib\
-#    /usr/local/lib/libHalf.dylib
+FFMPEG_INCLUDE = "C:/thirdparty/vs2015/x64/ffmpeg-4.1-win64-dev/include"
+FFMPEG_LIB_PATH = "C:/thirdparty/vs2015/x64/ffmpeg-4.1-win64-dev/lib"
+
+PYTHON_INCLUDE = "C:/Python27/include"
+PYTHON_LIB_PATH = "C:/Python27/libs"
+
+}
+
+#unix:!macx {
+#OPENEXR_INCLUDE
+#OPENEXR_LIB_PATH
+
+#FFMPEG_INCLUDE
+#FFMPEG_LIB_PATH
+
+#PYTHON_INCLUDE = /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
+#PYTHON_LIB_PATH
+#}
+
+macx {
+OPENEXR_INCLUDE = /usr/local/include/OpenEXR
+OPENEXR_LIB_PATH = /usr/local/lib
+
+FFMPEG_INCLUDE = /usr/local/include
+FFMPEG_LIB_PATH = /usr/local/lib
+
+PYTHON_INCLUDE = /System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
+}
+
+INCLUDEPATH += $${OPENEXR_INCLUDE}\
+               $${FFMPEG_INCLUDE}\
+               $${PYTHON_INCLUDE}
+
+
+#
+# OpenEXR Lib
+#
+LIBS += -L$${OPENEXR_LIB_PATH}\
+        -lHalf
+
+win32 {
+LIBS += -lIlmImf-2_2
+}
+
+unix:!macx {
+LIBS += -lIlmImf
+}
+
+macx {
+LIBS += -lIlmImf
+}
+
+#
+# FFMPEG Lib
+#
+LIBS += -L$${FFMPEG_LIB_PATH}\
+        -lavformat\
+        -lavcodec\
+        -lswscale
+
+win32 {
+LIBS += -lavutil
+}
+
+unix:!macx {
+}
+
+macx {
+}
+
+#
+# Python Lib
+#
+win32 {
+LIBS += -L$${PYTHON_LIB_PATH}\
+        -lpython27
+}
+
+unix:!macx {
+LIBS += -L$${PYTHON_LIB_PATH}\
+        -lpython27
+}
+
+macx{
+LIBS += -framework Python
+}
+
+#QMAKE_LFLAGS += -F/System/Library/Frameworks/Python.framework/
+
+
+
+
+#INCLUDEPATH +=/usr/local/include/OpenEXR\
+#              /usr/local/include
+
+#INCLUDEPATH +=/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
+
+
+
+#INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/include/OpenEXR\
+#              C:/thirdparty/vs2015/x64/ffmpeg-4.1-win64-dev/include\
+#              C:/Python27/include
 
 #LIBS +=\
 #      C:\thirdparty\vs2015\x64\openexr-2.2.1\deploy\lib\IlmImf-2_2.lib\
@@ -104,18 +176,34 @@ INCLUDEPATH +=C:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/include/OpenEXR\
 #      C:\thirdparty\vs2015\x64\ffmpeg-4.1-win64-dev\lib\avutil.lib\
 #      C:\Python27\libs\python27.lib
 
-LIBS += -LC:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/lib\
-        -lIlmImf-2_2\
-        -lHalf\
-        -LC:/thirdparty/vs2015/x64/ffmpeg-4.1-win64-dev/lib\
-        -lavformat\
-        -lavcodec\
-        -lswscale\
-        -lavutil\
-        -LC:/Python27/libs\
-        -lpython27
+#LIBS += -LC:/thirdparty/vs2015/x64/openexr-2.2.1/deploy/lib\
+#        -lIlmImf-2_2\
+#        -lHalf\
+#        -LC:/thirdparty/vs2015/x64/ffmpeg-4.1-win64-dev/lib\
+#        -lavformat\
+#        -lavcodec\
+#        -lswscale\
+#        -lavutil\
+#        -LC:/Python27/libs\
+#        -lpython27
+
+#LIBS += \
+#    /usr/local/lib/libIlmImf.dylib\
+#    /usr/local/lib/libHalf.dylib\
+#    /usr/local/lib/libavformat.dylib\
+#    /usr/local/lib/libavcodec.dylib\
+#    /usr/local/lib/libswscale.dylib\
 
 
+#LIBS += -L/usr/local/lib/
+#        -lavformat\
+#        -lavcodec\
+#        -lavutil\
+#        -lswscale\
+#        -lswresample\
+#        -lavfilter\
+#        -lIlmImf\
+#        -lHalf
 
 
 
