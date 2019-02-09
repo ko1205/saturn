@@ -101,37 +101,43 @@ INCLUDEPATH += $${OPENEXR_INCLUDE}\
 #
 # OpenEXR Lib
 #
-LIBS += -L$${OPENEXR_LIB_PATH}\
-        -lHalf
-
 win32 {
-LIBS += -lIlmImf-2_2
+LIBS += -L$${OPENEXR_LIB_PATH}\
+        -lHalf\
+        -lIlmImf-2_2
 }
 
 unix:!macx {
-LIBS += -lIlmImf
+LIBS += -L$${OPENEXR_LIB_PATH}\
+        -lHalf\
+        -lIlmImf
 }
 
 macx {
-LIBS += -lIlmImf
+LIBS += /usr/local/lib/libIlmImf.dylib\
+        /usr/local/lib/libHalf.dylib\
 }
 
 #
 # FFMPEG Lib
 #
+
+
+win32 {
 LIBS += -L$${FFMPEG_LIB_PATH}\
         -lavformat\
         -lavcodec\
-        -lswscale
-
-win32 {
-LIBS += -lavutil
+        -lswscale\
+        -lavutil
 }
 
 unix:!macx {
 }
 
 macx {
+LIBS += /usr/local/lib/libavformat.dylib\
+        /usr/local/lib/libavcodec.dylib\
+        /usr/local/lib/libswscale.dylib
 }
 
 #
