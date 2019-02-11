@@ -10,6 +10,7 @@
 #include <QSpinBox>
 #include <QPushButton>
 #include <QDir>
+#include "templatecontrol.h"
 
 class DirSettingTab : public QWidget
 {
@@ -42,6 +43,8 @@ private:
     QSpinBox *digitNumEdit;
     QLineEdit *targetPathEdit;
     QPushButton *targetPathButton;
+    QComboBox *templateList;
+    TemplateControl *templateControl;
 };
 
 #endif // DIRSETTINGTAB_H

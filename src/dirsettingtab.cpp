@@ -15,6 +15,7 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     templateView = new TemplateView;
     preView = new PathPreView;
     propertyView = new QWidget;
+    templateControl = new TemplateControl(templateView);
 
     preView->setTemplateModel(templateView->model());
     templateView->setPathPreview(preView);
@@ -76,10 +77,16 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     targetPathEdit = new QLineEdit;
     targetPathButton = new QPushButton("....");
 
+    templateList = new QComboBox();
+    templateList->addItem(tr("<select template>"));
+    templateList->addItems(templateControl->readTemplateList());
+
     QHBoxLayout *targetPathLayout = new QHBoxLayout;
     targetPathLayout->addWidget(targetPathLabel);
     targetPathLayout->addWidget(targetPathEdit);
     targetPathLayout->addWidget(targetPathButton);
+    targetPathLayout->addWidget(templateList);
+
     targetPathLayout->setMargin(0);
 
     QVBoxLayout *tabLayout = new QVBoxLayout;
