@@ -1,5 +1,5 @@
 #include "templatecontrol.h"
-#include <QFIle>
+#include <QFile>
 #include <QTextStream>
 
 TemplateControl::TemplateControl(TemplateView *templateView,QObject *parent) : QObject(parent)

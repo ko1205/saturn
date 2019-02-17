@@ -14,7 +14,17 @@ signals:
 public slots:
 
 private:
-    QTabWidget *tab;
+//    QTabWidget *tab;
+    void createAction();
+    void createMenus();
+
+    QMenu *fileMenu;
+    QMenu *editMenu;
+
+    QAction *saveTemplateAct;
+    QAction *deleteTemplateAct;
+    QAction *exportTemplateAct;
+    QAction *importTemplateAct;
 };
 
 #endif // SATURN_H
