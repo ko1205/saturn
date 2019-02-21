@@ -19,6 +19,7 @@ public:
 signals:
 
 public slots:
+    void loadTemplate(QString templateName);
 
 private:
     void initTemplateFile();

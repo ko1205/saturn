@@ -128,3 +128,8 @@ void TemplateControl::saveTemplateList(QString templateName)
         QMessageBox::information(nullptr,"","already have the same template name",QMessageBox::Yes);
     }
 }
+
+void TemplateControl::loadTemplate(QString templateName)
+{
+    QMessageBox::information(nullptr,"",templateName,QMessageBox::Yes);
+}

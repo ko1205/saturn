@@ -107,6 +107,7 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     connect(digitNumEdit,SIGNAL(valueChanged(int)),this,SLOT(setDigitNum(int)));
     connect(targetPathButton,SIGNAL(clicked(bool)),this,SLOT(selectDir()));
     connect(this,SIGNAL(setTargetPath(QDir)),templateView,SLOT(setRootFolderName(QDir)));
+    connect(templateList,SIGNAL(currentIndexChanged(QString)),templateControl,SLOT(loadTemplate(QString)));
 }
 
 void DirSettingTab::setPlateLIstModel(QAbstractItemModel *model)
