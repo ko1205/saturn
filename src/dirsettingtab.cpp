@@ -15,7 +15,7 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     templateView = new TemplateView;
     preView = new PathPreView;
     propertyView = new QWidget;
-    templateControl = new TemplateControl(templateView);
+//    templateControl = new TemplateControl(templateView,templateList);
 
     preView->setTemplateModel(templateView->model());
     templateView->setPathPreview(preView);
@@ -79,6 +79,7 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
 
     templateList = new QComboBox();
     templateList->addItem(tr("<select template>"));
+    templateControl = new TemplateControl(templateView,templateList,this);
     templateList->addItems(templateControl->readTemplateList());
 
     QHBoxLayout *targetPathLayout = new QHBoxLayout;
@@ -227,4 +228,9 @@ void DirSettingTab::selectDir()
 //	    templateView->setRootFolderName(dirName.dirName());
         emit setTargetPath(dirName);
     }
+}
+
+TemplateControl *DirSettingTab::getTemplateControl()
+{
+    return templateControl;
 }

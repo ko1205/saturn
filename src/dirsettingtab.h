@@ -20,6 +20,7 @@ public:
     void setPlateLIstModel(QAbstractItemModel* model);
     QStandardItemModel *getTemplateModel();
     TemplateView *getTemplateView();
+    TemplateControl *getTemplateControl();
 
 signals:
     void setTargetPath(QDir path);
