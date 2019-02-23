@@ -10,12 +10,14 @@
 #include "dirsettingtab.h"
 #include "renderthread.h"
 #include <QProgressBar>
+#include "templatecontrol.h"
 
 class CentralWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit CentralWidget(QWidget *parent = nullptr);
+    TemplateControl *getTemplateControl();
 
 
 signals:

@@ -2,6 +2,7 @@
 #define SATURN_H
 
 #include <QMainWindow>
+#include "centralwidget.h"
 
 class MainWindow: public QMainWindow
 {
@@ -18,13 +19,21 @@ private:
     void createAction();
     void createMenus();
 
+    CentralWidget *centralwidget;
+
     QMenu *fileMenu;
     QMenu *editMenu;
 
     QAction *saveTemplateAct;
     QAction *deleteTemplateAct;
-    QAction *exportTemplateAct;
     QAction *importTemplateAct;
+    QAction *exportTemplateAct;
+
+private slots:
+    void saveTemplate();
+    void deleteTemplate();
+    void importTemplate();
+    void exportTemplate();
 };
 
 #endif // SATURN_H

@@ -15,7 +15,7 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     templateView = new TemplateView;
     preView = new PathPreView;
     propertyView = new QWidget;
-    templateControl = new TemplateControl(templateView);
+//    templateControl = new TemplateControl(templateView,templateList);
 
     preView->setTemplateModel(templateView->model());
     templateView->setPathPreview(preView);
@@ -79,6 +79,7 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
 
     templateList = new QComboBox();
     templateList->addItem(tr("<select template>"));
+    templateControl = new TemplateControl(templateView,templateList,this);
     templateList->addItems(templateControl->readTemplateList());
 
     QHBoxLayout *targetPathLayout = new QHBoxLayout;
@@ -106,6 +107,7 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     connect(digitNumEdit,SIGNAL(valueChanged(int)),this,SLOT(setDigitNum(int)));
     connect(targetPathButton,SIGNAL(clicked(bool)),this,SLOT(selectDir()));
     connect(this,SIGNAL(setTargetPath(QDir)),templateView,SLOT(setRootFolderName(QDir)));
+    connect(templateList,SIGNAL(currentIndexChanged(QString)),templateControl,SLOT(loadTemplate(QString)));
 }
 
 void DirSettingTab::setPlateLIstModel(QAbstractItemModel *model)
@@ -227,4 +229,9 @@ void DirSettingTab::selectDir()
 //	    templateView->setRootFolderName(dirName.dirName());
         emit setTargetPath(dirName);
     }
+}
+
+TemplateControl *DirSettingTab::getTemplateControl()
+{
+    return templateControl;
 }

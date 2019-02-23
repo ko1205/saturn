@@ -5,19 +5,26 @@
 #include <QApplication>
 #include <QDomDocument>
 #include "templateview.h"
+#include <QComboBox>
 
 class TemplateControl : public QObject
 {
     Q_OBJECT
 public:
-    explicit TemplateControl(TemplateView *templateView,QObject *parent = 0);
+    explicit TemplateControl(TemplateView *templateView,QComboBox *templateCombo,QObject *parent = 0);
     QStringList readTemplateList();
+    bool saveTemplateFile(QString templateName);
+    void saveTemplateList(QString templateName);
+    void readTemplateViewLoop(QDomElement &templateElement,QModelIndex &index);
 signals:
 
 public slots:
+    void loadTemplate(QString templateName);
 
 private:
     void initTemplateFile();
+
+    QComboBox *templateList;
     QDomDocument *domDocument;
     TemplateView *templateViewIns;
     QString localSaveFileName = QApplication::applicationDirPath()+"/template.xml";
