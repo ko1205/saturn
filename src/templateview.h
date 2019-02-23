@@ -19,6 +19,8 @@ public:
     int getFileCount();
     QStandardItem *root();
     void refreshPreView();
+    QIcon folderIconOut();
+    QIcon fileIconOut();
 
 signals:
     void itemClickedView(QStandardItem *item);

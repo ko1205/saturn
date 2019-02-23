@@ -309,3 +309,13 @@ void TemplateView::refreshPreView()
 {
     pathPreviewIns->updatePrevew();
 }
+
+QIcon TemplateView::folderIconOut()
+{
+    return folderIcon;
+}
+
+QIcon TemplateView::fileIconOut()
+{
+    return fileIcon;
+}

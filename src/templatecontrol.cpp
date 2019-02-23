@@ -155,9 +155,10 @@ void TemplateControl::loadTemplate(QString templateName)
 //            }
             element = element.nextSiblingElement("template");
         }
+        templateViewIns->resetTemplate();
         QStandardItem *item = templateViewIns->root();
         readTemplateFileLoop(element,*item);
-
+        templateViewIns->refreshPreView();
 
     }
 //    QMessageBox::information(nullptr,"",templateName,QMessageBox::Yes);
