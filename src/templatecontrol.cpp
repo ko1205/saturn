@@ -116,6 +116,7 @@ void TemplateControl::saveTemplateList(QString templateName)
     int templateIndex;
     if(templateList->findText(templateName)==-1)
     {
+        disconnect(templateList,SIGNAL(currentIndexChanged(QString)),this,SLOT(loadTemplate(QString)));
         if(saveTemplateFile(templateName))
         {
             templateList->addItem(templateName);
@@ -124,6 +125,7 @@ void TemplateControl::saveTemplateList(QString templateName)
         }else{
             QMessageBox::information(nullptr,"","save false",QMessageBox::Yes);
         }
+        connect(templateList,SIGNAL(currentIndexChanged(QString)),this,SLOT(loadTemplate(QString)));
     }else{
         QMessageBox::information(nullptr,"","already have the same template name",QMessageBox::Yes);
     }
@@ -131,5 +133,22 @@ void TemplateControl::saveTemplateList(QString templateName)
 
 void TemplateControl::loadTemplate(QString templateName)
 {
-    QMessageBox::information(nullptr,"",templateName,QMessageBox::Yes);
+    QDomElement root = domDocument->documentElement();
+    if(root.tagName() == "xml")
+    {
+        QDomElement element = root.firstChildElement("template");
+        while (!element.isNull())
+        {
+//            if(element.tagName() == "template")
+//            {
+                if(element.attribute("name") == templateName)
+                {
+                    break;
+                }
+//            }
+            element = element.nextSiblingElement("template");
+        }
+
+    }
+//    QMessageBox::information(nullptr,"",templateName,QMessageBox::Yes);
 }
