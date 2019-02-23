@@ -136,3 +136,9 @@ void CentralWidget::processDone()
         QMessageBox::information(this,"renderInfo", "Render Finish",QMessageBox::Yes);
     }
 }
+
+TemplateControl *CentralWidget::getTemplateControl()
+{
+    return dirSettingTab->getTemplateControl();
+
+}

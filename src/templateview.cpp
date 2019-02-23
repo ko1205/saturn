@@ -286,3 +286,8 @@ int TemplateView::getFileCount()
 {
     return fileCount;
 }
+
+QStandardItem *TemplateView::root()
+{
+    return rootItem;
+}

@@ -17,6 +17,7 @@ public:
     void contextMenuEvent(QContextMenuEvent *event) override;
     void setPathPreview(PathPreView *preview);
     int getFileCount();
+    QStandardItem *root();
 
 signals:
     void itemClickedView(QStandardItem *item);
