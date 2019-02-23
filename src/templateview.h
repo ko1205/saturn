@@ -21,6 +21,7 @@ public:
     void refreshPreView();
     QIcon folderIconOut();
     QIcon fileIconOut();
+    void addFileCount();
 
 signals:
     void itemClickedView(QStandardItem *item);

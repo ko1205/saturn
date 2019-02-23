@@ -17,6 +17,7 @@ public:
     void saveTemplateList(QString templateName);
     void readTemplateViewLoop(QDomElement &templateElement,QModelIndex &index);
     void readTemplateFileLoop(QDomElement &templateElemnet,QStandardItem &parentItem);
+    void setIconSetting(QIcon folderIconSet,QIcon fileIconSet);
 
 signals:
 
@@ -30,6 +31,8 @@ private:
     QDomDocument *domDocument;
     TemplateView *templateViewIns;
     QString localSaveFileName = QApplication::applicationDirPath()+"/template.xml";
+    QIcon folderIcon;
+    QIcon fileIcon;
 };
 
 #endif // TEMPLATECONTROL_H

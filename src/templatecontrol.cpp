@@ -133,9 +133,64 @@ void TemplateControl::saveTemplateList(QString templateName)
 
 void TemplateControl::readTemplateFileLoop(QDomElement &templateElemnet, QStandardItem &parentItem)
 {
-    QStandardItem *test = new QStandardItem("func_test");
-    parentItem.appendRow(test);
+    QStandardItem *typeItem;
+    QDomElement element = templateElemnet.firstChildElement("item");
+    while (!element.isNull()) {
+        QString itemName = element.attribute("name");
+        int type = element.attribute("type").toInt();
+        QStandardItem *item = new QStandardItem(itemName);
+        item->setData(type,Qt::UserRole);
+        switch (type) {
+        case 0:
+            item->setIcon(folderIcon);
+            typeItem = new QStandardItem("folder");
+            break;
+        case 1:
+            item->setData(element.attribute("DigitNum").toInt(),Qt::UserRole+1);
+            item->setData(element.attribute("startNum").toInt(),Qt::UserRole+2);
+            item->setData(element.attribute("setRenumber").toInt(),Qt::UserRole+3);
+            item->setIcon(fileIcon);
+            typeItem = new QStandardItem("file copy");
+            templateViewIns->addFileCount();
+            break;
+        case 2:
+            item->setData(element.attribute("DigitNum").toInt(),Qt::UserRole+1);
+            item->setData(element.attribute("startNum").toInt(),Qt::UserRole+2);
+            item->setData(element.attribute("setRenumber").toInt(),Qt::UserRole+3);
+            item->setIcon(fileIcon);
+            typeItem = new QStandardItem("thumbnail");
+            templateViewIns->addFileCount();
+            break;
 
+        case 3:
+            item->setData(element.attribute("DigitNum").toInt(),Qt::UserRole+1);
+            item->setData(element.attribute("startNum").toInt(),Qt::UserRole+2);
+            item->setData(element.attribute("setRenumber").toInt(),Qt::UserRole+3);
+            item->setIcon(fileIcon);
+            typeItem = new QStandardItem("jpeg proxy");
+            templateViewIns->addFileCount();
+            break;
+
+        case 4:
+            item->setData(element.attribute("DigitNum").toInt(),Qt::UserRole+1);
+            item->setData(element.attribute("startNum").toInt(),Qt::UserRole+2);
+            item->setData(element.attribute("setRenumber").toInt(),Qt::UserRole+3);
+            item->setIcon(fileIcon);
+            typeItem = new QStandardItem("mov preview");
+            templateViewIns->addFileCount();
+            break;
+
+        default:
+            break;
+        }
+
+        readTemplateFileLoop(element,*item);
+        parentItem.appendRow(QList<QStandardItem *>() << item << typeItem);
+
+        templateViewIns->expandAll();
+
+        element = element.nextSiblingElement();
+    }
 }
 
 void TemplateControl::loadTemplate(QString templateName)
@@ -162,4 +217,11 @@ void TemplateControl::loadTemplate(QString templateName)
 
     }
 //    QMessageBox::information(nullptr,"",templateName,QMessageBox::Yes);
+}
+
+
+void TemplateControl::setIconSetting(QIcon folderIconSet, QIcon fileIconSet)
+{
+    folderIcon = folderIconSet;
+    fileIcon = fileIconSet;
 }
