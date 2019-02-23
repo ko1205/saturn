@@ -18,6 +18,9 @@ public:
     void setPathPreview(PathPreView *preview);
     int getFileCount();
     QStandardItem *root();
+    void refreshPreView();
+    QIcon folderIconOut();
+    QIcon fileIconOut();
 
 signals:
     void itemClickedView(QStandardItem *item);
@@ -26,6 +29,7 @@ public slots:
     void insertFolder();
     void deleteFolder();
     void newFileSlot();
+    void resetTemplate();
     void setRootFolderName(QDir path);
 
 private:
@@ -42,6 +46,7 @@ private:
     QAction *insertFolderAct;
     QAction *newFile;
     QAction *deleteAct;
+    QAction *deleteAllAct;
 
     QIcon folderIcon;
     QIcon fileIcon;
