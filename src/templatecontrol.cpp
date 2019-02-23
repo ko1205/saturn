@@ -131,6 +131,13 @@ void TemplateControl::saveTemplateList(QString templateName)
     }
 }
 
+void TemplateControl::readTemplateFileLoop(QDomElement &templateElemnet, QStandardItem &parentItem)
+{
+    QStandardItem *test = new QStandardItem("func_test");
+    parentItem.appendRow(test);
+
+}
+
 void TemplateControl::loadTemplate(QString templateName)
 {
     QDomElement root = domDocument->documentElement();
@@ -148,6 +155,9 @@ void TemplateControl::loadTemplate(QString templateName)
 //            }
             element = element.nextSiblingElement("template");
         }
+        QStandardItem *item = templateViewIns->root();
+        readTemplateFileLoop(element,*item);
+
 
     }
 //    QMessageBox::information(nullptr,"",templateName,QMessageBox::Yes);
