@@ -304,3 +304,8 @@ QStandardItem *TemplateView::root()
 {
     return rootItem;
 }
+
+void TemplateView::refreshPreView()
+{
+    pathPreviewIns->updatePrevew();
+}

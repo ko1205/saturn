@@ -18,6 +18,7 @@ public:
     void setPathPreview(PathPreView *preview);
     int getFileCount();
     QStandardItem *root();
+    void refreshPreView();
 
 signals:
     void itemClickedView(QStandardItem *item);
