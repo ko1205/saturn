@@ -16,6 +16,8 @@ public:
     bool saveTemplateFile(QString templateName);
     void saveTemplateList(QString templateName);
     void readTemplateViewLoop(QDomElement &templateElement,QModelIndex &index);
+    void readTemplateFileLoop(QDomElement &templateElemnet,QStandardItem &parentItem);
+
 signals:
 
 public slots:
