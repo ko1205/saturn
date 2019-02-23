@@ -166,6 +166,7 @@ void TemplateView::resetTemplate()
 {
     int rowCount = rootItem->rowCount();
     rootItem->removeRows(0,rowCount);
+    fileCount = 0;
     pathPreviewIns->updatePrevew();
     qDebug() << rowCount;
 
@@ -318,4 +319,9 @@ QIcon TemplateView::folderIconOut()
 QIcon TemplateView::fileIconOut()
 {
     return fileIcon;
+}
+
+void TemplateView::addFileCount()
+{
+    fileCount++;
 }

@@ -81,6 +81,7 @@ DirSettingTab::DirSettingTab(QWidget *parent) : QWidget(parent)
     templateList->addItem(tr("<select template>"));
     templateControl = new TemplateControl(templateView,templateList,this);
     templateList->addItems(templateControl->readTemplateList());
+    templateControl->setIconSetting(templateView->folderIconOut(),templateView->fileIconOut());
 
     QHBoxLayout *targetPathLayout = new QHBoxLayout;
     targetPathLayout->addWidget(targetPathLabel);
