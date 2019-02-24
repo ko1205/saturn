@@ -25,6 +25,7 @@ signals:
 
 public slots:
     void loadTemplate(QString templateName);
+    void deleteTemplate(QString templateName);
 
 private:
     void initTemplateFile();

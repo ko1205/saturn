@@ -15,6 +15,7 @@ public:
     void setTemplateList(QStringList list,QComboBox *combobox);
 
 signals:
+    void clickDelete(QString name);
 
 private:
     QListWidget *templateList;
@@ -22,6 +23,8 @@ private:
     QPushButton *cancelButton;
     QComboBox *templateListComboIns;
 
+private slots:
+    void deleteTemplate();
 };
 
 class MainWindow: public QMainWindow
