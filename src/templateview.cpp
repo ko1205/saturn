@@ -20,11 +20,13 @@ TemplateView::TemplateView(QWidget *parent)
     insertFolderAct = new QAction("Create Folder",this);
     newFile = new QAction("Create File",this);
     deleteAct = new QAction("Delete",this);
+    deleteAllAct = new QAction("Delete All",this);
 
     popupMenu->addAction(insertFolderAct);
     popupMenu->addAction(newFile);
     popupMenu->addSeparator();
     popupMenu->addAction(deleteAct);
+    popupMenu->addAction(deleteAllAct);
 
     /*
      * 현재 enter key로 edit 모드 진입시 old name이 저장 되지 않으므로
@@ -41,6 +43,7 @@ TemplateView::TemplateView(QWidget *parent)
     connect(insertFolderAct,SIGNAL(triggered(bool)),this,SLOT(insertFolder()));
     connect(newFile,SIGNAL(triggered(bool)),this,SLOT(newFileSlot()));
     connect(deleteAct,SIGNAL(triggered(bool)),this,SLOT(deleteFolder()));
+    connect(deleteAllAct,SIGNAL(triggered(bool)),this,SLOT(resetTemplate()));
     connect(this,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(storOldName(QModelIndex)));
     connect(deleteKey,SIGNAL(activated()),this,SLOT(deleteFolder()));
     connect(templateModel,SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),this,SLOT(checkRename(QModelIndex)));
@@ -158,6 +161,17 @@ void TemplateView::deleteFolder()
         pathPreviewIns->updatePrevew();
     }
 }
+
+void TemplateView::resetTemplate()
+{
+    int rowCount = rootItem->rowCount();
+    rootItem->removeRows(0,rowCount);
+    fileCount = 0;
+    pathPreviewIns->updatePrevew();
+    qDebug() << rowCount;
+
+}
+
 int TemplateView::countChildFile(QStandardItem *item)
 {
     int childFileCount = 0;
@@ -285,4 +299,29 @@ void TemplateView::setinfo(const QModelIndex &index)
 int TemplateView::getFileCount()
 {
     return fileCount;
+}
+
+QStandardItem *TemplateView::root()
+{
+    return rootItem;
+}
+
+void TemplateView::refreshPreView()
+{
+    pathPreviewIns->updatePrevew();
+}
+
+QIcon TemplateView::folderIconOut()
+{
+    return folderIcon;
+}
+
+QIcon TemplateView::fileIconOut()
+{
+    return fileIcon;
+}
+
+void TemplateView::addFileCount()
+{
+    fileCount++;
 }
