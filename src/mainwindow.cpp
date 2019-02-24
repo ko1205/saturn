@@ -4,6 +4,18 @@
 #include <QInputDialog>
 #include "centralwidget.h"
 #include <QMessageBox>
+#include <QDebug>
+
+DeleteTemplateDialog::DeleteTemplateDialog(QWidget *parent)
+    :QDialog(parent)
+{
+
+}
+
+DeleteTemplateDialog::~DeleteTemplateDialog()
+{
+
+}
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -53,6 +65,9 @@ void MainWindow::saveTemplate()
 
 void MainWindow::deleteTemplate()
 {
+    DeleteTemplateDialog deleteTemplateWindow(this);
+    deleteTemplateWindow.exec();
+    qDebug() << "deleteTemplate Test";
 
 }
 
