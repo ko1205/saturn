@@ -219,6 +219,31 @@ void TemplateControl::loadTemplate(QString templateName)
 //    QMessageBox::information(nullptr,"",templateName,QMessageBox::Yes);
 }
 
+void TemplateControl::deleteTemplate(QString templateName)
+{
+    QFile file(localSaveFileName);
+    if(file.open(QFile::WriteOnly|QFile::Text))
+    {
+        QTextStream out(&file);
+        QDomElement root = domDocument->documentElement();
+        if(root.tagName() == "xml")
+        {
+            QDomElement element = root.firstChildElement("template");
+            while (!element.isNull())
+            {
+                if(element.attribute("name") == templateName)
+                {
+                    break;
+                }
+                element = element.nextSiblingElement("template");
+            }
+            root.removeChild(element);
+            domDocument->replaceChild(root,domDocument->documentElement());
+            domDocument->save(out,4);
+        }
+    }
+
+}
 
 void TemplateControl::setIconSetting(QIcon folderIconSet, QIcon fileIconSet)
 {
