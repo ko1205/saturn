@@ -17,19 +17,24 @@ public:
     void saveTemplateList(QString templateName);
     void readTemplateViewLoop(QDomElement &templateElement,QModelIndex &index);
     void readTemplateFileLoop(QDomElement &templateElemnet,QStandardItem &parentItem);
+    void setIconSetting(QIcon folderIconSet,QIcon fileIconSet);
+
+    QComboBox *templateList;
 
 signals:
 
 public slots:
     void loadTemplate(QString templateName);
+    void deleteTemplate(QString templateName);
 
 private:
     void initTemplateFile();
 
-    QComboBox *templateList;
     QDomDocument *domDocument;
     TemplateView *templateViewIns;
     QString localSaveFileName = QApplication::applicationDirPath()+"/template.xml";
+    QIcon folderIcon;
+    QIcon fileIcon;
 };
 
 #endif // TEMPLATECONTROL_H

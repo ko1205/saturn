@@ -3,6 +3,29 @@
 
 #include <QMainWindow>
 #include "centralwidget.h"
+#include <QDialog>
+#include <QListWidget>
+
+class DeleteTemplateDialog : public QDialog
+{
+    Q_OBJECT
+public:
+    DeleteTemplateDialog(QWidget *parent = 0);
+    ~DeleteTemplateDialog();
+    void setTemplateList(QStringList list,QComboBox *combobox);
+
+signals:
+    void clickDelete(QString name);
+
+private:
+    QListWidget *templateList;
+    QPushButton *deleteButton;
+    QPushButton *cancelButton;
+    QComboBox *templateListComboIns;
+
+private slots:
+    void deleteTemplate();
+};
 
 class MainWindow: public QMainWindow
 {
