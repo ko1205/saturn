@@ -12,10 +12,15 @@ class DeleteTemplateDialog : public QDialog
 public:
     DeleteTemplateDialog(QWidget *parent = 0);
     ~DeleteTemplateDialog();
+    void setTemplateList(QStringList list,QComboBox *combobox);
 
 signals:
 
 private:
+    QListWidget *templateList;
+    QPushButton *deleteButton;
+    QPushButton *cancelButton;
+    QComboBox *templateListComboIns;
 
 };
 

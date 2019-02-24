@@ -19,6 +19,8 @@ public:
     void readTemplateFileLoop(QDomElement &templateElemnet,QStandardItem &parentItem);
     void setIconSetting(QIcon folderIconSet,QIcon fileIconSet);
 
+    QComboBox *templateList;
+
 signals:
 
 public slots:
@@ -27,7 +29,6 @@ public slots:
 private:
     void initTemplateFile();
 
-    QComboBox *templateList;
     QDomDocument *domDocument;
     TemplateView *templateViewIns;
     QString localSaveFileName = QApplication::applicationDirPath()+"/template.xml";
