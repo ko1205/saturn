@@ -273,3 +273,34 @@ void TemplateControl::exportTemplate(QString path, QString templateName)
     }
 
 }
+
+bool TemplateControl::importTemplate(QString path)
+{
+    QFile file(path);
+    if(file.open(QFile::ReadOnly|QFile::Text))
+    {
+        QDomDocument *importDoc = new QDomDocument();
+        if(!importDoc->setContent(&file))
+        {
+            file.close();
+            QMessageBox::information(nullptr,"","Invalid save file",QMessageBox::Yes);
+            return false;
+        }
+        file.close();
+        QDomElement root = importDoc->documentElement();
+        if(root.tagName() == "xml")
+        {
+            QDomElement element = root.firstChildElement("template");
+            templateList->setCurrentIndex(0);
+            QStandardItem *item = templateViewIns->root();
+            readTemplateFileLoop(element,*item);
+            templateViewIns->refreshPreView();
+            return true;
+        }else{
+             QMessageBox::information(nullptr,"","Invalid save file",QMessageBox::Yes);
+            return false;
+        }
+    }else{
+        return false;
+    }
+}

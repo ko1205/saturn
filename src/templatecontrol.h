@@ -18,6 +18,7 @@ public:
     void readTemplateViewLoop(QDomElement &templateElement,QModelIndex &index);
     void readTemplateFileLoop(QDomElement &templateElemnet,QStandardItem &parentItem);
     void exportTemplate(QString path,QString templateName);
+    bool importTemplate(QString path);
     void setIconSetting(QIcon folderIconSet,QIcon fileIconSet);
 
     QComboBox *templateList;
