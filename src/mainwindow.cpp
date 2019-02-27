@@ -5,6 +5,7 @@
 #include "centralwidget.h"
 #include <QMessageBox>
 #include <QDebug>
+#include <QFileDialog>
 
 DeleteTemplateDialog::DeleteTemplateDialog(QWidget *parent)
     :QDialog(parent)
@@ -119,5 +120,13 @@ void MainWindow::importTemplate()
 
 void MainWindow::exportTemplate()
 {
+    bool ok;
+    QString filePath = QFileDialog::getSaveFileName(this,"Export Template",QDir::homePath(),"XML files (*.xml)");
+    QString templateName = QInputDialog::getText(this,"Save Template","TemplateName",QLineEdit::Normal,"template",&ok);
+    if(!filePath.isEmpty() && ok && !templateName.isEmpty())
+    {
+        centralwidget->getTemplateControl()->exportTemplate(filePath,templateName);
+    }
+    qDebug() << filePath;
 
 }

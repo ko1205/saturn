@@ -250,3 +250,26 @@ void TemplateControl::setIconSetting(QIcon folderIconSet, QIcon fileIconSet)
     folderIcon = folderIconSet;
     fileIcon = fileIconSet;
 }
+
+void TemplateControl::exportTemplate(QString path, QString templateName)
+{
+    QDomDocument *exportDoc = new QDomDocument();
+    QFile file(path);
+    if(file.open(QFile::WriteOnly)|QFile::Text)
+    {
+        QTextStream out(&file);
+        QDomElement root = exportDoc->createElement("xml");
+        QDomElement domElement = exportDoc->createElement("template");
+        root.appendChild(domElement);
+        domElement.setAttribute("name",templateName);
+        QStandardItem *item = templateViewIns->root();
+        QModelIndex rootIndex = item->index();
+        readTemplateViewLoop(domElement,rootIndex);
+        exportDoc->appendChild(root);
+        exportDoc->save(out,4);
+        QMessageBox::information(nullptr,"","export completed",QMessageBox::Yes);
+    }else{
+       QMessageBox::information(nullptr,"","Save fales",QMessageBox::Yes);
+    }
+
+}
