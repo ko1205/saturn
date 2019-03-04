@@ -6,10 +6,11 @@
 #include <QDebug>
 #include <QHeaderView>
 #include <QScrollBar>
+#include "platesequenceview.h"
 
 PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
 {
-    plateSequenceView = new QTableView();
+    plateSequenceView = new PlateSequenceView();
     oldScrollMax = 0;
     model = new PlateItemModel();
     PlateViewDelegate *delegate = new PlateViewDelegate;

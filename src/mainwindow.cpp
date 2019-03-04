@@ -74,7 +74,6 @@ void MainWindow::createAction()
 
    importTemplateAct = new QAction(tr("Import Template"),this);
    connect(importTemplateAct,SIGNAL(triggered(bool)),this,SLOT(importTemplate()));
-
    exportTemplateAct = new QAction(tr("Export Template"),this);
    connect(exportTemplateAct,SIGNAL(triggered(bool)),this,SLOT(exportTemplate()));
 
