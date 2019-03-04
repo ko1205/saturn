@@ -116,7 +116,7 @@ void MainWindow::deleteTemplate()
 void MainWindow::importTemplate()
 {
 //    QString filePath = QFileDialog::getOpenFileName(this,"Import Template",QDir::homePath(),"XML files (*.xml)");
-    QString filePath = QFileDialog::getOpenFileName(this,"Import Template",QDir::homePath(),"XML files (*.xml)",__null,QFileDialog::DontUseNativeDialog);
+    QString filePath = QFileDialog::getOpenFileName(this,"Import Template",QDir::homePath(),"XML files (*.xml)",nullptr,QFileDialog::DontUseNativeDialog);
     if(!filePath.isEmpty())
     {
         if(centralwidget->getTemplateControl()->importTemplate(filePath))
@@ -132,11 +132,17 @@ void MainWindow::exportTemplate()
 {
     bool ok;
     QString filePath = QFileDialog::getSaveFileName(this,"Export Template",QDir::homePath(),"XML files (*.xml)");
-    QString templateName = QInputDialog::getText(this,"Save Template","TemplateName",QLineEdit::Normal,"template",&ok);
-    if(!filePath.isEmpty() && ok && !templateName.isEmpty())
-    {
-        centralwidget->getTemplateControl()->exportTemplate(filePath,templateName);
+    if(!filePath.isEmpty()){
+        QString templateName = QInputDialog::getText(this,"Save Template","TemplateName",QLineEdit::Normal,"template",&ok);
+        if(ok && !templateName.isEmpty()){
+            centralwidget->getTemplateControl()->exportTemplate(filePath,templateName);
+        }
     }
-    qDebug() << filePath;
+//    QString templateName = QInputDialog::getText(this,"Save Template","TemplateName",QLineEdit::Normal,"template",&ok);
+//    if(!filePath.isEmpty() && ok && !templateName.isEmpty())
+//    {
+//        centralwidget->getTemplateControl()->exportTemplate(filePath,templateName);
+//    }
+//    qDebug() << filePath;
 
 }
