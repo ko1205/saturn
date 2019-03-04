@@ -10,7 +10,7 @@ class PlateListTab : public QWidget
 {
     Q_OBJECT
 public:
-    PlateListTab(QWidget *parent = 0);
+    PlateListTab(QWidget *parent = nullptr);
     QAbstractItemModel *getTableModel();
 
 signals:
