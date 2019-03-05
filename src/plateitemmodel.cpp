@@ -219,6 +219,31 @@ PlateItem *PlateItemModel::getItem(int row)
     return &items[row];
 }
 
+bool PlateItemModel::removeRows(int row, int count, const QModelIndex &parent)
+{
+    beginRemoveRows(parent,row,row+count-1);
+    for (int i=0;i<count;i++) {
+        items.removeAt(row);
+    }
+    endRemoveRows();
+    return true;
+}
+
+bool PlateItemModel::moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild)
+{
+    beginMoveRows(sourceParent,sourceRow,sourceRow + count -1,destinationParent,destinationChild);
+    for (int i = 0; i < count; i++)
+    {
+        if(sourceRow > destinationChild){
+            items.move(sourceRow,destinationChild + i);
+        }else{
+            items.move(sourceRow,destinationChild+i-1);
+        }
+    }
+    endMoveRows();
+    return true;
+}
+
 PlateItem::PlateItem()
 {
     thumbnail.load("/Users/ghchoi/storage/Data/test_images/A193_C003_0704V4_289/JPEG/A193_C003_0704V4.0000289.jpg");
@@ -226,5 +251,5 @@ PlateItem::PlateItem()
     path.setCurrent("/Users/ghchoi/storage/Data/test_images/A193_C003_0704V4_289/JPEG/");
     frame = QPair<long long,long long>(10,256);
     colorSpace = "log";
-
 }
+

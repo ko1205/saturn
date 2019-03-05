@@ -11,13 +11,24 @@ public:
     PlateSequenceView(QWidget *parent = nullptr);
     void contextMenuEvent(QContextMenuEvent *event) override;
 
+public slots:
+    void itemUp();
+    void itemDown();
+
+
 private:
-    QAction *mulitValueAct;
+    QAction *removeSelectedAct;
+    QAction *itemUpAct;
+    QAction *itemDownAct;
+    QAction *singleDataInputAct;
+    QAction *sequentialDataInputAct;
     int contextPos;
 
 private slots:
     void testFunc();
-
+    void removeSelected();
+    void singleDataInput();
+    void sequentialDataInput();
 };
 
 #endif // PLATESEQUENCEVIEW_H
