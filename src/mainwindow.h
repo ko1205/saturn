@@ -10,7 +10,7 @@ class DeleteTemplateDialog : public QDialog
 {
     Q_OBJECT
 public:
-    DeleteTemplateDialog(QWidget *parent = 0);
+    DeleteTemplateDialog(QWidget *parent = nullptr);
     ~DeleteTemplateDialog();
     void setTemplateList(QStringList list,QComboBox *combobox);
 
