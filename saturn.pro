@@ -37,7 +37,8 @@ SOURCES += src/main.cpp \
     src/pathpreview.cpp \
     src/renderthread.cpp \
     src/createmov.cpp \
-    src/templatecontrol.cpp
+    src/templatecontrol.cpp \
+    src/platesequenceview.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -57,7 +58,8 @@ HEADERS += \
     src/pathpreview.h \
     src/renderthread.h \
     src/createmov.h \
-    src/templatecontrol.h
+    src/templatecontrol.h \
+    src/platesequenceview.h
 
 win32 {
 

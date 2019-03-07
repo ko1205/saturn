@@ -6,10 +6,11 @@
 #include <QDebug>
 #include <QHeaderView>
 #include <QScrollBar>
+#include "platesequenceview.h"
 
 PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
 {
-    plateSequenceView = new QTableView();
+    plateSequenceView = new PlateSequenceView();
     oldScrollMax = 0;
     model = new PlateItemModel();
     PlateViewDelegate *delegate = new PlateViewDelegate;
@@ -43,7 +44,8 @@ PlateViewController::PlateViewController(QWidget *parent) : QWidget(parent)
     connect(clearButton,SIGNAL(clicked()),model,SLOT(clear()));
     connect(plateSequenceView->verticalHeader(),SIGNAL(sectionResized(int,int,int)),this,SLOT(rowResiz(int,int,int)));
     connect(plateSequenceView->verticalScrollBar(),SIGNAL(rangeChanged(int,int)),this,SLOT(autoScroll(int,int)));
-
+    connect(upButton,SIGNAL(clicked()),plateSequenceView,SLOT(itemUp()));
+    connect(downButton,SIGNAL(clicked()),plateSequenceView,SLOT(itemDown()));
 }
 
 void PlateViewController::findedSequence(PlateItem item)
