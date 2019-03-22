@@ -5,6 +5,14 @@
 #include <QTreeView>
 #include <QFileSystemModel>
 #include <QPushButton>
+#include <QDialog>
+
+//class test : public QDialog
+//{
+//    Q_OBJECT
+//public:
+//    test();
+//};
 
 class DirSelector : public QWidget
 {
