@@ -14,6 +14,12 @@ RenderThread::RenderThread(QObject *parent)
 
 void RenderThread::run()
 {
+////////////////////temp code //////////////////////
+    QString fileListString = targetPath.absolutePath() + "/tempList.txt";
+    fileList = new QFile(fileListString);
+    fileList->open(QIODevice::WriteOnly | QIODevice::Text);
+    out = new QTextStream(fileList);
+////////////////////////////////////////////////////
     status = true;
     int plateListCount = plateListModel->rowCount();
     int templateFileCount = templateView->getFileCount();
@@ -23,14 +29,17 @@ void RenderThread::run()
     for(int i = 0; i < plateListCount;i++)
     {
         currentItem = plateListModel->getItem(i);
+        *out << currentItem->secne << "|" + currentItem->shot << "|" + currentItem->subName;
         QModelIndex templateRoot = templateModel->index(0,0);
         readTemplateLoop(templateRoot,targetPath);
+        *out << endl;
     }
 
     qDebug() << "render Thread run";
 //    qDebug() << plateListCount;
 //    qDebug() << templateFileCount;
 //    qDebug() << processCount;
+    fileList->close();
 }
 
 void RenderThread::setPlateListModel(QAbstractItemModel *model)
@@ -88,6 +97,7 @@ void RenderThread::readTemplateLoop(QModelIndex index,QDir path)
                 sequenceFileCopy(item,path,targetName);
 
             }else{
+                *out << "|" + path.absolutePath() << "|" + QString::number(0) << "|" + QString::number(0);
                 QFileInfo orgFile(orgPath.absoluteFilePath(currentItem->firstFileName));
                 QString ext = orgFile.suffix();
                 QFile::copy(orgFile.absoluteFilePath(),path.absoluteFilePath(targetName+"."+ext));
@@ -151,6 +161,8 @@ void RenderThread::sequenceFileCopy(QStandardItem *item,QDir path, QString targe
         targetStartNum = orgStartNum;
         pending = orgPendingCount;
     }
+
+    *out << "|" + path.absolutePath() << "|" + QString::number(targetStartNum) << "|" + QString::number(targetStartNum + druration-1);
 
     for(int i = 0; i < druration; i++)
     {
@@ -229,6 +241,7 @@ void RenderThread::makeThumbnail(QDir path, QString targetName)
     int quality = renderSetting->getThumbnailQuality();
     image = image.scaled(width,height,Qt::KeepAspectRatio);
     image.save(targetFileInfo.absoluteFilePath(),"jpg",quality);
+    *out << "|" + targetFileInfo.absoluteFilePath();
 
 }
 

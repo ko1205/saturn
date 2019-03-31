@@ -7,6 +7,8 @@
 #include <QStandardItemModel>
 #include "templateview.h"
 #include "plateitemmodel.h"
+#include <QFile>
+#include <QTextStream>
 
 class RenderThread : public QThread
 {
@@ -44,6 +46,8 @@ private:
     bool status;
     QDir targetPath;
     PlateItem *currentItem;
+    QFile *fileList;
+    QTextStream *out;
 };
 
 #endif // RENDERTHREAD_H
