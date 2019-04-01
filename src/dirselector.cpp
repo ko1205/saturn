@@ -11,6 +11,7 @@ DirSelector::DirSelector(QWidget *parent) : QWidget(parent)
 
     dirTreeView = new QTreeView;
     dirTreeView->setModel(fileSystemModel);
+    dirTreeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     dirTreeView->hideColumn(1);
     dirTreeView->hideColumn(2);
     dirTreeView->hideColumn(3);

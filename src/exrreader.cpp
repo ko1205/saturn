@@ -46,6 +46,7 @@ QImage ExrReader::getQImage()
     {
         QImage image(getSize(),QImage::Format_RGB32);
         unsigned char *buff = image.bits();
+        nukeLutMake();
         for(int n = 0; n < height ; n++ ){
             int j = n*width;
             for( int m = 0; m < width; m++ ){
@@ -59,9 +60,16 @@ QImage ExrReader::getQImage()
                 g = g >1 ? 1 : g < 0 ? 0 : g;
                 b = b >1 ? 1 : b < 0 ? 0 : b;
 
-                buff[(j*4)+(m*4)] = ((Imath::Math<float>::pow(b,0.4545))*255);
-                buff[(j*4)+(m*4)+1] = ((Imath::Math<float>::pow(g,0.4545))*255);
-                buff[(j*4)+(m*4)+2] = ((Imath::Math<float>::pow(r,0.4545))*255);
+////////////////////////////상해보루용 임시 Lut변형 ////////////////////////////////////
+//                buff[(j*4)+(m*4)] = ((Imath::Math<float>::pow(b,0.4545))*255);
+//                buff[(j*4)+(m*4)+1] = ((Imath::Math<float>::pow(g,0.4545))*255);
+//                buff[(j*4)+(m*4)+2] = ((Imath::Math<float>::pow(r,0.4545))*255);
+//                buff[(j*4)+(m*4)+3] = 255;
+//////////////////////////////////////////////////////////////////////////////////
+
+                buff[(j*4)+(m*4)] = lut[(unsigned int)(b*1023)]; //((Imath::Math<float>::pow(b,0.4545))*255);
+                buff[(j*4)+(m*4)+1] = lut[(unsigned int)(g*1023)]; //((Imath::Math<float>::pow(g,0.4545))*255);
+                buff[(j*4)+(m*4)+2] = lut[(unsigned int)(r*1023)]; //((Imath::Math<float>::pow(r,0.4545))*255);
                 buff[(j*4)+(m*4)+3] = 255;
 
             }
@@ -81,5 +89,16 @@ QImage ExrReader::getQImage()
         return image;
     }else{
         return QImage();
+    }
+}
+
+void ExrReader::nukeLutMake()
+{
+    for(int i = 0; i < 1024; i++)
+    {
+        float temp = ((pow(10,((float)i-685)/300)-0.0108)/(1-0.0108));
+        temp = temp<0.003131 ? (temp*12.92) : ((pow(temp,1/2.4))*1.055)-0.055;
+        temp = temp < 1 ? (temp < 0 ? 0 : temp) : 1;
+        lut[i] = (unsigned)(temp*255);
     }
 }
