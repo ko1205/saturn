@@ -96,7 +96,9 @@ void ExrReader::nukeLutMake()
 {
     for(int i = 0; i < 1024; i++)
     {
-        float temp = ((pow(10,((float)i-685)/300)-0.0108)/(1-0.0108));
+//        float temp = ((pow(10,((float)i-685)/300)-0.0108)/(1-0.0108));
+        float temp = (float)i/1023;
+        temp = temp > 0.1496582 ? (pow(10.0,(temp-0.385537)/0.2471896)-0.052272)/5.555556 : (temp-0.092809)/5.367655;
         temp = temp<0.003131 ? (temp*12.92) : ((pow(temp,1/2.4))*1.055)-0.055;
         temp = temp < 1 ? (temp < 0 ? 0 : temp) : 1;
         lut[i] = (unsigned)(temp*255);

@@ -5,7 +5,7 @@
 QT += core gui widgets xml
 
 TEMPLATE = app
-TARGET = saturn
+TARGET = saturn_shanghai_LogC_ver
 INCLUDEPATH += .
 
 # The following define makes your compiler warn you if you use any

@@ -114,8 +114,8 @@ void MainWindow::deleteTemplate()
 
 void MainWindow::importTemplate()
 {
-//    QString filePath = QFileDialog::getOpenFileName(this,"Import Template",QDir::homePath(),"XML files (*.xml)");
-    QString filePath = QFileDialog::getOpenFileName(this,"Import Template",QDir::homePath(),"XML files (*.xml)",nullptr,QFileDialog::DontUseNativeDialog);
+    QString filePath = QFileDialog::getOpenFileName(this,"Import Template",QDir::homePath(),"XML files (*.xml)");
+//    QString filePath = QFileDialog::getOpenFileName(this,"Import Template",QDir::homePath(),"XML files (*.xml)",__null,QFileDialog::DontUseNativeDialog);
     if(!filePath.isEmpty())
     {
         if(centralwidget->getTemplateControl()->importTemplate(filePath))
